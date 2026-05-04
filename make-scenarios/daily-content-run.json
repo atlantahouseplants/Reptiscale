@@ -1,0 +1,58 @@
+{
+  "name": "HatchKit — Daily Content Generation",
+  "flow": [
+    {
+      "id": 1,
+      "module": "builtin:BasicScheduler",
+      "version": 1,
+      "parameters": {
+        "type": "interval",
+        "interval": 1440
+      },
+      "metadata": {
+        "designer": { "x": 0, "y": 0 },
+        "note": "Runs daily. Set time to 9:00 AM in the breeder's timezone."
+      }
+    },
+    {
+      "id": 2,
+      "module": "http:ActionSendData",
+      "version": 3,
+      "parameters": {},
+      "mapper": {
+        "url": "{{WEBHOOK_BASE_URL}}/api/content/daily-run",
+        "method": "POST",
+        "headers": [
+          {
+            "name": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "qs": [],
+        "bodyType": "raw",
+        "contentType": "application/json",
+        "body": "{\"source\": \"make.com\", \"clientId\": \"{{CLIENT_ID}}\"}"
+      },
+      "metadata": {
+        "designer": { "x": 300, "y": 0 },
+        "note": "POST to HatchKit server to generate daily social media content."
+      }
+    }
+  ],
+  "metadata": {
+    "version": 1,
+    "scenario": {
+      "roundtrips": 1,
+      "maxErrors": 3,
+      "autoCommit": true,
+      "autoCommitTriggerLast": true,
+      "sequential": false,
+      "confidential": false,
+      "dataloss": false,
+      "dlq": false
+    },
+    "designer": {
+      "orphans": []
+    }
+  }
+}

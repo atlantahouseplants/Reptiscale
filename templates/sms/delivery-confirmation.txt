@@ -1,0 +1,1 @@
+Hey {{FIRST_NAME}}! Tracking shows your {{SPECIES}} arrived 🦎 How's {{HE_SHE}} settling in? Give {{HIM_HER}} a day or two to decompress before handling. Reply anytime with questions! — Sarah @ SunScale

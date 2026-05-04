@@ -1,0 +1,1 @@
+🚚 Your {{SPECIES}} from SunScale Geckos shipped! Tracking: {{TRACKING_NUMBER}} ({{CARRIER}}). Arriving {{ARRIVAL_DATE}} by 10:30 AM. Be home to grab it! Questions? Just reply. — Sarah

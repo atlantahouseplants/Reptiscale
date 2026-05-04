@@ -1,0 +1,45 @@
+# Environment variables and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Node.js dependencies
+node_modules/
+HatchKit.ai/node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Build output
+dist/
+build/
+coverage/
+.next/
+out/
+HatchKit.ai/.next/
+HatchKit.ai/out/
+HatchKit.ai/build/
+*.tsbuildinfo
+next-env.d.ts
+
+# Claude Code internal files
+.claude/
+HatchKit.ai/.claude/
+
+# IDE settings
+.vscode/
+.idea/
+
+# Deployment state
+.vercel/
+HatchKit.ai/.vercel/
+
+# Alternate Git metadata used by sandboxed local setup
+.gitroot/

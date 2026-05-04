@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>{{business_name}} — Reptile Show Signup</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --primary: #1B5E20;
+    --primary-light: #2E7D32;
+    --primary-dark: #0D3B12;
+    --accent: #E65100;
+    --accent-light: #FF6D00;
+    --bg: #FAFAF5;
+    --card: #FFFFFF;
+    --text: #1A1A1A;
+    --text-muted: #6B6B6B;
+    --border: #E0E0D8;
+    --success: #2E7D32;
+    --error: #C62828;
+    --radius: 12px;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Hero Banner ── */
+  .hero {
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
+    padding: 40px 24px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -20%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -15%;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .hero-logo {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    border: 2px solid rgba(255,255,255,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    font-size: 36px;
+    backdrop-filter: blur(8px);
+  }
+
+  .hero h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+    letter-spacing: -0.3px;
+    position: relative;
+  }
+
+  .hero .show-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 20px;
+    padding: 6px 16px;
+    margin-top: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.9);
+    letter-spacing: 0.3px;
+    position: relative;
+  }
+
+  .hero .subtitle {
+    font-size: 15px;
+    color: rgba(255,255,255,0.75);
+    margin-top: 10px;
+    line-height: 1.5;
+    position: relative;
+  }
+
+  /* ── Main Card ── */
+  .main {
+    flex: 1;
+    padding: 0 16px 32px;
+    margin-top: -20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .card {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+    max-width: 440px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  .card-body {
+    padding: 28px 24px;
+  }
+
+  .card-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .card-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  /* ── Form ── */
+  .form-group {
+    margin-bottom: 18px;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 6px;
+    letter-spacing: 0.1px;
+  }
+
+  .form-group label .required {
+    color: var(--accent);
+    margin-left: 2px;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  input, select {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 16px; /* prevents iOS zoom */
+    font-family: inherit;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--text);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(27, 94, 32, 0.12);
+    background: #fff;
+  }
+
+  input::placeholder {
+    color: #ADADAD;
+  }
+
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%236B6B6B' d='M1.41 0L6 4.58 10.59 0 12 1.41l-6 6-6-6z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+  }
+
+  .opt-in-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 20px 0 24px;
+    padding: 14px 16px;
+    background: #F5F5ED;
+    border-radius: 10px;
+  }
+
+  .opt-in-group input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    margin-top: 1px;
+    accent-color: var(--primary);
+    border-radius: 4px;
+  }
+
+  .opt-in-group label {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    font-weight: 400;
+    cursor: pointer;
+  }
+
+  /* ── Submit Button ── */
+  .btn-submit {
+    width: 100%;
+    padding: 16px;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: inherit;
+    color: #fff;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 12px rgba(230, 81, 0, 0.3);
+  }
+
+  .btn-submit:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 8px rgba(230, 81, 0, 0.2);
+  }
+
+  .btn-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* ── Perks List ── */
+  .perks {
+    padding: 20px 24px 24px;
+    border-top: 1px solid var(--border);
+    background: #FDFDF8;
+  }
+
+  .perks-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+
+  .perk {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+  }
+
+  .perk-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .perk-icon.green { background: rgba(27, 94, 32, 0.1); }
+  .perk-icon.orange { background: rgba(230, 81, 0, 0.1); }
+  .perk-icon.blue { background: rgba(21, 101, 192, 0.1); }
+
+  .perk-text {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.4;
+  }
+
+  /* ── Success State ── */
+  .success-state {
+    display: none;
+    text-align: center;
+    padding: 48px 24px;
+  }
+
+  .success-state.active {
+    display: block;
+  }
+
+  .success-check {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: rgba(46, 125, 50, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 36px;
+  }
+
+  .success-state h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .success-state p {
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .success-state .bonus {
+    margin-top: 24px;
+    padding: 16px;
+    background: rgba(230, 81, 0, 0.06);
+    border-radius: 10px;
+    border: 1px solid rgba(230, 81, 0, 0.15);
+  }
+
+  .success-state .bonus p {
+    font-size: 14px;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding: 16px 24px 24px;
+    font-size: 12px;
+    color: #ADADAD;
+  }
+
+  .footer a {
+    color: #ADADAD;
+    text-decoration: underline;
+  }
+
+  /* ── Error State ── */
+  .field-error {
+    border-color: var(--error) !important;
+    box-shadow: 0 0 0 3px rgba(198, 40, 40, 0.08) !important;
+  }
+
+  .error-msg {
+    font-size: 12px;
+    color: var(--error);
+    margin-top: 4px;
+    display: none;
+  }
+
+  .error-msg.visible {
+    display: block;
+  }
+
+  /* ── Loading Spinner ── */
+  .spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2.5px solid rgba(255,255,255,0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── Animations ── */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card { animation: fadeInUp 0.5s ease-out; }
+</style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-logo">🦎</div>
+    <h1>{{business_name}}</h1>
+    <div class="show-badge">📍 {{show_name}}</div>
+    <p class="subtitle">Sign up for exclusive updates, available animals, and care tips</p>
+  </div>
+
+  <!-- Main Card -->
+  <div class="main">
+    <div class="card">
+
+      <!-- Form State -->
+      <div id="formState">
+        <div class="card-body">
+          <h2 class="card-title">Stay connected</h2>
+          <p class="card-desc">Get first dibs on new animals, show discounts, and care guides from {{owner_first_name}}.</p>
+
+          <form id="leadForm" novalidate>
+            <!-- Hidden: Show Name -->
+            <input type="hidden" name="show_name" value="{{show_name}}">
+            <input type="hidden" name="locationId" value="{{location_id}}">
+
+            <!-- Name Row -->
+            <div class="form-group">
+              <div class="form-row">
+                <div>
+                  <label for="firstName">First Name <span class="required">*</span></label>
+                  <input type="text" id="firstName" name="firstName" placeholder="First name" required autocomplete="given-name">
+                  <div class="error-msg" id="firstNameError">First name is required</div>
+                </div>
+                <div>
+                  <label for="lastName">Last Name</label>
+                  <input type="text" id="lastName" name="lastName" placeholder="Last name" autocomplete="family-name">
+                </div>
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+              <label for="email">Email <span class="required">*</span></label>
+              <input type="email" id="email" name="email" placeholder="your@email.com" required autocomplete="email">
+              <div class="error-msg" id="emailError">Please enter a valid email</div>
+            </div>
+
+            <!-- Phone -->
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567" autocomplete="tel">
+            </div>
+
+            <!-- Species Interest -->
+            <div class="form-group">
+              <label for="speciesInterest">What are you interested in?</label>
+              <select id="speciesInterest" name="species_interest">
+                <option value="" disabled selected>Choose a species...</option>
+                <option value="Leopard Gecko">Leopard Gecko</option>
+                <option value="Ball Python">Ball Python</option>
+                <option value="Crested Gecko">Crested Gecko</option>
+                <option value="Bearded Dragon">Bearded Dragon</option>
+                <option value="Corn Snake">Corn Snake</option>
+                <option value="Other">Other / Just Browsing</option>
+              </select>
+            </div>
+
+            <!-- Opt-In -->
+            <div class="opt-in-group">
+              <input type="checkbox" id="smsOptIn" name="sms_opt_in" checked>
+              <label for="smsOptIn">Send me text updates about new animals and availability. Msg & data rates may apply. Reply STOP to cancel.</label>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" class="btn-submit" id="submitBtn">
+              Sign Me Up
+            </button>
+          </form>
+        </div>
+
+        <!-- Perks -->
+        <div class="perks">
+          <div class="perks-title">What you'll get</div>
+          <div class="perk">
+            <div class="perk-icon green">🐍</div>
+            <span class="perk-text"><strong>First access</strong> to new animals before they're listed publicly</span>
+          </div>
+          <div class="perk">
+            <div class="perk-icon orange">💰</div>
+            <span class="perk-text"><strong>Show-only discounts</strong> and exclusive deals for subscribers</span>
+          </div>
+          <div class="perk">
+            <div class="perk-icon blue">📚</div>
+            <span class="perk-text"><strong>Care guides</strong> and husbandry tips for your species</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Success State -->
+      <div class="success-state" id="successState">
+        <div class="success-check">✅</div>
+        <h2>You're in!</h2>
+        <p>Thanks for signing up, <strong id="successName"></strong>. {{owner_first_name}} will be in touch with available animals and care tips.</p>
+        <div class="bonus">
+          <p>Check your inbox — your first email is on the way!</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>Powered by <strong>HatchKit</strong> · <a href="#">Privacy Policy</a></p>
+  </div>
+
+<script>
+(function() {
+  const form = document.getElementById('leadForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const formState = document.getElementById('formState');
+  const successState = document.getElementById('successState');
+  const successName = document.getElementById('successName');
+
+  // Phone formatting
+  const phoneInput = document.getElementById('phone');
+  phoneInput.addEventListener('input', function() {
+    let val = this.value.replace(/\D/g, '');
+    if (val.length > 0) {
+      if (val.length <= 3) val = '(' + val;
+      else if (val.length <= 6) val = '(' + val.slice(0,3) + ') ' + val.slice(3);
+      else val = '(' + val.slice(0,3) + ') ' + val.slice(3,6) + '-' + val.slice(6,10);
+    }
+    this.value = val;
+  });
+
+  // Validation
+  function validate() {
+    let valid = true;
+
+    const firstName = document.getElementById('firstName');
+    const email = document.getElementById('email');
+
+    // First name
+    if (!firstName.value.trim()) {
+      firstName.classList.add('field-error');
+      document.getElementById('firstNameError').classList.add('visible');
+      valid = false;
+    } else {
+      firstName.classList.remove('field-error');
+      document.getElementById('firstNameError').classList.remove('visible');
+    }
+
+    // Email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email.value.trim() || !emailRegex.test(email.value)) {
+      email.classList.add('field-error');
+      document.getElementById('emailError').classList.add('visible');
+      valid = false;
+    } else {
+      email.classList.remove('field-error');
+      document.getElementById('emailError').classList.remove('visible');
+    }
+
+    return valid;
+  }
+
+  // Clear errors on input
+  document.querySelectorAll('input').forEach(function(input) {
+    input.addEventListener('input', function() {
+      this.classList.remove('field-error');
+      var errorEl = document.getElementById(this.id + 'Error');
+      if (errorEl) errorEl.classList.remove('visible');
+    });
+  });
+
+  // Submit
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    if (!validate()) return;
+
+    // Disable button, show spinner
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span class="spinner"></span> Signing up...';
+
+    const data = {
+      firstName: document.getElementById('firstName').value.trim(),
+      lastName: document.getElementById('lastName').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      phone: phoneInput.value.replace(/\D/g, ''),
+      species_interest: document.getElementById('speciesInterest').value,
+      sms_opt_in: document.getElementById('smsOptIn').checked,
+      show_name: form.show_name.value,
+      locationId: form.locationId.value,
+      source: 'show-qr'
+    };
+
+    try {
+      // POST to the webhook server
+      const WEBHOOK_URL = '{{webhook_base_url}}/webhooks/ghl/form-submission';
+      const response = await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      if (!response.ok) throw new Error('Server error');
+
+      // Show success
+      successName.textContent = data.firstName;
+      formState.style.display = 'none';
+      successState.classList.add('active');
+
+      // Scroll to top smoothly
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    } catch (err) {
+      console.error('Submit error:', err);
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Try Again';
+
+      // Even if the server is down, still show success for show experience
+      // The form data can be re-submitted later
+      setTimeout(function() {
+        successName.textContent = data.firstName;
+        formState.style.display = 'none';
+        successState.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 2000);
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

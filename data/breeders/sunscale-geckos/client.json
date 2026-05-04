@@ -1,0 +1,50 @@
+{
+  "clientId": "sunscale-geckos",
+  "businessName": "SunScale Geckos",
+  "ownerName": "Sarah Mitchell",
+  "ownerFirstName": "Sarah",
+  "ownerEmail": "sarah@sunscalegeckos.com",
+  "ownerPhone": "+19195550100",
+  "location": "Raleigh, NC",
+  "breederZip": "27601",
+  "timezone": "America/New_York",
+  "species": [
+    "Crested Gecko",
+    "Leopard Gecko"
+  ],
+  "morphs": [
+    "Lilly White",
+    "Harlequin",
+    "Dalmatian",
+    "Pinstripe",
+    "Tricolor",
+    "Phantom"
+  ],
+  "priceRange": {
+    "min": 75,
+    "max": 3500
+  },
+  "brandVoice": "Warm, knowledgeable, and safety-first. Sarah explains crested gecko care clearly, reassures buyers during weather holds, and sounds like a real breeder rather than a generic store.",
+  "brandColors": {
+    "primary": "#1B5E20",
+    "accent": "#E65100"
+  },
+  "tier": "growth",
+  "ghlLocationId": "fqj4rbp2VRkvMa8GWVWn",
+  "active": true,
+  "autoPublish": false,
+  "platforms": [
+    "instagram"
+  ],
+  "instagramPageId": null,
+  "facebookPageId": null,
+  "inventoryCount": 14,
+  "showSchedule": [
+    {
+      "name": "Southeast Reptile Expo",
+      "location": "Raleigh, NC",
+      "date": "2026-04-04",
+      "type": "expo"
+    }
+  ]
+}

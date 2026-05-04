@@ -1,0 +1,66 @@
+{
+  "locationId": "fqj4rbp2VRkvMa8GWVWn",
+  "customFields": {
+    "species_interest": {
+      "id": "vMjXdGuczn4WBkltCjav",
+      "fieldKey": "contact.species_interest",
+      "name": "Species Interest",
+      "dataType": "SINGLE_OPTIONS"
+    },
+    "morph_preference": {
+      "id": "Pd1wzX7O9pDI3B0Im20y",
+      "fieldKey": "contact.morph_preference",
+      "name": "Morph Preference",
+      "dataType": "TEXT"
+    },
+    "price_tier": {
+      "id": "zV9yfJN7WWrFF6u2mfvc",
+      "fieldKey": "contact.price_tier",
+      "name": "Price Tier",
+      "dataType": "SINGLE_OPTIONS"
+    },
+    "shipping_preference": {
+      "id": "WLB3Buhct1V10okaNk4Q",
+      "fieldKey": "contact.shipping_preference",
+      "name": "Shipping Preference",
+      "dataType": "SINGLE_OPTIONS"
+    },
+    "temperature_tolerance_min": {
+      "id": "e8SzIJFbrdtJfNNffYzt",
+      "fieldKey": "contact.temperature_tolerance_min",
+      "name": "Temperature Tolerance Min",
+      "dataType": "NUMERICAL"
+    },
+    "temperature_tolerance_max": {
+      "id": "wdTVON0eGh6DwlWTEoxS",
+      "fieldKey": "contact.temperature_tolerance_max",
+      "name": "Temperature Tolerance Max",
+      "dataType": "NUMERICAL"
+    },
+    "show_source": {
+      "id": "9PskpsH2T935ufZsRRBU",
+      "fieldKey": "contact.show_source",
+      "name": "Show Source",
+      "dataType": "SINGLE_OPTIONS"
+    },
+    "lead_score": {
+      "id": "sWJE901cstMaFRMFuEk6",
+      "fieldKey": "contact.lead_score",
+      "name": "Lead Score",
+      "dataType": "NUMERICAL"
+    },
+    "last_show_attended": {
+      "id": "ykGuWOS3ps8UbHZb52EF",
+      "fieldKey": "contact.last_show_attended",
+      "name": "Last Show Attended",
+      "dataType": "TEXT"
+    },
+    "shipping_status": {
+      "id": "L0q4NgApH4xaabIBRDjO",
+      "fieldKey": "contact.shipping_status",
+      "name": "Shipping Status",
+      "dataType": "SINGLE_OPTIONS"
+    }
+  },
+  "pipelines": {}
+}

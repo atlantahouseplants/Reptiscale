@@ -1,0 +1,20 @@
+{
+  "name": "hatchkit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "setup:demo": "node scripts/setup-demo-account.js",
+    "test": "node --check server.js && node --check agents/shipping-agent/index.js && node --check agents/lead-scoring/index.js && node --check ghl/multi-tenant.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.78.0",
+    "axios": "^1.13.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1"
+  }
+}

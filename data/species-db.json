@@ -1,0 +1,88 @@
+{
+  "species": [
+    {
+      "id": "leopard_gecko",
+      "name": "Leopard Gecko",
+      "scientific_name": "Eublepharis macularius",
+      "min_ship_temp": 45,
+      "max_ship_temp": 88,
+      "heat_pack_below": 70,
+      "cold_pack_above": 85,
+      "no_ship_below": 38,
+      "no_ship_above": 95,
+      "preferred_packing": "deli_cup",
+      "hold_at_facility_above": 92,
+      "notes": "Hardy gecko, tolerates moderate temp swings. Deli cup with air holes and damp paper towel. Never let heat pack touch container directly."
+    },
+    {
+      "id": "ball_python",
+      "name": "Ball Python",
+      "scientific_name": "Python regius",
+      "min_ship_temp": 45,
+      "max_ship_temp": 92,
+      "heat_pack_below": 65,
+      "cold_pack_above": 88,
+      "no_ship_below": 38,
+      "no_ship_above": 100,
+      "preferred_packing": "cloth_bag",
+      "hold_at_facility_above": 92,
+      "notes": "Most forgiving of the common shipping species. Cloth reptile bag inside insulated box. Secure bag opening with rubber band. Tolerates brief colder exposure better than most."
+    },
+    {
+      "id": "crested_gecko",
+      "name": "Crested Gecko",
+      "scientific_name": "Correlophus ciliatus",
+      "min_ship_temp": 45,
+      "max_ship_temp": 80,
+      "heat_pack_below": 65,
+      "cold_pack_above": 78,
+      "no_ship_below": 38,
+      "no_ship_above": 80,
+      "preferred_packing": "deli_cup",
+      "hold_at_facility_above": 78,
+      "notes": "CRITICAL: Most heat-sensitive common gecko. Do not ship if destination daytime high exceeds 80F. Overheating is a primary cause of DOA. Deli cup with ventilation. Consider shipping overnight during cooler months only."
+    },
+    {
+      "id": "bearded_dragon",
+      "name": "Bearded Dragon",
+      "scientific_name": "Pogona vitticeps",
+      "min_ship_temp": 45,
+      "max_ship_temp": 95,
+      "heat_pack_below": 65,
+      "cold_pack_above": 90,
+      "no_ship_below": 38,
+      "no_ship_above": 105,
+      "preferred_packing": "cloth_bag",
+      "hold_at_facility_above": 95,
+      "notes": "Hardy desert species, most heat-tolerant on this list. Cloth bag inside well-ventilated box. Juveniles under 4 inches use tighter tolerances — treat as baby category."
+    },
+    {
+      "id": "corn_snake",
+      "name": "Corn Snake",
+      "scientific_name": "Pantherophis guttatus",
+      "min_ship_temp": 40,
+      "max_ship_temp": 90,
+      "heat_pack_below": 60,
+      "cold_pack_above": 85,
+      "no_ship_below": 35,
+      "no_ship_above": 98,
+      "preferred_packing": "cloth_bag",
+      "hold_at_facility_above": 92,
+      "notes": "Cold-tolerant species, lowest minimum ship temp on list. Cloth bag, secure opening. Can handle brief exposure to upper 30s but extended cold exposure is dangerous."
+    },
+    {
+      "id": "leopard_gecko_baby",
+      "name": "Leopard Gecko (Baby/Juvenile)",
+      "scientific_name": "Eublepharis macularius (juvenile)",
+      "min_ship_temp": 50,
+      "max_ship_temp": 85,
+      "heat_pack_below": 68,
+      "cold_pack_above": 82,
+      "no_ship_below": 45,
+      "no_ship_above": 90,
+      "preferred_packing": "deli_cup",
+      "hold_at_facility_above": 85,
+      "notes": "Tighter tolerances than adults. Hatchlings and juveniles under 10g are especially vulnerable to temperature extremes. Always use 72-hour heat pack if any doubt. Smaller deli cup (8-16oz). Do not ship in extreme weather regardless of heat/cold pack."
+    }
+  ]
+}

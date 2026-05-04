@@ -1,0 +1,49 @@
+{
+  "clientId": "sunscale-demo",
+  "generatedAt": "2026-03-15T06:11:35.084Z",
+  "startDate": "2026-03-15",
+  "days": [
+    {
+      "date": "2026-03-15",
+      "category": "engagement",
+      "status": "planned",
+      "postId": "sunscale-geckos-2026-03-15-enga-oililc"
+    },
+    {
+      "date": "2026-03-16",
+      "category": "behind_the_scenes",
+      "status": "planned",
+      "postId": "sunscale-geckos-2026-03-16-behi-qzksua"
+    },
+    {
+      "date": "2026-03-17",
+      "category": "animal_spotlight",
+      "status": "planned",
+      "postId": "sunscale-geckos-2026-03-17-anim-bc11f2"
+    },
+    {
+      "date": "2026-03-18",
+      "category": "animal_spotlight",
+      "status": "planned",
+      "postId": "sunscale-geckos-2026-03-18-anim-kaw8ar"
+    },
+    {
+      "date": "2026-03-19",
+      "category": "care_tips",
+      "status": "planned",
+      "postId": "sunscale-geckos-2026-03-19-care-xcd3aa"
+    },
+    {
+      "date": "2026-03-20",
+      "category": "animal_spotlight",
+      "status": "planned",
+      "postId": "sunscale-geckos-2026-03-20-anim-2rg83m"
+    },
+    {
+      "date": "2026-03-21",
+      "category": "customer_stories",
+      "status": "planned",
+      "postId": "sunscale-geckos-2026-03-21-cust-gmffpl"
+    }
+  ]
+}

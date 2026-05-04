@@ -1,0 +1,4 @@
+[submodule "HatchKit.ai"]
+	path = HatchKit.ai
+	url = https://github.com/atlantahouseplants/HatchKit-ai.git
+	branch = master

@@ -1,0 +1,1 @@
+🦎 New from SunScale Geckos: {{ANIMAL_NAME}} — {{MORPH}}, {{PRICE}}. {{BRIEF_DESCRIPTION}} Reply "INTERESTED" or view here: {{ANIMAL_URL}} — Sarah

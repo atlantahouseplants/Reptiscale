@@ -1,0 +1,224 @@
+{
+  "hubs": [
+    {
+      "id": "fedex_memphis",
+      "carrier": "FedEx",
+      "name": "FedEx World Hub — Memphis",
+      "city": "Memphis",
+      "state": "TN",
+      "zip": "38116",
+      "lat": 35.0421,
+      "lon": -89.9765,
+      "notes": "Primary FedEx sort facility. All FedEx Priority Overnight routes pass through here."
+    },
+    {
+      "id": "fedex_indianapolis",
+      "carrier": "FedEx",
+      "name": "FedEx Hub — Indianapolis",
+      "city": "Indianapolis",
+      "state": "IN",
+      "zip": "46241",
+      "lat": 39.7173,
+      "lon": -86.2944,
+      "notes": "Major FedEx secondary hub. Critical node for Midwest and East Coast deliveries."
+    },
+    {
+      "id": "fedex_oakland",
+      "carrier": "FedEx",
+      "name": "FedEx Hub — Oakland",
+      "city": "Oakland",
+      "state": "CA",
+      "zip": "94621",
+      "lat": 37.7213,
+      "lon": -122.2208,
+      "notes": "West Coast FedEx hub. Key routing point for CA, OR, WA deliveries."
+    },
+    {
+      "id": "fedex_newark",
+      "carrier": "FedEx",
+      "name": "FedEx Hub — Newark",
+      "city": "Newark",
+      "state": "NJ",
+      "zip": "07114",
+      "lat": 40.6895,
+      "lon": -74.1745,
+      "notes": "Northeast FedEx hub serving NY, NJ, CT, MA, and New England."
+    },
+    {
+      "id": "fedex_fort_worth",
+      "carrier": "FedEx",
+      "name": "FedEx Hub — Fort Worth",
+      "city": "Fort Worth",
+      "state": "TX",
+      "zip": "76177",
+      "lat": 32.9454,
+      "lon": -97.3389,
+      "notes": "South Central FedEx hub serving TX, OK, LA, AR."
+    },
+    {
+      "id": "fedex_miami",
+      "carrier": "FedEx",
+      "name": "FedEx Hub — Miami",
+      "city": "Miami",
+      "state": "FL",
+      "zip": "33166",
+      "lat": 25.7959,
+      "lon": -80.2870,
+      "notes": "Southeast FedEx hub. Critical for FL deliveries — monitor heat in summer months."
+    },
+    {
+      "id": "fedex_chicago",
+      "carrier": "FedEx",
+      "name": "FedEx Hub — Chicago (O'Hare)",
+      "city": "Chicago",
+      "state": "IL",
+      "zip": "60666",
+      "lat": 41.9742,
+      "lon": -87.9073,
+      "notes": "Major Great Lakes FedEx hub. Cold winters — always check Nov–Mar."
+    },
+    {
+      "id": "fedex_phoenix",
+      "carrier": "FedEx",
+      "name": "FedEx Hub — Phoenix",
+      "city": "Phoenix",
+      "state": "AZ",
+      "zip": "85034",
+      "lat": 33.4373,
+      "lon": -112.0078,
+      "notes": "Southwest FedEx hub. EXTREME summer heat — mandatory hold-at-facility May through September."
+    },
+    {
+      "id": "fedex_atlanta",
+      "carrier": "FedEx",
+      "name": "FedEx Hub — Atlanta",
+      "city": "Atlanta",
+      "state": "GA",
+      "zip": "30354",
+      "lat": 33.6407,
+      "lon": -84.4277,
+      "notes": "Southeast regional FedEx hub. Hot summers — monitor June through September."
+    },
+    {
+      "id": "fedex_denver",
+      "carrier": "FedEx",
+      "name": "FedEx Hub — Denver",
+      "city": "Denver",
+      "state": "CO",
+      "zip": "80249",
+      "lat": 39.8561,
+      "lon": -104.6737,
+      "notes": "Mountain West FedEx hub. Rapid temperature swings possible year-round. Monitor closely Oct–Apr."
+    },
+    {
+      "id": "ups_louisville",
+      "carrier": "UPS",
+      "name": "UPS Worldport — Louisville",
+      "city": "Louisville",
+      "state": "KY",
+      "zip": "40213",
+      "lat": 38.1740,
+      "lon": -85.7340,
+      "notes": "UPS primary world hub. All UPS Next Day Air routes pass through Louisville. Always check Louisville weather."
+    },
+    {
+      "id": "ups_dallas",
+      "carrier": "UPS",
+      "name": "UPS Hub — Dallas",
+      "city": "Dallas",
+      "state": "TX",
+      "zip": "75261",
+      "lat": 32.8998,
+      "lon": -97.0403,
+      "notes": "South Central UPS hub. Hot summers — hold-at-facility recommended Jun–Sep for heat-sensitive species."
+    },
+    {
+      "id": "ups_ontario",
+      "carrier": "UPS",
+      "name": "UPS Hub — Ontario (Los Angeles)",
+      "city": "Ontario",
+      "state": "CA",
+      "zip": "91761",
+      "lat": 34.0633,
+      "lon": -117.6009,
+      "notes": "West Coast UPS hub serving Southern CA. Inland temps can be extreme in summer."
+    },
+    {
+      "id": "ups_philadelphia",
+      "carrier": "UPS",
+      "name": "UPS Hub — Philadelphia",
+      "city": "Philadelphia",
+      "state": "PA",
+      "zip": "19153",
+      "lat": 39.8719,
+      "lon": -75.2407,
+      "notes": "Northeast UPS hub. Cold winters — monitor Dec–Mar. Occasional extreme summer heat."
+    },
+    {
+      "id": "ups_chicago",
+      "carrier": "UPS",
+      "name": "UPS Hub — Chicago",
+      "city": "Chicago",
+      "state": "IL",
+      "zip": "60638",
+      "lat": 41.8403,
+      "lon": -87.8043,
+      "notes": "Great Lakes UPS hub. Severe winter cold — high-risk Nov through Mar for cold-sensitive species."
+    },
+    {
+      "id": "ups_atlanta",
+      "carrier": "UPS",
+      "name": "UPS Hub — Atlanta",
+      "city": "Atlanta",
+      "state": "GA",
+      "zip": "30320",
+      "lat": 33.6407,
+      "lon": -84.4449,
+      "notes": "Southeast UPS hub. Warm climate, monitor summer months."
+    },
+    {
+      "id": "ups_seattle",
+      "carrier": "UPS",
+      "name": "UPS Hub — Seattle",
+      "city": "Seattle",
+      "state": "WA",
+      "zip": "98108",
+      "lat": 47.5480,
+      "lon": -122.3190,
+      "notes": "Pacific Northwest UPS hub. Mild but wet — occasional cold snaps Oct–Mar."
+    },
+    {
+      "id": "ups_miami",
+      "carrier": "UPS",
+      "name": "UPS Hub — Miami",
+      "city": "Miami",
+      "state": "FL",
+      "zip": "33178",
+      "lat": 25.8221,
+      "lon": -80.3514,
+      "notes": "Southeast UPS hub. Year-round heat — crested geckos should rarely ship here in summer."
+    },
+    {
+      "id": "ups_minneapolis",
+      "carrier": "UPS",
+      "name": "UPS Hub — Minneapolis",
+      "city": "Minneapolis",
+      "state": "MN",
+      "zip": "55450",
+      "lat": 44.8848,
+      "lon": -93.2223,
+      "notes": "Upper Midwest UPS hub. Extreme winters — one of the highest-risk hubs Nov through Mar. Use 72-hour heat packs, hold-at-facility mandatory when below 20F."
+    },
+    {
+      "id": "ups_phoenix",
+      "carrier": "UPS",
+      "name": "UPS Hub — Phoenix",
+      "city": "Phoenix",
+      "state": "AZ",
+      "zip": "85043",
+      "lat": 33.3656,
+      "lon": -112.0635,
+      "notes": "Southwest UPS hub. EXTREME summer heat — no-ship zone for most species Jun–Sep without hold-at-facility."
+    }
+  ]
+}
