@@ -241,6 +241,7 @@ The project now includes a complete commercial package for selling Reptiscale as
 - 90-day go-to-market plan: `docs/business/go-to-market-90-day-plan.md`
 - Revenue model: `docs/business/revenue-model.md`
 - Customer onboarding: `docs/customer-success/onboarding-playbook.md`
+- Breeder user guide: `docs/customer-success/breeder-user-guide.md`
 - Support playbook: `docs/customer-success/support-playbook.md`
 - Customer health score: `docs/customer-success/customer-health-score.md`
 - Implementation SOP: `docs/operations/implementation-sop.md`
