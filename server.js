@@ -5,9 +5,11 @@ const path = require('path');
 
 const { parsePipelineChangeEvent, parseNewContactEvent, parseFormSubmissionEvent } = require('./ghl/webhooks');
 const { createContact, updateContact, addTag, searchContacts } = require('./ghl/contacts');
-const { sendSMS } = require('./ghl/conversations');
+const { sendSMS, sendEmail } = require('./ghl/conversations');
 const { evaluateShipment } = require('./agents/shipping-agent/index');
 const { getBreederByLocationId, getAllBreeders, getBreeder } = require('./ghl/multi-tenant');
+const reptiscaleMachine = require('./data/reptiscale-machine.json');
+const demoProducts = require('./data/demo-products.json');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -85,6 +87,94 @@ function buildCustomFields(breederCtx, obj) {
   return Object.entries(obj)
     .map(([k, v]) => buildCustomField(breederCtx, k, v))
     .filter(Boolean);
+}
+
+function normalizePhone(phone) {
+  if (!phone) return '';
+  const digits = String(phone).replace(/\D/g, '');
+  if (!digits) return '';
+  if (digits.length === 10) return `+1${digits}`;
+  return digits.startsWith('+') ? digits : `+${digits}`;
+}
+
+function tagify(value) {
+  return String(value || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
+function shippingSpeciesId(species) {
+  return tagify(species).replace(/-/g, '_');
+}
+
+function findByKey(items, key, fallbackIndex = 0) {
+  return items.find((item) => item.key === key) || items[fallbackIndex];
+}
+
+function offerTag(offerKey) {
+  return {
+    animal_reservation: 'offer:animal-reservation',
+    care_starter_kit: 'offer:care-kit',
+    breeder_consult: 'offer:breeder-consult',
+    waitlist_join: 'offer:waitlist',
+  }[offerKey] || `offer:${tagify(offerKey)}`;
+}
+
+async function upsertJourneyContact(payload, breederCtx, tags = [], fieldValues = {}) {
+  const firstName = payload.firstName || payload.first_name || payload.name?.split(' ')[0] || '';
+  const lastName = payload.lastName || payload.last_name || payload.name?.split(' ').slice(1).join(' ') || '';
+  const email = payload.email || '';
+  const phone = normalizePhone(payload.phone || '');
+  const postalCode = payload.postalCode || payload.postal_code || payload.zip || payload.destinationZip || '';
+  const customFields = buildCustomFields(breederCtx, fieldValues);
+  const contactData = {
+    ...(firstName ? { firstName } : {}),
+    ...(lastName ? { lastName } : {}),
+    ...(email ? { email } : {}),
+    ...(phone ? { phone } : {}),
+    ...(postalCode ? { postalCode } : {}),
+    ...(customFields.length > 0 ? { customFields } : {}),
+  };
+
+  let contactId = payload.contactId || payload.contact_id || null;
+
+  if (contactId) {
+    if (Object.keys(contactData).length > 0) {
+      await updateContact(contactId, contactData);
+    }
+  } else if (email || phone) {
+    const existing = email ? await searchContacts(email) : [];
+    if (existing.length > 0) {
+      contactId = existing[0].id;
+      await updateContact(contactId, contactData);
+    } else {
+      const contact = await createContact({ ...contactData, tags });
+      contactId = contact.id;
+    }
+  } else {
+    throw new Error('Journey event requires contactId, email, or phone');
+  }
+
+  if (tags.length > 0) {
+    await addTag(contactId, [...new Set(tags.filter(Boolean))]);
+  }
+
+  return { contactId, firstName, lastName, email, phone, postalCode };
+}
+
+async function sendIfPossible(contactId, channel, message, subject = '') {
+  try {
+    if (channel === 'email') {
+      await sendEmail(contactId, subject, message);
+    } else {
+      await sendSMS(contactId, message);
+    }
+    return true;
+  } catch (err) {
+    log('WARN', `${channel.toUpperCase()} send failed for ${contactId}`, { error: err.message });
+    return false;
+  }
 }
 
 // ─── Pipeline-Aware Stage Routing ────────────────────────────────────────────
@@ -389,10 +479,31 @@ app.get('/', (req, res) => {
       'POST /webhooks/ghl/pipeline-change',
       'POST /webhooks/ghl/new-contact',
       'POST /webhooks/ghl/form-submission',
+      'POST /webhooks/ghl/lead-magnet',
+      'POST /webhooks/ghl/offer-clicked',
+      'POST /webhooks/ghl/order-submitted',
+      'POST /webhooks/ghl/review-submitted',
+      'POST /webhooks/ghl/referral',
       'POST /webhooks/shipping/evaluate',
       'POST /webhooks/shipping/weather-check',
       'POST /webhooks/lead-score/evaluate',
+      'GET  /api/machine',
       'GET  /health',
+    ],
+  });
+});
+
+app.get('/api/machine', (req, res) => {
+  res.json({
+    machine: reptiscaleMachine,
+    demoProducts,
+    demoClient: reptiscaleMachine.demoClientId,
+    endpoints: [
+      '/webhooks/ghl/lead-magnet',
+      '/webhooks/ghl/offer-clicked',
+      '/webhooks/ghl/order-submitted',
+      '/webhooks/ghl/review-submitted',
+      '/webhooks/ghl/referral',
     ],
   });
 });
@@ -562,6 +673,259 @@ app.post('/webhooks/ghl/form-submission', async (req, res) => {
 });
 
 // ── Shipping: Evaluate a Specific Contact ─────────────────────────────────
+
+// ── GHL: Reptiscale Customer Journey Webhooks ──────────────────────────────
+
+app.post('/webhooks/ghl/lead-magnet', async (req, res) => {
+  try {
+    const fields = { ...req.body, ...(req.body.fields || {}) };
+    const breederCtx = resolveBreeder(req.body);
+    if (!breederCtx) return fail(res, 404, 'Unknown breeder location');
+
+    const offerKey = fields.offerKey || fields.offer_key || 'crested_gecko_starter_guide';
+    const leadMagnet = findByKey(reptiscaleMachine.leadMagnets, offerKey);
+    const species = fields.species_interest || fields.speciesInterest || reptiscaleMachine.positioning.demoSpecies;
+    const source = fields.source || fields.utm_source || fields.show_source || 'website';
+    const nextBestAction = leadMagnet.followUpOffer || 'Send buyer guide follow-up';
+
+    const tags = [
+      'journey:lead-captured',
+      'status:new-lead',
+      `source:${tagify(source)}`,
+      `interest:${tagify(species)}`,
+      ...leadMagnet.tags,
+    ];
+
+    const contact = await upsertJourneyContact(fields, breederCtx, tags, {
+      customer_journey_stage: 'Lead Captured',
+      species_interest: species,
+      offer_name: leadMagnet.title,
+      purchase_status: 'No Purchase',
+      next_best_action: nextBestAction,
+    });
+
+    const businessName = breederCtx.clientConfig.businessName || 'SunScale Geckos';
+    const sms =
+      `Hey ${contact.firstName || 'there'}! I sent the ${leadMagnet.title} from ${businessName}. ` +
+      `I'll also send a few care tips and available animals that match your interest. Reply STOP anytime.`;
+    await sendIfPossible(contact.contactId, 'sms', sms);
+
+    return ok(res, {
+      contactId: contact.contactId,
+      action: 'lead_magnet_processed',
+      offer: leadMagnet.title,
+      nextBestAction,
+    });
+  } catch (err) {
+    return fail(res, 500, 'Lead magnet handler error', err);
+  }
+});
+
+app.post('/webhooks/ghl/offer-clicked', async (req, res) => {
+  try {
+    const fields = { ...req.body, ...(req.body.fields || {}) };
+    const breederCtx = resolveBreeder(req.body);
+    if (!breederCtx) return fail(res, 404, 'Unknown breeder location');
+
+    const offerKey = fields.offerKey || fields.offer_key || 'animal_reservation';
+    const offer = findByKey(reptiscaleMachine.offers, offerKey);
+    const species = fields.species_interest || fields.speciesInterest || reptiscaleMachine.positioning.demoSpecies;
+    const animalInterest = fields.animalInterest || fields.animal_interest || fields.animalName || '';
+    const nextBestAction =
+      offer.key === 'animal_reservation'
+        ? 'Send reservation deposit link and answer buyer objections'
+        : `Follow up on ${offer.name}`;
+
+    const tags = [
+      'journey:offer-presented',
+      offerTag(offer.key),
+      `interest:${tagify(species)}`,
+      animalInterest ? `animal:${tagify(animalInterest)}` : null,
+    ].filter(Boolean);
+
+    const contact = await upsertJourneyContact(fields, breederCtx, tags, {
+      customer_journey_stage: 'Offer Presented',
+      species_interest: species,
+      animal_interest: animalInterest,
+      offer_name: offer.name,
+      purchase_status: 'No Purchase',
+      next_best_action: nextBestAction,
+    });
+
+    const sms =
+      animalInterest
+        ? `Want help deciding on ${animalInterest}? I can answer care, shipping, and reservation questions here.`
+        : `Want help with ${offer.name}? I can answer care, shipping, and reservation questions here.`;
+    await sendIfPossible(contact.contactId, 'sms', sms);
+
+    return ok(res, {
+      contactId: contact.contactId,
+      action: 'offer_click_processed',
+      offer: offer.name,
+      nextBestAction,
+    });
+  } catch (err) {
+    return fail(res, 500, 'Offer click handler error', err);
+  }
+});
+
+app.post('/webhooks/ghl/order-submitted', async (req, res) => {
+  try {
+    const fields = { ...req.body, ...(req.body.fields || {}) };
+    const breederCtx = resolveBreeder(req.body);
+    if (!breederCtx) return fail(res, 404, 'Unknown breeder location');
+
+    const offerKey = fields.offerKey || fields.offer_key || 'animal_reservation';
+    const offer = findByKey(reptiscaleMachine.offers, offerKey);
+    const species = fields.species_interest || fields.speciesInterest || reptiscaleMachine.positioning.demoSpecies;
+    const animalInterest = fields.animalInterest || fields.animal_interest || fields.animalName || '';
+    const productName = fields.productName || fields.product_name || fields.product || offer.name;
+    const amount = fields.amount || fields.total || fields.value || offer.price || '';
+    const purchaseStatus = fields.purchaseStatus || fields.purchase_status || 'Deposit Paid';
+    const purchaseTag = productName.toLowerCase().includes('kit') ? 'purchase:care-kit' : 'purchase:animal';
+
+    const contact = await upsertJourneyContact(fields, breederCtx, [
+      'journey:purchased',
+      'status:customer',
+      purchaseTag,
+      offerTag(offer.key),
+      `interest:${tagify(species)}`,
+    ], {
+      customer_journey_stage: 'Purchased',
+      species_interest: species,
+      animal_interest: animalInterest,
+      offer_name: productName,
+      purchase_status: purchaseStatus,
+      last_purchase_amount: amount,
+      next_best_action: 'Confirm shipping or pickup and send setup checklist',
+    });
+
+    const businessName = breederCtx.clientConfig.businessName || 'SunScale Geckos';
+    const sms =
+      `Thank you for your ${productName} order with ${businessName}. ` +
+      `Next I will confirm pickup or shipping details and send the setup checklist.`;
+    await sendIfPossible(contact.contactId, 'sms', sms);
+
+    let shipping = null;
+    const originZip = fields.originZip || breederCtx.clientConfig.breederZip;
+    const destinationZip = fields.destinationZip || fields.destination_zip || fields.postalCode || contact.postalCode;
+
+    if (destinationZip && species) {
+      try {
+        shipping = await evaluateShipment({
+          contactId: contact.contactId,
+          species: shippingSpeciesId(species),
+          originZip,
+          destinationZip,
+          preferredShipDate: fields.preferredShipDate || fields.preferred_ship_date,
+          updateGHL: true,
+        });
+
+        const shippingTags = [
+          'journey:shipping',
+          shipping.decision === 'APPROVE' ? 'shipping:approved' : 'shipping:hold',
+          shipping.decision === 'APPROVE' ? null : 'shipping:pending-weather-check',
+        ].filter(Boolean);
+        await addTag(contact.contactId, shippingTags);
+
+        const shippingFields = buildCustomFields(breederCtx, {
+          customer_journey_stage: 'Shipping',
+          shipping_status: shipping.decision === 'APPROVE' ? 'Approved to Ship' : 'Pending Weather Check',
+          next_best_action: shipping.decision === 'APPROVE'
+            ? 'Schedule label and send tracking'
+            : 'Monitor weather and explain safe-shipping hold',
+        });
+        if (shippingFields.length > 0) {
+          await updateContact(contact.contactId, { customFields: shippingFields });
+        }
+
+        if (shipping.customerMessage) {
+          await sendIfPossible(contact.contactId, 'sms', shipping.customerMessage.slice(0, 300));
+        }
+      } catch (shippingErr) {
+        log('WARN', `Order processed but shipping evaluation failed for ${contact.contactId}`, { error: shippingErr.message });
+      }
+    }
+
+    return ok(res, {
+      contactId: contact.contactId,
+      action: 'order_processed',
+      product: productName,
+      shipping,
+    });
+  } catch (err) {
+    return fail(res, 500, 'Order submission handler error', err);
+  }
+});
+
+app.post('/webhooks/ghl/review-submitted', async (req, res) => {
+  try {
+    const fields = { ...req.body, ...(req.body.fields || {}) };
+    const breederCtx = resolveBreeder(req.body);
+    if (!breederCtx) return fail(res, 404, 'Unknown breeder location');
+
+    const species = fields.species_interest || fields.speciesInterest || reptiscaleMachine.positioning.demoSpecies;
+    const contact = await upsertJourneyContact(fields, breederCtx, [
+      'journey:advocacy',
+      'review:received',
+      'referral:requested',
+      'ugc:requested',
+      `interest:${tagify(species)}`,
+    ], {
+      customer_journey_stage: 'Advocacy',
+      species_interest: species,
+      next_best_action: 'Ask for referral, photo permission, and VIP list opt-in',
+    });
+
+    const sms =
+      `Thank you for the review. If you know someone researching ${species}s, I can send them the same starter guide and VIP availability list.`;
+    await sendIfPossible(contact.contactId, 'sms', sms);
+
+    return ok(res, { contactId: contact.contactId, action: 'review_processed' });
+  } catch (err) {
+    return fail(res, 500, 'Review handler error', err);
+  }
+});
+
+app.post('/webhooks/ghl/referral', async (req, res) => {
+  try {
+    const fields = { ...req.body, ...(req.body.fields || {}) };
+    const breederCtx = resolveBreeder(req.body);
+    if (!breederCtx) return fail(res, 404, 'Unknown breeder location');
+
+    const species = fields.species_interest || fields.speciesInterest || reptiscaleMachine.positioning.demoSpecies;
+    const referralSource =
+      fields.referralSource || fields.referral_source || fields.referredBy || fields.referred_by || 'Customer referral';
+
+    const contact = await upsertJourneyContact(fields, breederCtx, [
+      'source:referral',
+      'referral:received',
+      'journey:lead-captured',
+      'status:new-lead',
+      `interest:${tagify(species)}`,
+    ], {
+      customer_journey_stage: 'Lead Captured',
+      species_interest: species,
+      referral_source: referralSource,
+      purchase_status: 'No Purchase',
+      next_best_action: 'Send referral welcome, starter guide, and available animals',
+    });
+
+    const businessName = breederCtx.clientConfig.businessName || 'SunScale Geckos';
+    const sms =
+      `Hey ${contact.firstName || 'there'}, welcome to ${businessName}. ` +
+      `I'll send the starter guide and current ${species} availability so you can see good-fit options.`;
+    await sendIfPossible(contact.contactId, 'sms', sms);
+
+    return ok(res, {
+      contactId: contact.contactId,
+      action: 'referral_processed',
+      referralSource,
+    });
+  } catch (err) {
+    return fail(res, 500, 'Referral handler error', err);
+  }
+});
 
 app.post('/webhooks/shipping/evaluate', async (req, res) => {
   const { contactId, species, originZip, destinationZip, preferredShipDate } = req.body;
@@ -839,9 +1203,15 @@ if (require.main === module) {
     console.log('│  POST /webhooks/ghl/pipeline-change                │');
     console.log('│  POST /webhooks/ghl/new-contact                    │');
     console.log('│  POST /webhooks/ghl/form-submission                │');
+    console.log('│  POST /webhooks/ghl/lead-magnet                    │');
+    console.log('│  POST /webhooks/ghl/offer-clicked                  │');
+    console.log('│  POST /webhooks/ghl/order-submitted                │');
+    console.log('│  POST /webhooks/ghl/review-submitted               │');
+    console.log('│  POST /webhooks/ghl/referral                       │');
     console.log('│  POST /webhooks/shipping/evaluate                  │');
     console.log('│  POST /webhooks/shipping/weather-check             │');
     console.log('│  POST /webhooks/lead-score/evaluate                │');
+    console.log('│  GET  /api/machine                                 │');
     console.log('│  GET  /health                                      │');
     console.log('└─────────────────────────────────────────────────────┘');
     for (const b of breeders) {

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crested Gecko Starter Guide</title>
+<style>
+  :root { --ink:#17211c; --muted:#607068; --bg:#f7f7f1; --surface:#fff; --line:#dde1d8; --primary:#246a4b; --accent:#c86432; --blue:#245a73; --radius:8px; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif; }
+  .page { min-height:100vh; display:grid; grid-template-columns:minmax(0,1fr) minmax(320px,520px); }
+  .visual { background:#d7ddd4 url('{{guide_image_url}}') center/cover no-repeat; min-height:360px; }
+  .copy { padding:clamp(28px,7vw,88px); display:flex; flex-direction:column; justify-content:center; }
+  .eyebrow { color:var(--accent); font-size:13px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
+  h1 { font-size:clamp(38px,6vw,68px); line-height:.98; margin:12px 0 16px; letter-spacing:0; }
+  p { color:var(--muted); line-height:1.58; font-size:18px; }
+  .bullets { display:grid; gap:10px; margin:22px 0; }
+  .bullets div { display:flex; gap:10px; align-items:flex-start; color:var(--ink); }
+  .dot { flex:0 0 9px; width:9px; height:9px; border-radius:99px; background:var(--primary); margin-top:8px; }
+  form { background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:18px; display:grid; gap:11px; margin-top:14px; }
+  input, select, button { min-height:46px; border-radius:var(--radius); border:1px solid var(--line); padding:0 13px; font:inherit; width:100%; }
+  button { background:var(--primary); color:white; border-color:var(--primary); font-weight:800; cursor:pointer; }
+  .fine { font-size:12px; color:var(--muted); line-height:1.4; }
+  @media(max-width:860px){ .page{grid-template-columns:1fr;} .visual{order:-1;} }
+</style>
+</head>
+<body>
+  <main class="page">
+    <section class="copy">
+      <div class="eyebrow">{{business_name}}</div>
+      <h1>Crested Gecko Starter Guide</h1>
+      <p>A simple care plan for buyers who want to know what they need before they reserve a gecko.</p>
+      <div class="bullets">
+        <div><span class="dot"></span><span>Enclosure size, humidity, feeding, heat, and first-week expectations.</span></div>
+        <div><span class="dot"></span><span>What to buy before pickup or shipping day.</span></div>
+        <div><span class="dot"></span><span>How to decide whether a beginner, collector, or breeder animal is the right fit.</span></div>
+      </div>
+      <form data-journey-form="lead-magnet">
+        <input name="firstName" placeholder="First name" required>
+        <input name="email" type="email" placeholder="Email" required>
+        <input name="phone" type="tel" placeholder="Mobile phone">
+        <select name="price_tier">
+          <option value="">Budget range</option>
+          <option>Budget ($25-75)</option>
+          <option>Mid-Range ($75-250)</option>
+          <option>Premium ($250-750)</option>
+          <option>Designer ($750+)</option>
+        </select>
+        <input type="hidden" name="locationId" value="{{ghl_location_id}}">
+        <input type="hidden" name="species_interest" value="Crested Gecko">
+        <input type="hidden" name="source" value="lead-magnet-page">
+        <input type="hidden" name="offerKey" value="crested_gecko_starter_guide">
+        <button type="submit">Send the Free Guide</button>
+        <div class="fine">Includes care follow-up and availability updates. Buyers can opt out anytime.</div>
+      </form>
+    </section>
+    <section class="visual" aria-label="Crested gecko care guide preview"></section>
+  </main>
+<script>
+  const webhookBase = '{{webhook_base_url}}'.includes('{{') ? '' : '{{webhook_base_url}}';
+  document.querySelector('[data-journey-form="lead-magnet"]').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    await fetch(`${webhookBase}/webhooks/ghl/lead-magnet`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(Object.fromEntries(new FormData(form).entries()))
+    });
+    form.innerHTML = '<strong>Your guide request is in.</strong><span class="fine">Watch for care tips and current availability from {{business_name}}.</span>';
+  });
+</script>
+</body>
+</html>

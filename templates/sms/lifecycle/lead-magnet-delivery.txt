@@ -1,0 +1,1 @@
+Hi {{contact.first_name}}, here is the Crested Gecko Starter Guide from {{business.name}}: {{starter_guide_link}}. Reply with your budget if you want help choosing.

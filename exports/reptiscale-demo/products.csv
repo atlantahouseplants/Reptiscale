@@ -1,0 +1,5 @@
+sku,name,type,price,description,highLevelUse
+SSG-DEP-001,Animal Reservation Deposit,service,75.00,Non-refundable deposit to reserve a specific animal while pickup or shipping is confirmed.,Payment link or order form primary product
+SSG-KIT-001,Crested Gecko Care Starter Kit,physical,49.00,"Recommended starter bundle with feeding ledge, food sample, humidity card, and setup checklist.",Order bump or post-purchase upsell
+SSG-CONSULT-001,30-Minute Setup Review,service,35.00,Breeder review of enclosure photos before the animal ships or goes home.,Upsell after deposit
+SSG-GUIDE-001,Crested Gecko Starter Guide,digital,0.00,Lead magnet guide for new and researching buyers.,Free lead magnet delivery

@@ -60,6 +60,48 @@
       "fieldKey": "contact.shipping_status",
       "name": "Shipping Status",
       "dataType": "SINGLE_OPTIONS"
+    },
+    "customer_journey_stage": {
+      "id": "sQ9nc1nLIcNA0B96kK3l",
+      "fieldKey": "contact.customer_journey_stage",
+      "name": "Customer Journey Stage",
+      "dataType": "SINGLE_OPTIONS"
+    },
+    "animal_interest": {
+      "id": "rWfbZ4O1Fkeqq49YB9oI",
+      "fieldKey": "contact.animal_interest",
+      "name": "Animal Interest",
+      "dataType": "TEXT"
+    },
+    "offer_name": {
+      "id": "ng32Rw5MuGBbLdRoulOQ",
+      "fieldKey": "contact.offer_name",
+      "name": "Offer Name",
+      "dataType": "TEXT"
+    },
+    "purchase_status": {
+      "id": "tVZcj8RsQ6NUvKhNZrOD",
+      "fieldKey": "contact.purchase_status",
+      "name": "Purchase Status",
+      "dataType": "SINGLE_OPTIONS"
+    },
+    "last_purchase_amount": {
+      "id": "lmOCb4mt0VAqnDfuMJkV",
+      "fieldKey": "contact.last_purchase_amount",
+      "name": "Last Purchase Amount",
+      "dataType": "NUMERICAL"
+    },
+    "referral_source": {
+      "id": "ktslQcl2M7l87RuVa49A",
+      "fieldKey": "contact.referral_source",
+      "name": "Referral Source",
+      "dataType": "TEXT"
+    },
+    "next_best_action": {
+      "id": "wdJxb1Ge7PXjCpbs4JKH",
+      "fieldKey": "contact.next_best_action",
+      "name": "Next Best Action",
+      "dataType": "TEXT"
     }
   },
   "pipelines": {}

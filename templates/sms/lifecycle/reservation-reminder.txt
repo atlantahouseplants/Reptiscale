@@ -1,0 +1,1 @@
+Still thinking about {{contact.animal_interest}}? I can answer temperament, shipping, setup, or reservation questions here. Deposit link: {{reservation_link}}

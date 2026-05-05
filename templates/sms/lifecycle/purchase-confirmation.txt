@@ -1,0 +1,1 @@
+Thank you for your {{contact.offer_name}} order. Next I will confirm pickup or shipping details and send the setup checklist.

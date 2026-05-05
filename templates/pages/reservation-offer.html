@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reserve {{animal_name}}</title>
+<style>
+  :root { --ink:#17211c; --muted:#607068; --bg:#f7f7f1; --surface:#fff; --line:#dde1d8; --primary:#246a4b; --accent:#c86432; --blue:#245a73; --radius:8px; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif; }
+  .wrap { min-height:100vh; display:grid; grid-template-columns:minmax(0,1fr) minmax(340px,520px); }
+  .summary { padding:clamp(28px,6vw,78px); display:flex; flex-direction:column; justify-content:center; }
+  .photo { background:#d7ddd4 url('{{animal_image_url}}') center/cover no-repeat; min-height:360px; }
+  .eyebrow { color:var(--accent); font-size:13px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
+  h1 { font-size:clamp(38px,6vw,68px); line-height:.98; margin:12px 0 14px; letter-spacing:0; }
+  p { color:var(--muted); line-height:1.58; font-size:17px; }
+  .offer { background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:20px; margin-top:18px; display:grid; gap:12px; }
+  .row { display:flex; justify-content:space-between; gap:16px; padding:10px 0; border-bottom:1px solid var(--line); }
+  .row:last-child { border-bottom:0; }
+  .price { font-size:34px; font-weight:900; color:var(--primary); }
+  form { display:grid; gap:10px; margin-top:12px; }
+  input, select, button, a.button { min-height:46px; border-radius:var(--radius); border:1px solid var(--line); padding:0 13px; font:inherit; width:100%; }
+  button, a.button { background:var(--primary); border-color:var(--primary); color:white; font-weight:800; display:flex; align-items:center; justify-content:center; text-decoration:none; cursor:pointer; }
+  .bump { display:flex; gap:10px; align-items:flex-start; background:#eef3ef; border:1px solid #d6e2d8; padding:12px; border-radius:var(--radius); }
+  .bump input { width:18px; min-height:18px; margin-top:3px; }
+  .fine { font-size:12px; color:var(--muted); line-height:1.4; }
+  @media(max-width:860px){ .wrap{grid-template-columns:1fr;} .photo{order:-1;} }
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="summary">
+      <div class="eyebrow">Reservation checkout</div>
+      <h1>Reserve {{animal_name}}</h1>
+      <p>Use this page as the HighLevel order form or payment link destination. After purchase, Reptiscale tags the buyer, starts care onboarding, and checks the shipping route if a destination zip is provided.</p>
+      <div class="offer">
+        <div class="row"><span>{{animal_name}} - {{animal_morph}}</span><strong>${{animal_price}}</strong></div>
+        <div class="row"><span>Reservation deposit today</span><strong class="price">$75</strong></div>
+        <div class="row"><span>Balance due before pickup or shipping</span><strong>${{balance_due}}</strong></div>
+        <form data-journey-form="order">
+          <input name="firstName" placeholder="First name" required>
+          <input name="email" type="email" placeholder="Email" required>
+          <input name="phone" type="tel" placeholder="Mobile phone">
+          <input name="destinationZip" placeholder="Shipping destination ZIP">
+          <select name="shipping_preference">
+            <option>Hold at FedEx</option>
+            <option>Ship to Home</option>
+            <option>Local Pickup</option>
+            <option>Show Pickup</option>
+          </select>
+          <label class="bump">
+            <input type="checkbox" name="careKit" value="yes">
+            <span><strong>Add the Crested Gecko Care Starter Kit for $49</strong><br><span class="fine">Food sample, feeding ledge, humidity card, and setup checklist.</span></span>
+          </label>
+          <input type="hidden" name="locationId" value="{{ghl_location_id}}">
+          <input type="hidden" name="offerKey" value="animal_reservation">
+          <input type="hidden" name="productName" value="Animal Reservation Deposit">
+          <input type="hidden" name="amount" value="75">
+          <input type="hidden" name="purchaseStatus" value="Deposit Paid">
+          <input type="hidden" name="species_interest" value="{{animal_species}}">
+          <input type="hidden" name="animalInterest" value="{{animal_name}} - {{animal_morph}}">
+          <button type="submit">Start Reservation</button>
+          <a class="button" href="{{payment_link_url}}">Continue to Payment</a>
+          <div class="fine">The deposit holds this animal while {{owner_first_name}} confirms pickup, shipping, or final payment details.</div>
+        </form>
+      </div>
+    </section>
+    <section class="photo" aria-label="{{animal_name}} reservation photo"></section>
+  </main>
+<script>
+  const webhookBase = '{{webhook_base_url}}'.includes('{{') ? '' : '{{webhook_base_url}}';
+  document.querySelector('[data-journey-form="order"]').addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const payload = Object.fromEntries(new FormData(form).entries());
+    await fetch(`${webhookBase}/webhooks/ghl/offer-clicked`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    form.innerHTML = '<strong>Reservation request received.</strong><span class="fine">Continue to payment to hold {{animal_name}}. Payment confirmation starts shipping and setup follow-up.</span><a class="button" href="{{payment_link_url}}">Continue to Payment</a>';
+  });
+</script>
+</body>
+</html>

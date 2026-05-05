@@ -1,0 +1,170 @@
+{
+  "name": "Reptiscale Growth Machine",
+  "version": "1.0.0",
+  "demoClientId": "sunscale-geckos",
+  "positioning": {
+    "oneLine": "Reptiscale turns a reptile seller into a complete online business: store, CRM, content, checkout, safe shipping, care follow-up, reviews, referrals, and repeat buyers.",
+    "primaryBuyer": "Mid-tier reptile breeders and exotic animal sellers who sell through shows, social media, MorphMarket, and direct messages.",
+    "demoSpecies": "Crested Gecko",
+    "corePromise": "Every buyer gets captured, followed up with, sold to, shipped safely, educated, and invited back."
+  },
+  "lifecycleStages": [
+    {
+      "key": "brand_discovery",
+      "label": "Brand Discovery",
+      "goal": "A prospect finds the breeder through social, show QR, website, MorphMarket, referral, or search.",
+      "highLevelObjects": ["website", "social-planner", "forms", "tracking-links", "contacts"],
+      "automationTags": ["journey:brand-discovery", "source:instagram", "source:show-qr", "source:website", "source:morphmarket", "source:referral"]
+    },
+    {
+      "key": "lead_capture",
+      "label": "Lead Capture",
+      "goal": "Capture contact details and species/budget interest with a clear reason to opt in.",
+      "highLevelObjects": ["forms", "surveys", "funnels", "workflows", "custom-fields"],
+      "automationTags": ["journey:lead-captured", "offer:lead-magnet", "status:new-lead"]
+    },
+    {
+      "key": "nurture",
+      "label": "Nurture",
+      "goal": "Educate the buyer, build trust, and show animals that match their interest.",
+      "highLevelObjects": ["email", "sms", "workflows", "smart-lists"],
+      "automationTags": ["journey:nurture", "content:care-guide-sent", "content:availability-sent"]
+    },
+    {
+      "key": "offer",
+      "label": "Offer",
+      "goal": "Move the buyer toward a specific offer: animal reservation, care starter kit, consultation, or waitlist.",
+      "highLevelObjects": ["funnels", "products", "order-forms", "payment-links", "opportunities"],
+      "automationTags": ["journey:offer-presented", "offer:animal-reservation", "offer:care-kit", "offer:waitlist"]
+    },
+    {
+      "key": "purchase",
+      "label": "Purchase",
+      "goal": "Collect deposit or full payment and move the buyer into fulfillment.",
+      "highLevelObjects": ["payments", "invoices", "transactions", "workflows", "opportunities"],
+      "automationTags": ["journey:purchased", "status:customer", "purchase:animal", "purchase:care-kit"]
+    },
+    {
+      "key": "shipping",
+      "label": "Safe Shipping",
+      "goal": "Check weather, decide ship/hold, communicate clearly, and protect live arrival.",
+      "highLevelObjects": ["workflows", "custom-fields", "sms", "opportunities"],
+      "automationTags": ["journey:shipping", "shipping:pending-weather-check", "shipping:approved", "shipping:hold", "shipping:in-transit"]
+    },
+    {
+      "key": "onboarding",
+      "label": "Care Onboarding",
+      "goal": "Help the customer receive and settle the animal correctly.",
+      "highLevelObjects": ["email", "sms", "workflows"],
+      "automationTags": ["journey:care-onboarding", "care:day0", "care:day3", "care:day7"]
+    },
+    {
+      "key": "advocacy",
+      "label": "Advocacy",
+      "goal": "Turn safe arrivals into reviews, referrals, user-generated content, and public proof.",
+      "highLevelObjects": ["reviews", "forms", "workflows", "email", "sms"],
+      "automationTags": ["journey:advocacy", "review:requested", "review:received", "referral:requested", "ugc:requested"]
+    },
+    {
+      "key": "repeat_buyer",
+      "label": "Repeat Buyer",
+      "goal": "Keep buyers engaged with future availability, waitlists, seasonal drops, and breeder updates.",
+      "highLevelObjects": ["smart-lists", "email-campaigns", "sms-campaigns", "social-planner"],
+      "automationTags": ["journey:repeat-buyer", "status:repeat-buyer", "waitlist:active", "campaign:availability-alerts"]
+    }
+  ],
+  "leadMagnets": [
+    {
+      "key": "crested_gecko_starter_guide",
+      "title": "Crested Gecko Starter Guide",
+      "promise": "A simple buyer-friendly guide for enclosure setup, food, handling, humidity, and first-week expectations.",
+      "primaryCta": "Get the Free Guide",
+      "followUpOffer": "Reserve a beginner-friendly crested gecko",
+      "tags": ["offer:lead-magnet", "content:starter-guide", "interest:crested-gecko"]
+    },
+    {
+      "key": "show_vip_list",
+      "title": "Show VIP Availability List",
+      "promise": "First look at animals before they are posted publicly, plus show-only pickup offers.",
+      "primaryCta": "Join the VIP List",
+      "followUpOffer": "Book a show pickup or place a deposit",
+      "tags": ["offer:show-vip", "source:show-qr", "campaign:availability-alerts"]
+    }
+  ],
+  "offers": [
+    {
+      "key": "animal_reservation",
+      "name": "Animal Reservation Deposit",
+      "type": "core",
+      "price": 75,
+      "goal": "Hold a specific animal while weather, pickup, or buyer details are confirmed.",
+      "upsell": "care_starter_kit",
+      "downsell": "waitlist_join"
+    },
+    {
+      "key": "care_starter_kit",
+      "name": "Crested Gecko Care Starter Kit",
+      "type": "upsell",
+      "price": 49,
+      "goal": "Increase order value and help the new owner prepare properly.",
+      "upsell": "breeder_consult",
+      "downsell": "care_sheet_only"
+    },
+    {
+      "key": "breeder_consult",
+      "name": "30-Minute Setup Review",
+      "type": "upsell",
+      "price": 35,
+      "goal": "Let the breeder review enclosure setup before the animal ships."
+    },
+    {
+      "key": "waitlist_join",
+      "name": "Next-Clutch Waitlist",
+      "type": "downsell",
+      "price": 0,
+      "goal": "Keep non-buyers engaged until a better match is available."
+    }
+  ],
+  "campaigns": [
+    {
+      "key": "new_lead_education",
+      "name": "New Lead Education Drip",
+      "trigger": "Tag added: journey:lead-captured",
+      "steps": ["immediate guide delivery", "day 1 care basics", "day 3 available animals", "day 7 buyer objections", "day 14 reserve or waitlist"]
+    },
+    {
+      "key": "cart_or_deposit_abandonment",
+      "name": "Reservation Abandonment",
+      "trigger": "Form started or offer clicked without purchase",
+      "steps": ["1 hour reminder", "24 hour trust/proof email", "48 hour ask if they want help choosing"]
+    },
+    {
+      "key": "post_purchase_care",
+      "name": "Post-Purchase Care Onboarding",
+      "trigger": "Tag added: journey:purchased",
+      "steps": ["order confirmation", "weather/shipping expectations", "pre-arrival setup", "arrival day check-in", "day 3 settling-in", "day 7 feeding/checkup"]
+    },
+    {
+      "key": "review_referral",
+      "name": "Review and Referral Request",
+      "trigger": "Tag added: shipping:lag-confirmed",
+      "steps": ["review request", "photo/share request", "referral invitation", "repeat-buyer VIP list"]
+    },
+    {
+      "key": "availability_engine",
+      "name": "Availability and Social Content Engine",
+      "trigger": "Daily scheduled content run",
+      "steps": ["animal spotlight", "care tip", "behind the scenes", "show announcement", "proof/review", "waitlist push"]
+    }
+  ],
+  "manualHighLevelObjects": [
+    "Website or ecommerce store pages",
+    "Products and prices",
+    "Order forms/payment links",
+    "Pipelines and opportunities if API scope is unavailable",
+    "Workflow builder steps",
+    "Connected social accounts",
+    "Connected payment provider",
+    "Shipping provider integration or external label workflow"
+  ]
+}

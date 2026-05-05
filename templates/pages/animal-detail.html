@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{animal_name}} | {{business_name}}</title>
+<style>
+  :root { --ink:#17211c; --muted:#607068; --bg:#f7f7f1; --surface:#fff; --line:#dde1d8; --primary:#246a4b; --accent:#c86432; --blue:#245a73; --radius:8px; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif; }
+  .shell { max-width:1180px; margin:0 auto; padding:clamp(18px,5vw,58px); }
+  .back { color:var(--muted); font-weight:700; font-size:14px; }
+  .layout { display:grid; grid-template-columns:minmax(0,1.1fr) minmax(320px,.9fr); gap:34px; margin-top:18px; align-items:start; }
+  .gallery { display:grid; gap:12px; }
+  .gallery img { width:100%; border-radius:var(--radius); object-fit:cover; background:#d7ddd4; }
+  .gallery .main { aspect-ratio:4/3; }
+  .thumbs { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  .thumbs img { aspect-ratio:1; }
+  .panel { background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:22px; position:sticky; top:18px; }
+  .status { display:inline-flex; padding:5px 10px; border-radius:99px; background:#e8f1ec; color:#143d2b; font-weight:800; font-size:12px; }
+  h1 { font-size:clamp(36px,5vw,64px); line-height:.98; margin:14px 0 10px; letter-spacing:0; }
+  .price { color:var(--primary); font-size:34px; font-weight:900; margin:12px 0; }
+  .facts { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin:18px 0; }
+  .fact { border:1px solid var(--line); border-radius:var(--radius); padding:12px; min-height:74px; }
+  .fact span { color:var(--muted); font-size:12px; display:block; margin-bottom:5px; }
+  .fact strong { font-size:15px; }
+  p { color:var(--muted); line-height:1.58; }
+  .actions { display:grid; gap:10px; margin-top:18px; }
+  a.button, button { min-height:46px; border-radius:var(--radius); border:1px solid var(--primary); background:var(--primary); color:white; font-weight:800; display:flex; align-items:center; justify-content:center; cursor:pointer; font:inherit; }
+  a.button.secondary { background:white; color:var(--primary); }
+  @media(max-width:920px){ .layout{grid-template-columns:1fr;} .panel{position:static;} }
+</style>
+</head>
+<body>
+  <main class="shell">
+    <a class="back" href="{{storefront_url}}">Back to available animals</a>
+    <div class="layout">
+      <section class="gallery">
+        <img class="main" src="{{animal_image_url}}" alt="{{animal_name}} the {{animal_morph}} {{animal_species}}">
+        <div class="thumbs">
+          <img src="{{animal_image_2_url}}" alt="{{animal_name}} side view">
+          <img src="{{animal_image_3_url}}" alt="{{animal_name}} fired up">
+          <img src="{{animal_image_4_url}}" alt="{{animal_name}} detail photo">
+        </div>
+      </section>
+      <aside class="panel">
+        <span class="status">{{animal_status}}</span>
+        <h1>{{animal_name}}</h1>
+        <p>{{animal_morph}} {{animal_species}}</p>
+        <div class="price">${{animal_price}}</div>
+        <div class="facts">
+          <div class="fact"><span>Sex</span><strong>{{animal_sex}}</strong></div>
+          <div class="fact"><span>Weight</span><strong>{{animal_weight}}g</strong></div>
+          <div class="fact"><span>Temperament</span><strong>{{animal_temperament}}</strong></div>
+          <div class="fact"><span>Buyer fit</span><strong>{{recommended_buyer}}</strong></div>
+        </div>
+        <p>{{animal_description}}</p>
+        <div class="actions">
+          <a class="button" href="{{reservation_offer_url}}?animal={{animal_slug}}">Reserve {{animal_name}}</a>
+          <a class="button secondary" href="{{contact_link}}">Ask a Question</a>
+        </div>
+      </aside>
+    </div>
+  </main>
+<script>
+  const webhookBase = '{{webhook_base_url}}'.includes('{{') ? '' : '{{webhook_base_url}}';
+  const params = new URLSearchParams(window.location.search);
+  const identifiedBuyer = params.get('contactId') || params.get('email') || params.get('phone');
+  if (identifiedBuyer) {
+    fetch(`${webhookBase}/webhooks/ghl/offer-clicked`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        locationId: '{{ghl_location_id}}',
+        contactId: params.get('contactId') || '',
+        email: params.get('email') || '',
+        phone: params.get('phone') || '',
+        offerKey: 'animal_reservation',
+        species_interest: '{{animal_species}}',
+        animalInterest: '{{animal_name}} - {{animal_morph}}',
+        source: 'animal-detail'
+      })
+    }).catch(() => {});
+  }
+</script>
+</body>
+</html>

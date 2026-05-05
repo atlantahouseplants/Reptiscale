@@ -1,0 +1,42 @@
+{
+  "leadMagnet": {
+    "locationId": "fqj4rbp2VRkvMa8GWVWn",
+    "firstName": "Demo",
+    "email": "demo.lead@example.com",
+    "phone": "+14045550199",
+    "species_interest": "Crested Gecko",
+    "source": "website",
+    "offerKey": "crested_gecko_starter_guide"
+  },
+  "offerClicked": {
+    "locationId": "fqj4rbp2VRkvMa8GWVWn",
+    "email": "demo.lead@example.com",
+    "species_interest": "Crested Gecko",
+    "animalInterest": "Mango - Harlequin Dalmatian",
+    "offerKey": "animal_reservation"
+  },
+  "orderSubmitted": {
+    "locationId": "fqj4rbp2VRkvMa8GWVWn",
+    "email": "demo.lead@example.com",
+    "species_interest": "Crested Gecko",
+    "animalInterest": "Mango - Harlequin Dalmatian",
+    "productName": "Animal Reservation Deposit",
+    "amount": 75,
+    "purchaseStatus": "Deposit Paid",
+    "destinationZip": "30339"
+  },
+  "reviewSubmitted": {
+    "locationId": "fqj4rbp2VRkvMa8GWVWn",
+    "email": "demo.lead@example.com",
+    "species_interest": "Crested Gecko",
+    "rating": 5
+  },
+  "referral": {
+    "locationId": "fqj4rbp2VRkvMa8GWVWn",
+    "firstName": "Referral",
+    "email": "referral.lead@example.com",
+    "phone": "+14045550198",
+    "species_interest": "Crested Gecko",
+    "referralSource": "Demo Lead"
+  }
+}

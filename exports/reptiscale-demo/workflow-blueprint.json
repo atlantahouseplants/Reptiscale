@@ -1,0 +1,254 @@
+{
+  "name": "Reptiscale Growth Machine",
+  "locationId": "fqj4rbp2VRkvMa8GWVWn",
+  "lifecycleStages": [
+    {
+      "key": "brand_discovery",
+      "label": "Brand Discovery",
+      "goal": "A prospect finds the breeder through social, show QR, website, MorphMarket, referral, or search.",
+      "createInHighLevel": [
+        "website",
+        "social-planner",
+        "forms",
+        "tracking-links",
+        "contacts"
+      ],
+      "tags": [
+        "journey:brand-discovery",
+        "source:instagram",
+        "source:show-qr",
+        "source:website",
+        "source:morphmarket",
+        "source:referral"
+      ]
+    },
+    {
+      "key": "lead_capture",
+      "label": "Lead Capture",
+      "goal": "Capture contact details and species/budget interest with a clear reason to opt in.",
+      "createInHighLevel": [
+        "forms",
+        "surveys",
+        "funnels",
+        "workflows",
+        "custom-fields"
+      ],
+      "tags": [
+        "journey:lead-captured",
+        "offer:lead-magnet",
+        "status:new-lead"
+      ]
+    },
+    {
+      "key": "nurture",
+      "label": "Nurture",
+      "goal": "Educate the buyer, build trust, and show animals that match their interest.",
+      "createInHighLevel": [
+        "email",
+        "sms",
+        "workflows",
+        "smart-lists"
+      ],
+      "tags": [
+        "journey:nurture",
+        "content:care-guide-sent",
+        "content:availability-sent"
+      ]
+    },
+    {
+      "key": "offer",
+      "label": "Offer",
+      "goal": "Move the buyer toward a specific offer: animal reservation, care starter kit, consultation, or waitlist.",
+      "createInHighLevel": [
+        "funnels",
+        "products",
+        "order-forms",
+        "payment-links",
+        "opportunities"
+      ],
+      "tags": [
+        "journey:offer-presented",
+        "offer:animal-reservation",
+        "offer:care-kit",
+        "offer:waitlist"
+      ]
+    },
+    {
+      "key": "purchase",
+      "label": "Purchase",
+      "goal": "Collect deposit or full payment and move the buyer into fulfillment.",
+      "createInHighLevel": [
+        "payments",
+        "invoices",
+        "transactions",
+        "workflows",
+        "opportunities"
+      ],
+      "tags": [
+        "journey:purchased",
+        "status:customer",
+        "purchase:animal",
+        "purchase:care-kit"
+      ]
+    },
+    {
+      "key": "shipping",
+      "label": "Safe Shipping",
+      "goal": "Check weather, decide ship/hold, communicate clearly, and protect live arrival.",
+      "createInHighLevel": [
+        "workflows",
+        "custom-fields",
+        "sms",
+        "opportunities"
+      ],
+      "tags": [
+        "journey:shipping",
+        "shipping:pending-weather-check",
+        "shipping:approved",
+        "shipping:hold",
+        "shipping:in-transit"
+      ]
+    },
+    {
+      "key": "onboarding",
+      "label": "Care Onboarding",
+      "goal": "Help the customer receive and settle the animal correctly.",
+      "createInHighLevel": [
+        "email",
+        "sms",
+        "workflows"
+      ],
+      "tags": [
+        "journey:care-onboarding",
+        "care:day0",
+        "care:day3",
+        "care:day7"
+      ]
+    },
+    {
+      "key": "advocacy",
+      "label": "Advocacy",
+      "goal": "Turn safe arrivals into reviews, referrals, user-generated content, and public proof.",
+      "createInHighLevel": [
+        "reviews",
+        "forms",
+        "workflows",
+        "email",
+        "sms"
+      ],
+      "tags": [
+        "journey:advocacy",
+        "review:requested",
+        "review:received",
+        "referral:requested",
+        "ugc:requested"
+      ]
+    },
+    {
+      "key": "repeat_buyer",
+      "label": "Repeat Buyer",
+      "goal": "Keep buyers engaged with future availability, waitlists, seasonal drops, and breeder updates.",
+      "createInHighLevel": [
+        "smart-lists",
+        "email-campaigns",
+        "sms-campaigns",
+        "social-planner"
+      ],
+      "tags": [
+        "journey:repeat-buyer",
+        "status:repeat-buyer",
+        "waitlist:active",
+        "campaign:availability-alerts"
+      ]
+    }
+  ],
+  "workflows": [
+    {
+      "key": "new_lead_education",
+      "name": "New Lead Education Drip",
+      "trigger": "Tag added: journey:lead-captured",
+      "steps": [
+        "immediate guide delivery",
+        "day 1 care basics",
+        "day 3 available animals",
+        "day 7 buyer objections",
+        "day 14 reserve or waitlist"
+      ],
+      "recommendedAssets": {
+        "emailTemplates": "templates/emails/lifecycle/new_lead_education",
+        "smsTemplates": "templates/sms/lifecycle/new_lead_education"
+      }
+    },
+    {
+      "key": "cart_or_deposit_abandonment",
+      "name": "Reservation Abandonment",
+      "trigger": "Form started or offer clicked without purchase",
+      "steps": [
+        "1 hour reminder",
+        "24 hour trust/proof email",
+        "48 hour ask if they want help choosing"
+      ],
+      "recommendedAssets": {
+        "emailTemplates": "templates/emails/lifecycle/cart_or_deposit_abandonment",
+        "smsTemplates": "templates/sms/lifecycle/cart_or_deposit_abandonment"
+      }
+    },
+    {
+      "key": "post_purchase_care",
+      "name": "Post-Purchase Care Onboarding",
+      "trigger": "Tag added: journey:purchased",
+      "steps": [
+        "order confirmation",
+        "weather/shipping expectations",
+        "pre-arrival setup",
+        "arrival day check-in",
+        "day 3 settling-in",
+        "day 7 feeding/checkup"
+      ],
+      "recommendedAssets": {
+        "emailTemplates": "templates/emails/lifecycle/post_purchase_care",
+        "smsTemplates": "templates/sms/lifecycle/post_purchase_care"
+      }
+    },
+    {
+      "key": "review_referral",
+      "name": "Review and Referral Request",
+      "trigger": "Tag added: shipping:lag-confirmed",
+      "steps": [
+        "review request",
+        "photo/share request",
+        "referral invitation",
+        "repeat-buyer VIP list"
+      ],
+      "recommendedAssets": {
+        "emailTemplates": "templates/emails/lifecycle/review_referral",
+        "smsTemplates": "templates/sms/lifecycle/review_referral"
+      }
+    },
+    {
+      "key": "availability_engine",
+      "name": "Availability and Social Content Engine",
+      "trigger": "Daily scheduled content run",
+      "steps": [
+        "animal spotlight",
+        "care tip",
+        "behind the scenes",
+        "show announcement",
+        "proof/review",
+        "waitlist push"
+      ],
+      "recommendedAssets": {
+        "emailTemplates": "templates/emails/lifecycle/availability_engine",
+        "smsTemplates": "templates/sms/lifecycle/availability_engine"
+      }
+    }
+  ],
+  "webhooks": {
+    "leadMagnet": "/webhooks/ghl/lead-magnet",
+    "offerClicked": "/webhooks/ghl/offer-clicked",
+    "orderSubmitted": "/webhooks/ghl/order-submitted",
+    "reviewSubmitted": "/webhooks/ghl/review-submitted",
+    "referral": "/webhooks/ghl/referral",
+    "shippingEvaluate": "/webhooks/shipping/evaluate"
+  }
+}

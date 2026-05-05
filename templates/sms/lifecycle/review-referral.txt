@@ -1,0 +1,1 @@
+If you had a good experience, a quick review helps a lot: {{review_link}}. You can also share this starter guide with a friend: {{referral_link}}

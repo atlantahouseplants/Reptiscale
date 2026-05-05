@@ -1,0 +1,1 @@
+Want first look at future {{business.name}} animals before public posts? Join the VIP availability list here: {{vip_list_link}}

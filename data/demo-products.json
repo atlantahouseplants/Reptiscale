@@ -1,0 +1,96 @@
+{
+  "clientId": "sunscale-geckos",
+  "currency": "USD",
+  "animals": [
+    {
+      "sku": "SSG-CG-001",
+      "name": "Nova",
+      "species": "Crested Gecko",
+      "morph": "Lilly White",
+      "sex": "Probable Female",
+      "price": 1200,
+      "status": "Available",
+      "temperament": "Calm once settled, good candidate for experienced keepers",
+      "weightGrams": 28,
+      "shippingProfile": "heat-sensitive",
+      "description": "High-expression Lilly White crested gecko with a bright lateral pattern and strong structure.",
+      "recommendedBuyer": "Collector or future breeder"
+    },
+    {
+      "sku": "SSG-CG-002",
+      "name": "Mango",
+      "species": "Crested Gecko",
+      "morph": "Harlequin Dalmatian",
+      "sex": "Unsexed Juvenile",
+      "price": 225,
+      "status": "Available",
+      "temperament": "Curious and active",
+      "weightGrams": 12,
+      "shippingProfile": "heat-sensitive",
+      "description": "A bright, beginner-friendly juvenile with red/orange tone and clean spotting.",
+      "recommendedBuyer": "First-time crested gecko owner"
+    },
+    {
+      "sku": "SSG-CG-003",
+      "name": "Echo",
+      "species": "Crested Gecko",
+      "morph": "Tricolor Pinstripe",
+      "sex": "Male",
+      "price": 650,
+      "status": "Reserved",
+      "temperament": "Handleable and food-motivated",
+      "weightGrams": 41,
+      "shippingProfile": "heat-sensitive",
+      "description": "Adult male tricolor pinstripe with strong contrast and clean dorsal markings.",
+      "recommendedBuyer": "Display animal or breeder project"
+    },
+    {
+      "sku": "SSG-CG-004",
+      "name": "Pepper",
+      "species": "Crested Gecko",
+      "morph": "Super Dalmatian",
+      "sex": "Probable Male",
+      "price": 475,
+      "status": "Available",
+      "temperament": "Bold feeder, needs a patient owner",
+      "weightGrams": 24,
+      "shippingProfile": "heat-sensitive",
+      "description": "Spot-heavy dalmatian with a strong feeding response and lots of personality.",
+      "recommendedBuyer": "Intermediate keeper"
+    }
+  ],
+  "products": [
+    {
+      "sku": "SSG-DEP-001",
+      "name": "Animal Reservation Deposit",
+      "type": "service",
+      "price": 75,
+      "description": "Non-refundable deposit to reserve a specific animal while pickup or shipping is confirmed.",
+      "highLevelUse": "Payment link or order form primary product"
+    },
+    {
+      "sku": "SSG-KIT-001",
+      "name": "Crested Gecko Care Starter Kit",
+      "type": "physical",
+      "price": 49,
+      "description": "Recommended starter bundle with feeding ledge, food sample, humidity card, and setup checklist.",
+      "highLevelUse": "Order bump or post-purchase upsell"
+    },
+    {
+      "sku": "SSG-CONSULT-001",
+      "name": "30-Minute Setup Review",
+      "type": "service",
+      "price": 35,
+      "description": "Breeder review of enclosure photos before the animal ships or goes home.",
+      "highLevelUse": "Upsell after deposit"
+    },
+    {
+      "sku": "SSG-GUIDE-001",
+      "name": "Crested Gecko Starter Guide",
+      "type": "digital",
+      "price": 0,
+      "description": "Lead magnet guide for new and researching buyers.",
+      "highLevelUse": "Free lead magnet delivery"
+    }
+  ]
+}
