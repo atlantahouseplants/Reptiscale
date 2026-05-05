@@ -1,0 +1,8 @@
+order,stage,exitCriteria
+1,New Prospect,Prospect identified and added to CRM
+2,Discovery Booked,Call scheduled
+3,Demo Completed,Demo shown and fit confirmed
+4,Proposal Sent,Package and pricing sent
+5,Won - Onboarding,Payment received and intake started
+6,Lost,Reason documented
+7,Nurture,"Not ready now, follow-up scheduled"

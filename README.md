@@ -18,6 +18,8 @@ HatchKit is a productized service platform built on GoHighLevel that gives repti
 | **Email + SMS templates** (`templates/`) | Branded SunScale Geckos drip sequences |
 | **Data layer** (`data/`) | Species tolerances, carrier hubs, pipeline config |
 | **Scripts** (`scripts/`) | Setup, testing, and demo data utilities |
+| **Reptiscale demo packet** (`exports/reptiscale-demo/`) | HighLevel buildout, products, animals, webhook payloads, social calendar, demo script |
+| **Commercial sales packet** (`exports/reptiscale-commercial-packet/`) | Pricing, sales one-pager, onboarding timeline, demo checklist, success plan |
 
 ---
 
@@ -118,8 +120,14 @@ Then configure GHL webhooks to point at `https://abc123.ngrok.io/webhooks/ghl/..
 | `POST /webhooks/ghl/pipeline-change` | Opportunity Stage Change | Routes to shipping agent, delivery follow-up, or review request based on stage name |
 | `POST /webhooks/ghl/new-contact` | Contact Created | Auto-tags new contacts with source |
 | `POST /webhooks/ghl/form-submission` | Form Submitted | Creates/updates contact, tags show source, sends welcome SMS |
+| `POST /webhooks/ghl/lead-magnet` | Lead Magnet Submitted | Creates/updates contact, tags interest/source, starts buyer journey |
+| `POST /webhooks/ghl/offer-clicked` | Offer CTA Clicked | Marks buyer as offer-presented and updates animal/offer interest |
+| `POST /webhooks/ghl/order-submitted` | Order/Payment Submitted | Marks buyer as purchased, sends confirmation, optionally evaluates shipping |
+| `POST /webhooks/ghl/review-submitted` | Review Submitted | Moves buyer into advocacy/referral journey |
+| `POST /webhooks/ghl/referral` | Referral Submitted | Captures referred buyer and starts lead nurture |
 | `POST /webhooks/shipping/evaluate` | Manual / scheduled | Evaluates shipment viability for a specific contact |
 | `POST /webhooks/shipping/weather-check` | Daily cron | Re-checks all contacts tagged `shipping:pending-weather-check` |
+| `GET /api/machine` | Demo/reference | Returns the Reptiscale journey model and demo inventory |
 
 ### Stage Name → Action Mapping
 
@@ -217,6 +225,34 @@ GHL (webhooks) ──→ server.js ──→ Route by event type
 | `node scripts/test-shipping-agent.js` | Test Claude shipping agent end-to-end |
 | `node scripts/simulate-show-lead.js` | Create one show lead with welcome SMS |
 | `node scripts/load-demo-contacts.js` | Load 20 demo contacts for walkthroughs |
+| `npm run setup:demo` | Sync Reptiscale demo fields, tags, and contacts to HighLevel |
+| `npm run export:demo` | Generate the HighLevel demo buildout packet |
+| `npm run export:sales` | Generate the Reptiscale commercial sales packet |
+
+---
+
+## Reptiscale Sales And Delivery Assets
+
+The project now includes a complete commercial package for selling Reptiscale as a productized service:
+
+- Positioning: `docs/business/reptiscale-positioning.md`
+- Pricing: `docs/business/pricing-and-packaging.md`
+- Sales playbook: `docs/business/sales-playbook.md`
+- 90-day go-to-market plan: `docs/business/go-to-market-90-day-plan.md`
+- Revenue model: `docs/business/revenue-model.md`
+- Customer onboarding: `docs/customer-success/onboarding-playbook.md`
+- Support playbook: `docs/customer-success/support-playbook.md`
+- Customer health score: `docs/customer-success/customer-health-score.md`
+- Implementation SOP: `docs/operations/implementation-sop.md`
+- HighLevel snapshot plan: `docs/operations/highlevel-snapshot-build.md`
+- Launch QA checklist: `docs/operations/launch-qa-checklist.md`
+
+Generate the latest packets:
+
+```bash
+npm run export:demo
+npm run export:sales
+```
 
 ---
 

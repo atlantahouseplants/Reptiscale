@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reptiscale</title>
+<style>
+  :root { --ink:#15201b; --muted:#607068; --bg:#f7f7f1; --surface:#fff; --line:#dce2da; --primary:#246a4b; --primary-dark:#123d2b; --accent:#c86432; --blue:#245a73; --radius:8px; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family:Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, sans-serif; }
+  a { color:inherit; text-decoration:none; }
+  .nav { display:flex; justify-content:space-between; align-items:center; padding:16px clamp(18px,5vw,72px); background:var(--surface); border-bottom:1px solid var(--line); position:sticky; top:0; z-index:5; }
+  .brand { font-weight:900; letter-spacing:.02em; }
+  .nav-links { display:flex; gap:14px; align-items:center; color:var(--muted); font-size:14px; }
+  .button { min-height:44px; padding:0 16px; border-radius:var(--radius); border:1px solid var(--primary); background:var(--primary); color:white; display:inline-flex; align-items:center; justify-content:center; font-weight:800; }
+  .button.secondary { background:white; color:var(--primary); }
+  .hero { min-height:620px; display:grid; grid-template-columns:minmax(0,1fr) minmax(340px,.9fr); }
+  .hero-copy { padding:clamp(42px,8vw,98px) clamp(20px,6vw,76px); display:flex; flex-direction:column; justify-content:center; }
+  .eyebrow { color:var(--accent); font-size:13px; font-weight:900; text-transform:uppercase; letter-spacing:.08em; }
+  h1 { font-size:clamp(42px,6vw,78px); line-height:.95; letter-spacing:0; margin:14px 0 18px; max-width:780px; }
+  .lead { color:var(--muted); font-size:clamp(18px,2vw,22px); line-height:1.55; max-width:700px; }
+  .actions { display:flex; gap:12px; flex-wrap:wrap; margin-top:28px; }
+  .hero-img { background:#d8dfd5 url('{{hero_image_url}}') center/cover no-repeat; min-height:360px; }
+  .band { padding:54px clamp(18px,5vw,72px); }
+  .section-head { display:flex; justify-content:space-between; gap:20px; align-items:end; margin-bottom:24px; }
+  .section-head h2 { font-size:clamp(30px,4vw,48px); line-height:1; margin:0; }
+  .section-head p { color:var(--muted); max-width:620px; line-height:1.55; margin:0; }
+  .grid3 { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
+  .card { background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:22px; }
+  .card h3 { margin:0 0 10px; font-size:22px; }
+  .card p, .card li { color:var(--muted); line-height:1.5; }
+  .machine { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); }
+  .machine div { background:var(--surface); padding:20px; min-height:150px; }
+  .machine strong { display:block; margin-bottom:8px; }
+  .machine span { color:var(--muted); line-height:1.45; font-size:14px; }
+  .pricing { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; align-items:start; }
+  .price { font-size:38px; font-weight:900; color:var(--primary-dark); margin:14px 0; }
+  .featured { border:2px solid var(--primary); }
+  .cta { background:var(--primary-dark); color:white; display:grid; grid-template-columns:minmax(0,1fr) minmax(300px,420px); gap:24px; align-items:center; }
+  .cta p { color:rgba(255,255,255,.78); line-height:1.55; }
+  form { display:grid; gap:10px; }
+  input, select, textarea, button { width:100%; min-height:46px; border-radius:var(--radius); border:1px solid var(--line); padding:0 13px; font:inherit; }
+  textarea { min-height:92px; padding-top:12px; }
+  button { background:var(--accent); color:white; border-color:var(--accent); font-weight:900; cursor:pointer; }
+  @media(max-width:960px){ .hero,.cta{grid-template-columns:1fr;} .hero-img{order:-1;} .grid3,.pricing{grid-template-columns:1fr;} .machine{grid-template-columns:repeat(2,minmax(0,1fr));} }
+  @media(max-width:620px){ .nav-links a:not(.button){display:none;} .machine{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+  <header class="nav">
+    <div class="brand">Reptiscale</div>
+    <nav class="nav-links">
+      <a href="#system">System</a>
+      <a href="#pricing">Pricing</a>
+      <a class="button secondary" href="#demo">Book Demo</a>
+    </nav>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow">For reptile breeders and exotic animal sellers</div>
+        <h1>The customer journey engine for reptile breeders.</h1>
+        <p class="lead">Reptiscale gives sellers the website, CRM, follow-up, social content, checkout, safe-shipping workflow, care onboarding, reviews, referrals, and repeat-buyer campaigns they wish they had time to build.</p>
+        <div class="actions">
+          <a class="button" href="#demo">Book a Demo</a>
+          <a class="button secondary" href="{{demo_link}}">View Demo Store</a>
+        </div>
+      </div>
+      <div class="hero-img" role="img" aria-label="Reptile breeder storefront and customer journey demo"></div>
+    </section>
+    <section class="band">
+      <div class="section-head">
+        <h2>Most sellers do not have a sales problem. They have a follow-up problem.</h2>
+        <p>People ask questions, scan a QR code, message on social, or browse animals, then disappear. Reptiscale gives every buyer a path.</p>
+      </div>
+      <div class="grid3">
+        <article class="card"><h3>Capture</h3><p>Lead magnets, show QR pages, website forms, animal interest fields, and source tagging.</p></article>
+        <article class="card"><h3>Convert</h3><p>Reservation offers, deposit follow-up, care education, availability alerts, and buyer-specific next steps.</p></article>
+        <article class="card"><h3>Retain</h3><p>Shipping updates, care onboarding, reviews, referrals, VIP lists, and repeat-buyer campaigns.</p></article>
+      </div>
+    </section>
+    <section class="band" id="system">
+      <div class="section-head">
+        <h2>The full machine</h2>
+        <p>Built in HighLevel, configured for reptile sellers, and launched as a done-for-you system.</p>
+      </div>
+      <div class="machine">
+        <div><strong>Storefront</strong><span>Available animals, lead capture, animal detail pages, and reservation offers.</span></div>
+        <div><strong>CRM</strong><span>Buyer records, species interest, animal interest, purchase status, source, and next best action.</span></div>
+        <div><strong>Follow-up</strong><span>Email/SMS drips for leads, deposits, care, reviews, referrals, and repeat buyers.</span></div>
+        <div><strong>Shipping</strong><span>Weather-aware live animal shipping decisions and customer communication.</span></div>
+        <div><strong>Social</strong><span>Content calendar, animal spotlights, care tips, and approval workflow.</span></div>
+        <div><strong>Reviews</strong><span>Post-delivery check-ins, review requests, and social proof collection.</span></div>
+        <div><strong>Referrals</strong><span>Referral capture and starter guide flow for referred buyers.</span></div>
+        <div><strong>VIP List</strong><span>Future availability alerts and drop campaigns for repeat buyers.</span></div>
+      </div>
+    </section>
+    <section class="band" id="pricing">
+      <div class="section-head">
+        <h2>Packages</h2>
+        <p>Setup fee plus monthly management. Growth is the recommended package for active sellers.</p>
+      </div>
+      <div class="pricing">
+        <article class="card">
+          <h3>Starter</h3>
+          <div class="price">$199/mo</div>
+          <p>$799 setup</p>
+          <p>Lead capture, starter storefront, CRM setup, nurture, reviews, and monthly check-in.</p>
+        </article>
+        <article class="card featured">
+          <h3>Growth</h3>
+          <div class="price">$349/mo</div>
+          <p>$1,499 setup</p>
+          <p>Full buyer journey, reservation funnel, shipping workflow, care onboarding, content calendar, and monthly review.</p>
+        </article>
+        <article class="card">
+          <h3>Scale</h3>
+          <div class="price">$599/mo</div>
+          <p>$2,499 setup</p>
+          <p>Multi-species buildout, drop campaigns, VIP program, advanced segmentation, and priority support.</p>
+        </article>
+      </div>
+    </section>
+    <section class="band cta" id="demo">
+      <div>
+        <div class="eyebrow">Book the walkthrough</div>
+        <h2>See how a buyer goes from curious to customer to repeat buyer.</h2>
+        <p>The demo walks through the SunScale Geckos account: lead magnet, CRM, reservation, shipping, care onboarding, review, referral, and VIP follow-up.</p>
+      </div>
+      <form action="{{demo_form_action}}" method="post">
+        <input name="first_name" placeholder="First name" required>
+        <input name="email" type="email" placeholder="Email" required>
+        <input name="business_name" placeholder="Business name">
+        <select name="species">
+          <option>Crested geckos</option>
+          <option>Leopard geckos</option>
+          <option>Snakes</option>
+          <option>Other reptiles</option>
+          <option>Feeder insects or rodents</option>
+        </select>
+        <textarea name="message" placeholder="What are you trying to improve?"></textarea>
+        <button type="submit">Request Demo</button>
+      </form>
+    </section>
+  </main>
+</body>
+</html>

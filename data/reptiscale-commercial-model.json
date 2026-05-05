@@ -1,0 +1,118 @@
+{
+  "productName": "Reptiscale",
+  "category": "Done-for-you growth system for reptile sellers",
+  "positioning": {
+    "headline": "The customer journey engine for reptile breeders.",
+    "subheadline": "Reptiscale gives reptile sellers the website, CRM, follow-up, social content, checkout, safe-shipping workflow, care onboarding, reviews, and referrals they wish they had time to build.",
+    "primaryCustomer": "Reptile breeders and exotic animal sellers doing $20k-$150k in annual sales who already sell through shows, social media, MorphMarket, and DMs.",
+    "wedge": "Start with crested gecko and gecko breeders because the demo is specific, visual, shipping-sensitive, and easy to explain."
+  },
+  "packages": [
+    {
+      "key": "starter",
+      "name": "Starter",
+      "bestFor": "Small breeders who need lead capture, follow-up, and a simple online presence.",
+      "setupFee": 799,
+      "monthlyFee": 199,
+      "includes": [
+        "HighLevel sub-account setup",
+        "Lead magnet and QR lead capture funnel",
+        "Starter website/storefront template",
+        "Core CRM fields, tags, and smart lists",
+        "New lead nurture workflow",
+        "Review and referral workflow",
+        "Monthly check-in"
+      ],
+      "limits": {
+        "species": 1,
+        "monthlySocialPosts": 8,
+        "activeCampaigns": 3
+      }
+    },
+    {
+      "key": "growth",
+      "name": "Growth",
+      "bestFor": "Active sellers who need the full buyer journey, shipping automation, and content engine.",
+      "setupFee": 1499,
+      "monthlyFee": 349,
+      "includes": [
+        "Everything in Starter",
+        "Animal reservation offer funnel",
+        "Post-purchase care onboarding",
+        "Safe shipping decision workflow",
+        "Availability alert campaign",
+        "Social content calendar and approval flow",
+        "Monthly performance review"
+      ],
+      "limits": {
+        "species": 3,
+        "monthlySocialPosts": 20,
+        "activeCampaigns": 7
+      },
+      "recommended": true
+    },
+    {
+      "key": "scale",
+      "name": "Scale",
+      "bestFor": "Established breeders with multiple species, regular drops, and higher support needs.",
+      "setupFee": 2499,
+      "monthlyFee": 599,
+      "includes": [
+        "Everything in Growth",
+        "Multi-species campaigns",
+        "Drop launch campaign planning",
+        "Advanced segmentation",
+        "Referral/VIP program buildout",
+        "Two monthly performance reviews",
+        "Priority support"
+      ],
+      "limits": {
+        "species": 8,
+        "monthlySocialPosts": 40,
+        "activeCampaigns": 12
+      }
+    }
+  ],
+  "addOns": [
+    {
+      "name": "Additional species setup",
+      "price": 250,
+      "billing": "one-time"
+    },
+    {
+      "name": "Launch content sprint",
+      "price": 500,
+      "billing": "one-time"
+    },
+    {
+      "name": "Done-for-you monthly content management",
+      "price": 300,
+      "billing": "monthly"
+    },
+    {
+      "name": "Extra HighLevel workflow build",
+      "price": 150,
+      "billing": "one-time"
+    }
+  ],
+  "salesPipeline": [
+    "New Prospect",
+    "Discovery Booked",
+    "Demo Completed",
+    "Proposal Sent",
+    "Won - Onboarding",
+    "Lost",
+    "Nurture"
+  ],
+  "successMetrics": [
+    "New leads captured",
+    "Speed to first response",
+    "Offer clicks",
+    "Deposits or purchases",
+    "Shipping holds avoided or communicated",
+    "Reviews collected",
+    "Referrals generated",
+    "Repeat-buyer revenue"
+  ],
+  "deliveryPromise": "A breeder can go from scattered DMs and manual follow-up to a working branded customer journey in 14 days after assets and account access are provided."
+}
