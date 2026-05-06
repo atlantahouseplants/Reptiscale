@@ -4,8 +4,6 @@ const fs = require('fs');
 const path = require('path');
 
 const { parsePipelineChangeEvent, parseNewContactEvent, parseFormSubmissionEvent } = require('./ghl/webhooks');
-const { createContact, updateContact, addTag, searchContacts } = require('./ghl/contacts');
-const { sendSMS, sendEmail } = require('./ghl/conversations');
 const { evaluateShipment, createShipmentOperatorReview, normalizeOrderForShipment } = require('./agents/shipping-agent/index');
 const { getBreederByLocationId, getAllBreeders, getBreeder } = require('./ghl/multi-tenant');
 const reptiscaleMachine = require('./data/reptiscale-machine.json');
@@ -15,6 +13,43 @@ const { buildDemoShippingFixture } = require('./lib/demo-shipping-fixture');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const LOG_FILE = path.join(__dirname, 'logs', 'webhooks.log');
+
+let ghlContacts;
+let ghlConversations;
+
+function getGHLContactsClient() {
+  if (!ghlContacts) ghlContacts = require('./ghl/contacts');
+  return ghlContacts;
+}
+
+function getGHLConversationsClient() {
+  if (!ghlConversations) ghlConversations = require('./ghl/conversations');
+  return ghlConversations;
+}
+
+function createContact(...args) {
+  return getGHLContactsClient().createContact(...args);
+}
+
+function updateContact(...args) {
+  return getGHLContactsClient().updateContact(...args);
+}
+
+function addTag(...args) {
+  return getGHLContactsClient().addTag(...args);
+}
+
+function searchContacts(...args) {
+  return getGHLContactsClient().searchContacts(...args);
+}
+
+function sendSMS(...args) {
+  return getGHLConversationsClient().sendSMS(...args);
+}
+
+function sendEmail(...args) {
+  return getGHLConversationsClient().sendEmail(...args);
+}
 
 // ─── Middleware ───────────────────────────────────────────────────────────────
 

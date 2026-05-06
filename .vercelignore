@@ -2,9 +2,7 @@
 .claude/
 docs/
 scripts/
-templates/
 make-scenarios/
 memory/
-*.md
 *.log
 .git/
