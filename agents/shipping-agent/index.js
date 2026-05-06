@@ -4,6 +4,7 @@ const path = require('path');
 const Anthropic = require('@anthropic-ai/sdk');
 const { checkShippingViability, getRouteWeather } = require('../../integrations/weather-api');
 const speciesDb = require('../../data/species-db.json');
+const { buildShipmentOperatorReview } = require('./fulfillment-gate');
 
 // Lazy-load GHL client so agent works without GHL config during testing
 let ghlContacts;
@@ -235,4 +236,46 @@ async function evaluateShipment({ contactId, species: speciesId, originZip, dest
   };
 }
 
-module.exports = { evaluateShipment };
+/**
+ * Evaluate weather/species safety and prepare a review-only operator gate for
+ * label creation. This never buys a label; it separates policy approval from
+ * FedEx payload readiness so a human can make the final fulfillment decision.
+ */
+async function createShipmentOperatorReview({
+  contactId,
+  species,
+  originZip,
+  destinationZip,
+  preferredShipDate,
+  shipper,
+  recipient,
+  packageProfile,
+  profileKey,
+  serviceType,
+  updateGHL = false,
+} = {}) {
+  const shipmentDecision = await evaluateShipment({
+    contactId,
+    species,
+    originZip,
+    destinationZip,
+    preferredShipDate,
+    updateGHL,
+  });
+
+  return {
+    shipmentDecision,
+    ...buildShipmentOperatorReview({
+      shipmentDecision,
+      shipDate: shipmentDecision.recommendedShipDate || preferredShipDate,
+      speciesId: species,
+      shipper,
+      recipient,
+      packageProfile,
+      profileKey,
+      serviceType,
+    }),
+  };
+}
+
+module.exports = { evaluateShipment, createShipmentOperatorReview };

@@ -249,6 +249,7 @@
     "orderSubmitted": "/webhooks/ghl/order-submitted",
     "reviewSubmitted": "/webhooks/ghl/review-submitted",
     "referral": "/webhooks/ghl/referral",
-    "shippingEvaluate": "/webhooks/shipping/evaluate"
+    "shippingEvaluate": "/webhooks/shipping/evaluate",
+    "shippingOperatorGate": "/webhooks/shipping/operator-gate"
   }
 }

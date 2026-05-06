@@ -70,6 +70,7 @@ function workflowBlueprint() {
       reviewSubmitted: '/webhooks/ghl/review-submitted',
       referral: '/webhooks/ghl/referral',
       shippingEvaluate: '/webhooks/shipping/evaluate',
+      shippingOperatorGate: '/webhooks/shipping/operator-gate',
     },
   };
 }
@@ -128,6 +129,7 @@ The HighLevel token may not be able to create opportunities in this account. If 
 - Review form -> POST /webhooks/ghl/review-submitted
 - Referral form -> POST /webhooks/ghl/referral
 - Shipping check action -> POST /webhooks/shipping/evaluate
+- Pre-label operator review -> POST /webhooks/shipping/operator-gate
 `;
 }
 
@@ -221,6 +223,44 @@ function webhookPayloads() {
       phone: '+14045550198',
       species_interest: 'Crested Gecko',
       referralSource: 'Demo Lead',
+    },
+    operatorGate: {
+      contactId: 'optional-ghl-contact-id',
+      species: 'crested_gecko',
+      originZip: client.breederZip,
+      destinationZip: '30339',
+      preferredShipDate: '2026-05-11',
+      profileKey: 'crestedGecko',
+      shipper: {
+        contact: {
+          personName: client.ownerName,
+          phoneNumber: client.ownerPhone,
+          companyName: client.businessName,
+          email: client.ownerEmail,
+        },
+        address: {
+          streetLines: ['123 Breeder Lane'],
+          city: 'Raleigh',
+          stateOrProvinceCode: 'NC',
+          postalCode: client.breederZip,
+          countryCode: 'US',
+        },
+      },
+      recipient: {
+        contact: {
+          personName: 'Demo Buyer',
+          phoneNumber: '+14045550199',
+          email: 'demo.lead@example.com',
+        },
+        address: {
+          streetLines: ['100 Buyer Street'],
+          city: 'Atlanta',
+          stateOrProvinceCode: 'GA',
+          postalCode: '30339',
+          countryCode: 'US',
+          residential: true,
+        },
+      },
     },
   };
 }

@@ -43,3 +43,6 @@ HatchKit.ai/.vercel/
 
 # Alternate Git metadata used by sandboxed local setup
 .gitroot/
+
+# Temporary external repo inspections
+_inspect_gecko_shipper_*/

@@ -1,0 +1,45 @@
+{
+  "defaultLiveAnimal": {
+    "packagingType": "YOUR_PACKAGING",
+    "weight": {
+      "units": "LB",
+      "value": 1
+    },
+    "dimensions": {
+      "units": "IN",
+      "length": 12,
+      "width": 9,
+      "height": 6
+    },
+    "labelSpecification": {
+      "imageType": "PDF",
+      "labelStockType": "PAPER_85X11_TOP_HALF_LABEL"
+    },
+    "signatureOptionType": "SERVICE_DEFAULT",
+    "pickupType": "DROPOFF_AT_FEDEX_LOCATION",
+    "serviceType": "PRIORITY_OVERNIGHT",
+    "reviewOnly": true
+  },
+  "crestedGecko": {
+    "packagingType": "YOUR_PACKAGING",
+    "weight": {
+      "units": "LB",
+      "value": 1
+    },
+    "dimensions": {
+      "units": "IN",
+      "length": 12,
+      "width": 9,
+      "height": 6
+    },
+    "labelSpecification": {
+      "imageType": "PDF",
+      "labelStockType": "PAPER_85X11_TOP_HALF_LABEL"
+    },
+    "signatureOptionType": "SERVICE_DEFAULT",
+    "pickupType": "DROPOFF_AT_FEDEX_LOCATION",
+    "serviceType": "PRIORITY_OVERNIGHT",
+    "reviewOnly": true,
+    "notes": "Baseline box profile for small gecko shipments. Operator must verify final box, deli cup, insulation, pack choice, and carrier rules before label purchase."
+  }
+}

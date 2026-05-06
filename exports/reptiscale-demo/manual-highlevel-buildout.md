@@ -55,3 +55,4 @@ The HighLevel token may not be able to create opportunities in this account. If 
 - Review form -> POST /webhooks/ghl/review-submitted
 - Referral form -> POST /webhooks/ghl/referral
 - Shipping check action -> POST /webhooks/shipping/evaluate
+- Pre-label operator review -> POST /webhooks/shipping/operator-gate

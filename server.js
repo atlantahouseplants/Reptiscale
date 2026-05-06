@@ -6,7 +6,7 @@ const path = require('path');
 const { parsePipelineChangeEvent, parseNewContactEvent, parseFormSubmissionEvent } = require('./ghl/webhooks');
 const { createContact, updateContact, addTag, searchContacts } = require('./ghl/contacts');
 const { sendSMS, sendEmail } = require('./ghl/conversations');
-const { evaluateShipment } = require('./agents/shipping-agent/index');
+const { evaluateShipment, createShipmentOperatorReview } = require('./agents/shipping-agent/index');
 const { getBreederByLocationId, getAllBreeders, getBreeder } = require('./ghl/multi-tenant');
 const reptiscaleMachine = require('./data/reptiscale-machine.json');
 const demoProducts = require('./data/demo-products.json');
@@ -485,6 +485,7 @@ app.get('/', (req, res) => {
       'POST /webhooks/ghl/review-submitted',
       'POST /webhooks/ghl/referral',
       'POST /webhooks/shipping/evaluate',
+      'POST /webhooks/shipping/operator-gate',
       'POST /webhooks/shipping/weather-check',
       'POST /webhooks/lead-score/evaluate',
       'GET  /api/machine',
@@ -504,6 +505,7 @@ app.get('/api/machine', (req, res) => {
       '/webhooks/ghl/order-submitted',
       '/webhooks/ghl/review-submitted',
       '/webhooks/ghl/referral',
+      '/webhooks/shipping/operator-gate',
     ],
   });
 });
@@ -954,6 +956,49 @@ app.post('/webhooks/shipping/evaluate', async (req, res) => {
 
 // ── Shipping: Daily Weather Re-Check for Pending Shipments ────────────────
 
+app.post('/webhooks/shipping/operator-gate', async (req, res) => {
+  const {
+    contactId,
+    species,
+    originZip,
+    destinationZip,
+    preferredShipDate,
+    shipper,
+    recipient,
+    packageProfile,
+    profileKey,
+    serviceType,
+    updateGHL = false,
+  } = req.body;
+
+  if (!species || !originZip || !destinationZip) {
+    return fail(res, 400, 'Required fields: species, originZip, destinationZip');
+  }
+
+  log('INFO', 'Shipping operator gate requested', { contactId, species, originZip, destinationZip });
+
+  try {
+    const review = await createShipmentOperatorReview({
+      contactId,
+      species,
+      originZip,
+      destinationZip,
+      preferredShipDate,
+      shipper,
+      recipient,
+      packageProfile,
+      profileKey,
+      serviceType,
+      updateGHL: Boolean(updateGHL && contactId),
+    });
+
+    log('SUCCESS', `Operator gate disposition: ${review.operatorSafetyGate.operatorDisposition}`);
+    return ok(res, { review });
+  } catch (err) {
+    return fail(res, 500, 'Shipping operator gate error', err);
+  }
+});
+
 app.post('/webhooks/shipping/weather-check', async (req, res) => {
   log('INFO', 'Daily weather re-check triggered');
 
@@ -1209,6 +1254,7 @@ if (require.main === module) {
     console.log('│  POST /webhooks/ghl/review-submitted               │');
     console.log('│  POST /webhooks/ghl/referral                       │');
     console.log('│  POST /webhooks/shipping/evaluate                  │');
+    console.log('│  POST /webhooks/shipping/operator-gate             │');
     console.log('│  POST /webhooks/shipping/weather-check             │');
     console.log('│  POST /webhooks/lead-score/evaluate                │');
     console.log('│  GET  /api/machine                                 │');
