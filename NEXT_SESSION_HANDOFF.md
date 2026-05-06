@@ -63,8 +63,10 @@ Added May 6:
 - `npm run verify:demo`
 - `npm start`
 - `exports/reptiscale-demo/deployment-runbook.md`
+- `exports/reptiscale-demo/vercel-env-checklist.md`
 - `exports/reptiscale-demo/highlevel-workflow-checklist.md`
 - `exports/reptiscale-demo/demo-test-plan.md`
+- `exports/reptiscale-demo/vercel-deploy.ps1`
 - `exports/reptiscale-demo/webhook-smoke-test.ps1`
 - `templates/pages/reptiscale-demo-console.html`
 - `GET /demo`
@@ -239,6 +241,13 @@ If the push says everything is up to date, continue.
 2. Decide deployment path for the webhook server:
    - local tunnel for demo testing, or
    - real hosted deployment.
+
+If using Vercel, link with an explicit project name to avoid project-name inference errors:
+
+```powershell
+vercel link --yes --project reptiscale-demo
+vercel deploy --project reptiscale-demo
+```
 
 3. In HighLevel, manually create the three pipelines and demo opportunities because the token cannot do this.
 

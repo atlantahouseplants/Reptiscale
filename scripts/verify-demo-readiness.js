@@ -25,8 +25,10 @@ const requiredFiles = [
   'exports/reptiscale-demo/workflow-blueprint.json',
   'exports/reptiscale-demo/webhook-payloads.json',
   'exports/reptiscale-demo/deployment-runbook.md',
+  'exports/reptiscale-demo/vercel-env-checklist.md',
   'exports/reptiscale-demo/highlevel-workflow-checklist.md',
   'exports/reptiscale-demo/demo-test-plan.md',
+  'exports/reptiscale-demo/vercel-deploy.ps1',
   'exports/reptiscale-demo/webhook-smoke-test.ps1',
 ];
 
@@ -120,6 +122,9 @@ for (const endpoint of requiredServerEndpoints) {
 }
 
 check(includes('exports/reptiscale-demo/deployment-runbook.md', 'review-only'), 'Deployment runbook missing review-only safety note');
+check(includes('exports/reptiscale-demo/deployment-runbook.md', '--project reptiscale-demo'), 'Deployment runbook missing explicit Vercel project command');
+check(includes('exports/reptiscale-demo/vercel-env-checklist.md', 'GHL_PRIVATE_TOKEN'), 'Vercel env checklist missing GHL_PRIVATE_TOKEN');
+check(includes('exports/reptiscale-demo/vercel-deploy.ps1', 'vercel link --yes --project'), 'Vercel deploy helper missing explicit project link');
 check(includes('exports/reptiscale-demo/highlevel-workflow-checklist.md', 'Manual Blocker'), 'Workflow checklist missing manual blocker section');
 check(includes('exports/reptiscale-demo/demo-test-plan.md', 'Pass Criteria'), 'Demo test plan missing pass criteria');
 check(includes('exports/reptiscale-demo/webhook-smoke-test.ps1', 'Invoke-DemoWebhook'), 'Webhook smoke test missing Invoke-DemoWebhook helper');

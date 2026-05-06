@@ -151,8 +151,10 @@ The HighLevel token may not be able to create opportunities in this account. If 
 
 7. Useful companion files
 - deployment-runbook.md
+- vercel-env-checklist.md
 - highlevel-workflow-checklist.md
 - demo-test-plan.md
+- vercel-deploy.ps1
 - webhook-smoke-test.ps1
 
 8. Local demo console
@@ -212,6 +214,19 @@ https://abc123.ngrok-free.app
 
 Use this for repeatable demos where the URL should stay stable.
 
+The first Vercel link/create step should use an explicit lowercase project name. This avoids the project-name validation error that can happen when Vercel infers a name from the local shell/session.
+
+\`\`\`powershell
+vercel link --yes --project reptiscale-demo
+vercel deploy --project reptiscale-demo
+\`\`\`
+
+For a production URL:
+
+\`\`\`powershell
+vercel deploy --prod --project reptiscale-demo
+\`\`\`
+
 Required environment variables:
 
 - \`GHL_PRIVATE_TOKEN\`
@@ -223,6 +238,8 @@ Required environment variables:
 - \`CLAUDE_MODEL\`
 
 The repo already includes \`vercel.json\` for a Node server deployment.
+
+Use \`vercel-env-checklist.md\` before wiring live HighLevel workflows.
 
 ## Preflight
 
@@ -260,6 +277,80 @@ The smoke test posts demo buyer events. If the server is connected to HighLevel,
 ## Safety Note
 
 The shipping review endpoints are review-only. They should never buy a carrier label automatically. The operator must approve the final label after checking animal, weather, package, service, and address details.
+`;
+}
+
+function vercelDeployPowerShell() {
+  return `param(
+  [string]$ProjectName = "reptiscale-demo",
+  [switch]$Production
+)
+
+$ErrorActionPreference = "Stop"
+
+Write-Host "Linking Vercel project: $ProjectName"
+vercel link --yes --project $ProjectName
+
+if ($Production) {
+  Write-Host "Deploying production build for: $ProjectName"
+  vercel deploy --prod --project $ProjectName
+} else {
+  Write-Host "Deploying preview build for: $ProjectName"
+  vercel deploy --project $ProjectName
+}
+`;
+}
+
+function vercelEnvChecklistMarkdown() {
+  return `# Vercel Environment Checklist
+
+Project name: \`reptiscale-demo\`
+
+Set these in Vercel before wiring live HighLevel workflows.
+
+## Required For HighLevel Webhooks
+
+- \`GHL_PRIVATE_TOKEN\`
+- \`GHL_LOCATION_ID\`
+- \`GHL_API_BASE\`
+- \`GHL_API_VERSION\`
+
+## Required For Live Shipping Weather
+
+- \`OPENWEATHERMAP_API_KEY\`
+
+## Optional For AI Decisions
+
+- \`ANTHROPIC_API_KEY\`
+- \`CLAUDE_MODEL\`
+
+If \`ANTHROPIC_API_KEY\` is missing, the shipping agent falls back to rule-based decisions.
+
+## Commands
+
+Use Vercel's interactive env command so secrets are not printed in shell history:
+
+\`\`\`powershell
+vercel env add GHL_PRIVATE_TOKEN production --project reptiscale-demo
+vercel env add GHL_LOCATION_ID production --project reptiscale-demo
+vercel env add GHL_API_BASE production --project reptiscale-demo
+vercel env add GHL_API_VERSION production --project reptiscale-demo
+vercel env add OPENWEATHERMAP_API_KEY production --project reptiscale-demo
+vercel env add ANTHROPIC_API_KEY production --project reptiscale-demo
+vercel env add CLAUDE_MODEL production --project reptiscale-demo
+\`\`\`
+
+After adding or changing environment variables, redeploy:
+
+\`\`\`powershell
+vercel deploy --prod --project reptiscale-demo
+\`\`\`
+
+## Safe Partial Deploy
+
+\`/demo\`, \`/health\`, \`/api/machine\`, and \`/api/demo/readiness\` can load before secrets are configured.
+
+Do not connect live HighLevel workflows until the required HighLevel and weather variables are set.
 `;
 }
 
@@ -691,8 +782,10 @@ function main() {
   write('demo-script.md', demoScriptMarkdown());
   write('webhook-payloads.json', JSON.stringify(webhookPayloads(), null, 2));
   write('deployment-runbook.md', deploymentRunbookMarkdown());
+  write('vercel-env-checklist.md', vercelEnvChecklistMarkdown());
   write('highlevel-workflow-checklist.md', highLevelWorkflowChecklistMarkdown());
   write('demo-test-plan.md', demoTestPlanMarkdown());
+  write('vercel-deploy.ps1', vercelDeployPowerShell());
   write('webhook-smoke-test.ps1', webhookSmokeTestPowerShell());
 
   console.log(`Exported Reptiscale demo buildout to ${OUT_DIR}`);

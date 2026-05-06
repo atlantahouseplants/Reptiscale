@@ -38,6 +38,19 @@ https://abc123.ngrok-free.app
 
 Use this for repeatable demos where the URL should stay stable.
 
+The first Vercel link/create step should use an explicit lowercase project name. This avoids the project-name validation error that can happen when Vercel infers a name from the local shell/session.
+
+```powershell
+vercel link --yes --project reptiscale-demo
+vercel deploy --project reptiscale-demo
+```
+
+For a production URL:
+
+```powershell
+vercel deploy --prod --project reptiscale-demo
+```
+
 Required environment variables:
 
 - `GHL_PRIVATE_TOKEN`
@@ -49,6 +62,8 @@ Required environment variables:
 - `CLAUDE_MODEL`
 
 The repo already includes `vercel.json` for a Node server deployment.
+
+Use `vercel-env-checklist.md` before wiring live HighLevel workflows.
 
 ## Preflight
 

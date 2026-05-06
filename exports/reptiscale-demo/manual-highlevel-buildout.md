@@ -51,8 +51,10 @@ The HighLevel token may not be able to create opportunities in this account. If 
 
 7. Useful companion files
 - deployment-runbook.md
+- vercel-env-checklist.md
 - highlevel-workflow-checklist.md
 - demo-test-plan.md
+- vercel-deploy.ps1
 - webhook-smoke-test.ps1
 
 8. Local demo console

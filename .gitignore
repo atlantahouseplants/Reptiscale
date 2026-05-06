@@ -8,6 +8,7 @@
 # Node.js dependencies
 node_modules/
 HatchKit.ai/node_modules/
+.npm-cache/
 
 # OS files
 .DS_Store
