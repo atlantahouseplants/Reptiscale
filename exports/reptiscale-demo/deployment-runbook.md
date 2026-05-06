@@ -69,6 +69,12 @@ Invoke-RestMethod -Method Get -Uri "BASE_URL/health"
 Invoke-RestMethod -Method Get -Uri "BASE_URL/api/machine"
 ```
 
+Open:
+
+```text
+BASE_URL/demo
+```
+
 Then run:
 
 ```powershell

@@ -98,6 +98,12 @@ The server starts on port `3000` by default. Set `PORT` in `.env` to change it.
 
 Webhook activity is logged to `logs/webhooks.log`.
 
+Open the local demo console at:
+
+```bash
+http://localhost:3000/demo
+```
+
 ---
 
 ## Connecting GHL Webhooks
@@ -126,7 +132,10 @@ Then configure GHL webhooks to point at `https://abc123.ngrok.io/webhooks/ghl/..
 | `POST /webhooks/ghl/review-submitted` | Review Submitted | Moves buyer into advocacy/referral journey |
 | `POST /webhooks/ghl/referral` | Referral Submitted | Captures referred buyer and starts lead nurture |
 | `POST /webhooks/shipping/evaluate` | Manual / scheduled | Evaluates shipment viability for a specific contact |
+| `POST /webhooks/shipping/operator-gate` | Manual fulfillment review | Builds review-only label readiness decision |
+| `POST /webhooks/shipping/order-review` | Order/payment submitted | Normalizes an order into the operator shipping review |
 | `POST /webhooks/shipping/weather-check` | Daily cron | Re-checks all contacts tagged `shipping:pending-weather-check` |
+| `GET /demo` | Demo console | Shows the Reptiscale journey and safe shipping review fixture |
 | `GET /api/machine` | Demo/reference | Returns the Reptiscale journey model and demo inventory |
 
 ### Stage Name → Action Mapping

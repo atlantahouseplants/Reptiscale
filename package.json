@@ -10,7 +10,7 @@
     "export:sales": "node scripts/export-commercial-packet.js",
     "simulate:shipping-review": "node scripts/simulate-order-shipping-review.js",
     "verify:demo": "npm run export:demo && node scripts/verify-demo-readiness.js",
-    "test": "node --check server.js && node --check agents/shipping-agent/index.js && node --check agents/shipping-agent/fulfillment-gate.js && node --check agents/shipping-agent/order-normalizer.js && node --check scripts/simulate-order-shipping-review.js && node --check scripts/verify-demo-readiness.js && node --check agents/lead-scoring/index.js && node --check ghl/multi-tenant.js && node scripts/simulate-order-shipping-review.js --quiet"
+    "test": "node --check server.js && node --check agents/shipping-agent/index.js && node --check agents/shipping-agent/fulfillment-gate.js && node --check agents/shipping-agent/order-normalizer.js && node --check lib/demo-shipping-fixture.js && node --check scripts/simulate-order-shipping-review.js && node --check scripts/verify-demo-readiness.js && node --check agents/lead-scoring/index.js && node --check ghl/multi-tenant.js && node scripts/simulate-order-shipping-review.js --quiet"
   },
   "keywords": [],
   "author": "",

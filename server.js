@@ -10,6 +10,7 @@ const { evaluateShipment, createShipmentOperatorReview, normalizeOrderForShipmen
 const { getBreederByLocationId, getAllBreeders, getBreeder } = require('./ghl/multi-tenant');
 const reptiscaleMachine = require('./data/reptiscale-machine.json');
 const demoProducts = require('./data/demo-products.json');
+const { buildDemoShippingFixture } = require('./lib/demo-shipping-fixture');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -19,6 +20,7 @@ const LOG_FILE = path.join(__dirname, 'logs', 'webhooks.log');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/exports', express.static(path.join(__dirname, 'exports')));
 
 // Request logger
 app.use((req, res, next) => {
@@ -502,10 +504,17 @@ app.get('/', (req, res) => {
       'POST /webhooks/shipping/order-review',
       'POST /webhooks/shipping/weather-check',
       'POST /webhooks/lead-score/evaluate',
+      'GET  /demo',
+      'GET  /api/demo/readiness',
+      'POST /api/demo/shipping-review-fixture',
       'GET  /api/machine',
       'GET  /health',
     ],
   });
+});
+
+app.get('/demo', (_req, res) => {
+  res.sendFile(path.join(__dirname, 'templates', 'pages', 'reptiscale-demo-console.html'));
 });
 
 app.get('/api/machine', (req, res) => {
@@ -523,6 +532,50 @@ app.get('/api/machine', (req, res) => {
       '/webhooks/shipping/order-review',
     ],
   });
+});
+
+app.get('/api/demo/readiness', (_req, res) => {
+  const fixture = buildDemoShippingFixture();
+  res.json({
+    success: true,
+    client: fixture.client,
+    machine: {
+      name: reptiscaleMachine.name,
+      version: reptiscaleMachine.version,
+      positioning: reptiscaleMachine.positioning,
+      lifecycleStages: reptiscaleMachine.lifecycleStages,
+    },
+    endpoints: [
+      '/webhooks/ghl/lead-magnet',
+      '/webhooks/ghl/offer-clicked',
+      '/webhooks/ghl/order-submitted',
+      '/webhooks/ghl/review-submitted',
+      '/webhooks/ghl/referral',
+      '/webhooks/shipping/order-review',
+      '/webhooks/shipping/operator-gate',
+      '/webhooks/shipping/weather-check',
+      '/demo',
+      '/api/machine',
+      '/api/demo/readiness',
+      '/api/demo/shipping-review-fixture',
+    ],
+    demoFixture: {
+      order: fixture.normalizedShipment.orderSummary,
+      operatorDisposition: fixture.review.operatorSafetyGate.operatorDisposition,
+      readyForLiveLabelCreation: fixture.review.readiness.readyForLiveLabelCreation,
+      reviewOnly: fixture.review.operatorSafetyGate.reviewOnly,
+      missing: fixture.normalizedShipment.missing,
+    },
+  });
+});
+
+app.post('/api/demo/shipping-review-fixture', (req, res) => {
+  try {
+    const fixture = buildDemoShippingFixture(req.body && Object.keys(req.body).length > 0 ? req.body : undefined);
+    return ok(res, { fixture });
+  } catch (err) {
+    return fail(res, 500, 'Demo shipping fixture error', err);
+  }
 });
 
 app.get('/health', (req, res) => {
@@ -1377,6 +1430,9 @@ if (require.main === module) {
     console.log('│  POST /webhooks/shipping/order-review              │');
     console.log('│  POST /webhooks/shipping/weather-check             │');
     console.log('│  POST /webhooks/lead-score/evaluate                │');
+    console.log('│  GET  /demo                                        │');
+    console.log('│  GET  /api/demo/readiness                          │');
+    console.log('│  POST /api/demo/shipping-review-fixture            │');
     console.log('│  GET  /api/machine                                 │');
     console.log('│  GET  /health                                      │');
     console.log('└─────────────────────────────────────────────────────┘');

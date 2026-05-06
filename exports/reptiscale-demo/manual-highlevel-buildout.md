@@ -55,6 +55,9 @@ The HighLevel token may not be able to create opportunities in this account. If 
 - demo-test-plan.md
 - webhook-smoke-test.ps1
 
+8. Local demo console
+- Open {BASE_URL}/demo after the server is running.
+
 ## Webhook Mapping
 
 - Lead magnet forms -> POST /webhooks/ghl/lead-magnet

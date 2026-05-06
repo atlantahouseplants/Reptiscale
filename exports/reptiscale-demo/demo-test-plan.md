@@ -16,7 +16,8 @@ npm run verify:demo
 1. Start or deploy the server.
 2. Confirm `GET /health` returns `status: ok`.
 3. Confirm `GET /api/machine` returns the Reptiscale machine.
-4. Run `webhook-smoke-test.ps1` against the base URL.
+4. Open `/demo`.
+5. Run `webhook-smoke-test.ps1` against the base URL.
 
 The smoke test posts demo buyer events. Use demo contact details only.
 

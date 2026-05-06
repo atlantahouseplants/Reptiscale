@@ -66,8 +66,14 @@ Added May 6:
 - `exports/reptiscale-demo/highlevel-workflow-checklist.md`
 - `exports/reptiscale-demo/demo-test-plan.md`
 - `exports/reptiscale-demo/webhook-smoke-test.ps1`
+- `templates/pages/reptiscale-demo-console.html`
+- `GET /demo`
+- `GET /api/demo/readiness`
+- `POST /api/demo/shipping-review-fixture`
 
 `npm run verify:demo` regenerates the demo export and checks that the main demo files, webhook payloads, endpoint references, shipping origin, and smoke-test assets are present.
+
+The `/demo` page shows the Reptiscale journey, endpoint surface, and a safe review-only shipping fixture. It does not call live weather, HighLevel, FedEx, UPS, or any carrier API for the fixture.
 
 ### Customer Journey Demo
 

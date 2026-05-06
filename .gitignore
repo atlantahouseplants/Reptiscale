@@ -23,6 +23,7 @@ build/
 coverage/
 .next/
 out/
+output/
 HatchKit.ai/.next/
 HatchKit.ai/out/
 HatchKit.ai/build/

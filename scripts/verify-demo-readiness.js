@@ -19,6 +19,8 @@ const requiredFiles = [
   'data/breeders/sunscale-geckos/client.json',
   'agents/shipping-agent/fulfillment-gate.js',
   'agents/shipping-agent/order-normalizer.js',
+  'lib/demo-shipping-fixture.js',
+  'templates/pages/reptiscale-demo-console.html',
   'exports/reptiscale-demo/manual-highlevel-buildout.md',
   'exports/reptiscale-demo/workflow-blueprint.json',
   'exports/reptiscale-demo/webhook-payloads.json',
@@ -28,7 +30,7 @@ const requiredFiles = [
   'exports/reptiscale-demo/webhook-smoke-test.ps1',
 ];
 
-const requiredEndpoints = [
+const requiredWebhookEndpoints = [
   '/webhooks/ghl/lead-magnet',
   '/webhooks/ghl/offer-clicked',
   '/webhooks/ghl/order-submitted',
@@ -38,6 +40,13 @@ const requiredEndpoints = [
   '/webhooks/shipping/operator-gate',
   '/webhooks/shipping/order-review',
   '/webhooks/shipping/weather-check',
+];
+
+const requiredServerEndpoints = [
+  ...requiredWebhookEndpoints,
+  '/demo',
+  '/api/demo/readiness',
+  '/api/demo/shipping-review-fixture',
 ];
 
 const requiredPayloads = [
@@ -90,7 +99,7 @@ check(Boolean(client.shippingOrigin?.stateOrProvinceCode), 'shippingOrigin missi
 check(Boolean(client.shippingOrigin?.postalCode), 'shippingOrigin missing postalCode');
 
 const blueprint = readJson('exports/reptiscale-demo/workflow-blueprint.json');
-for (const endpoint of requiredEndpoints) {
+for (const endpoint of requiredWebhookEndpoints) {
   check(
     JSON.stringify(blueprint.webhooks || {}).includes(endpoint),
     `Workflow blueprint missing endpoint: ${endpoint}`
@@ -106,7 +115,7 @@ check(Boolean(payloads.orderSubmitted?.shippingAddress), 'orderSubmitted payload
 check(Boolean(payloads.orderShippingReview?.shippingAddress), 'orderShippingReview payload missing shippingAddress');
 check(Boolean(payloads.operatorGate?.shipper?.address), 'operatorGate payload missing shipper address');
 
-for (const endpoint of requiredEndpoints) {
+for (const endpoint of requiredServerEndpoints) {
   check(includes('server.js', endpoint), `server.js missing endpoint string: ${endpoint}`);
 }
 
@@ -114,6 +123,7 @@ check(includes('exports/reptiscale-demo/deployment-runbook.md', 'review-only'), 
 check(includes('exports/reptiscale-demo/highlevel-workflow-checklist.md', 'Manual Blocker'), 'Workflow checklist missing manual blocker section');
 check(includes('exports/reptiscale-demo/demo-test-plan.md', 'Pass Criteria'), 'Demo test plan missing pass criteria');
 check(includes('exports/reptiscale-demo/webhook-smoke-test.ps1', 'Invoke-DemoWebhook'), 'Webhook smoke test missing Invoke-DemoWebhook helper');
+check(includes('templates/pages/reptiscale-demo-console.html', 'Reptiscale Demo Console'), 'Demo console missing title');
 
 if (!fs.existsSync(EXPORT_DIR)) {
   errors.push(`Missing export directory: ${EXPORT_DIR}`);

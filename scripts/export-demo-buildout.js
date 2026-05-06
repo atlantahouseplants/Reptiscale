@@ -155,6 +155,9 @@ The HighLevel token may not be able to create opportunities in this account. If 
 - demo-test-plan.md
 - webhook-smoke-test.ps1
 
+8. Local demo console
+- Open {BASE_URL}/demo after the server is running.
+
 ## Webhook Mapping
 
 - Lead magnet forms -> POST /webhooks/ghl/lead-magnet
@@ -238,6 +241,12 @@ Replace \`BASE_URL\` with the tunnel or hosted URL:
 \`\`\`powershell
 Invoke-RestMethod -Method Get -Uri "BASE_URL/health"
 Invoke-RestMethod -Method Get -Uri "BASE_URL/api/machine"
+\`\`\`
+
+Open:
+
+\`\`\`text
+BASE_URL/demo
 \`\`\`
 
 Then run:
@@ -397,7 +406,8 @@ npm run verify:demo
 1. Start or deploy the server.
 2. Confirm \`GET /health\` returns \`status: ok\`.
 3. Confirm \`GET /api/machine\` returns the Reptiscale machine.
-4. Run \`webhook-smoke-test.ps1\` against the base URL.
+4. Open \`/demo\`.
+5. Run \`webhook-smoke-test.ps1\` against the base URL.
 
 The smoke test posts demo buyer events. Use demo contact details only.
 
