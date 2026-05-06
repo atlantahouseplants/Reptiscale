@@ -82,8 +82,23 @@ function workflowBlueprint() {
       shippingEvaluate: '/webhooks/shipping/evaluate',
       shippingOperatorGate: '/webhooks/shipping/operator-gate',
       orderShippingReview: '/webhooks/shipping/order-review',
+      weatherCheck: '/webhooks/shipping/weather-check',
     },
   };
+}
+
+function endpointMap() {
+  return [
+    ['Lead magnet form', '/webhooks/ghl/lead-magnet', 'Creates or updates the contact, tags buyer interest, and starts lead nurture.'],
+    ['Offer click', '/webhooks/ghl/offer-clicked', 'Marks animal/offer interest and starts reservation follow-up.'],
+    ['Order submitted', '/webhooks/ghl/order-submitted', 'Marks purchase, sends confirmation, checks shipping, and builds operator review when possible.'],
+    ['Review submitted', '/webhooks/ghl/review-submitted', 'Moves the buyer into advocacy, referral, and proof collection.'],
+    ['Referral submitted', '/webhooks/ghl/referral', 'Captures referred leads and starts the buyer journey.'],
+    ['Shipping evaluate', '/webhooks/shipping/evaluate', 'Runs weather/species decision for a route.'],
+    ['Operator gate', '/webhooks/shipping/operator-gate', 'Checks weather decision plus label payload readiness. Review-only.'],
+    ['Order shipping review', '/webhooks/shipping/order-review', 'Normalizes an order into the operator gate. Review-only.'],
+    ['Weather re-check', '/webhooks/shipping/weather-check', 'Re-checks pending shipments on a schedule.'],
+  ];
 }
 
 function manualBuildoutMarkdown() {
@@ -134,6 +149,12 @@ ${machine.campaigns.map((campaign) => `- ${campaign.name}: ${campaign.trigger}`)
 6. Manual blocker
 The HighLevel token may not be able to create opportunities in this account. If opportunity creation fails, manually add the demo opportunities to the pipelines above using demo-script.md as the guide.
 
+7. Useful companion files
+- deployment-runbook.md
+- highlevel-workflow-checklist.md
+- demo-test-plan.md
+- webhook-smoke-test.ps1
+
 ## Webhook Mapping
 
 - Lead magnet forms -> POST /webhooks/ghl/lead-magnet
@@ -144,6 +165,321 @@ The HighLevel token may not be able to create opportunities in this account. If 
 - Shipping check action -> POST /webhooks/shipping/evaluate
 - Pre-label operator review -> POST /webhooks/shipping/operator-gate
 - Order-to-shipping review -> POST /webhooks/shipping/order-review
+`;
+}
+
+function deploymentRunbookMarkdown() {
+  return `# Reptiscale Demo Deployment Runbook
+
+Client: ${client.businessName}
+Location ID: ${client.ghlLocationId}
+
+## Goal
+
+Get a reachable webhook base URL so HighLevel can send demo buyer events into Reptiscale.
+
+## Option A: Local Demo Tunnel
+
+Use this when testing quickly before a sales call.
+
+1. Start the webhook server.
+
+\`\`\`powershell
+cd C:\\Users\\wallg\\OneDrive\\Desktop\\HatchKit
+npm start
+\`\`\`
+
+2. Open a tunnel to port 3000.
+
+\`\`\`powershell
+ngrok http 3000
+\`\`\`
+
+3. Copy the HTTPS forwarding URL.
+
+Example:
+
+\`\`\`
+https://abc123.ngrok-free.app
+\`\`\`
+
+4. Use that as \`BASE_URL\` in HighLevel workflow webhook actions.
+
+## Option B: Hosted Demo
+
+Use this for repeatable demos where the URL should stay stable.
+
+Required environment variables:
+
+- \`GHL_PRIVATE_TOKEN\`
+- \`GHL_LOCATION_ID\`
+- \`GHL_API_BASE\`
+- \`GHL_API_VERSION\`
+- \`OPENWEATHERMAP_API_KEY\`
+- \`ANTHROPIC_API_KEY\` if Claude decisions should run instead of rule fallback
+- \`CLAUDE_MODEL\`
+
+The repo already includes \`vercel.json\` for a Node server deployment.
+
+## Preflight
+
+Run before wiring HighLevel:
+
+\`\`\`powershell
+npm test
+npm run export:demo
+npm run verify:demo
+\`\`\`
+
+## First Live Checks
+
+Replace \`BASE_URL\` with the tunnel or hosted URL:
+
+\`\`\`powershell
+Invoke-RestMethod -Method Get -Uri "BASE_URL/health"
+Invoke-RestMethod -Method Get -Uri "BASE_URL/api/machine"
+\`\`\`
+
+Then run:
+
+\`\`\`powershell
+.\\exports\\reptiscale-demo\\webhook-smoke-test.ps1 -BaseUrl "BASE_URL"
+\`\`\`
+
+The smoke test posts demo buyer events. If the server is connected to HighLevel, it will create or update demo contacts and may send configured messages.
+
+## Safety Note
+
+The shipping review endpoints are review-only. They should never buy a carrier label automatically. The operator must approve the final label after checking animal, weather, package, service, and address details.
+`;
+}
+
+function highLevelWorkflowChecklistMarkdown() {
+  const rows = endpointMap()
+    .map(([name, path, purpose]) => `| ${name} | \`${path}\` | ${purpose} |`)
+    .join('\n');
+
+  return `# HighLevel Workflow Checklist
+
+Client: ${client.businessName}
+Location ID: ${client.ghlLocationId}
+
+Use this after the webhook server has a public \`BASE_URL\`.
+
+## Endpoint Map
+
+| Event | Endpoint | Purpose |
+|---|---|---|
+${rows}
+
+## Workflows To Build
+
+### 1. Lead Magnet Delivery
+
+Trigger: Starter guide form submitted.
+
+Webhook action:
+
+\`POST {BASE_URL}/webhooks/ghl/lead-magnet\`
+
+Required payload fields:
+
+- \`locationId\`
+- \`firstName\`
+- \`email\`
+- \`phone\`
+- \`species_interest\`
+- \`source\`
+- \`offerKey\`
+
+### 2. Offer Clicked / Animal Interest
+
+Trigger: Animal detail CTA, reservation page visit, or manual workflow action.
+
+Webhook action:
+
+\`POST {BASE_URL}/webhooks/ghl/offer-clicked\`
+
+Required payload fields:
+
+- \`locationId\`
+- \`email\` or \`contactId\`
+- \`species_interest\`
+- \`animalInterest\`
+- \`offerKey\`
+
+### 3. Order Submitted
+
+Trigger: Payment received, order form submitted, or deposit paid.
+
+Webhook action:
+
+\`POST {BASE_URL}/webhooks/ghl/order-submitted\`
+
+Recommended payload fields:
+
+- \`locationId\`
+- \`contactId\`, \`email\`, or \`phone\`
+- \`species_interest\`
+- \`animalInterest\`
+- \`productName\`
+- \`amount\`
+- \`purchaseStatus\`
+- \`shippingAddress\`
+- \`preferredShipDate\`
+
+### 4. Order Shipping Review
+
+Trigger: Same order/payment event, or a separate internal fulfillment workflow.
+
+Webhook action:
+
+\`POST {BASE_URL}/webhooks/shipping/order-review\`
+
+Use this to show the operator review package directly.
+
+### 5. Shipping Weather Re-Check
+
+Trigger: Daily scheduled workflow, early morning in the breeder's timezone.
+
+Webhook action:
+
+\`POST {BASE_URL}/webhooks/shipping/weather-check\`
+
+### 6. Review Submitted
+
+Trigger: Review form submitted or manual review received.
+
+Webhook action:
+
+\`POST {BASE_URL}/webhooks/ghl/review-submitted\`
+
+### 7. Referral Submitted
+
+Trigger: Referral form submitted.
+
+Webhook action:
+
+\`POST {BASE_URL}/webhooks/ghl/referral\`
+
+## Smart Lists
+
+- New crested gecko leads: \`interest:crested-gecko\` and \`status:new-lead\`
+- Hot animal buyers: \`journey:offer-presented\` or \`status:hot-lead\`
+- Shipping holds: \`shipping:hold\` or \`shipping:pending-weather-check\`
+- Operator review queue: \`shipping:operator-review\` and not \`shipping:ready-for-operator-approval\`
+- Ready for label approval: \`shipping:ready-for-operator-approval\`
+- Review/referral candidates: \`journey:advocacy\` or \`review:received\`
+- Repeat buyer VIP: \`journey:repeat-buyer\` or \`status:repeat-buyer\`
+
+## Manual Blocker
+
+The current token cannot create opportunities or pipelines. Build those manually in HighLevel, then use these webhook workflows to automate the customer journey around them.
+`;
+}
+
+function demoTestPlanMarkdown() {
+  return `# Reptiscale Demo Test Plan
+
+Run this before showing the demo to a prospect.
+
+## Local Checks
+
+\`\`\`powershell
+npm test
+npm run simulate:shipping-review
+npm run export:demo
+npm run verify:demo
+\`\`\`
+
+## Server Checks
+
+1. Start or deploy the server.
+2. Confirm \`GET /health\` returns \`status: ok\`.
+3. Confirm \`GET /api/machine\` returns the Reptiscale machine.
+4. Run \`webhook-smoke-test.ps1\` against the base URL.
+
+The smoke test posts demo buyer events. Use demo contact details only.
+
+## HighLevel Checks
+
+- Demo contact exists or can be created.
+- Custom fields are visible on the contact record.
+- Operator-review tags exist.
+- Manual pipelines exist.
+- Workflow webhook actions point to the correct \`BASE_URL\`.
+- Order/payment workflow includes shipping address fields.
+
+## Sales Demo Path
+
+1. Open storefront.
+2. Submit starter guide form.
+3. Show CRM contact fields and tags.
+4. Open animal detail page.
+5. Show reservation offer.
+6. Trigger order submitted.
+7. Show order-to-shipping operator review.
+8. Show care onboarding templates.
+9. Show review/referral and VIP repeat-buyer flow.
+
+## Pass Criteria
+
+- Lead is captured.
+- Interest and animal preference are stored.
+- Purchase stage is updated.
+- Shipping decision is produced.
+- Operator review returns a clear disposition.
+- Care/review/referral follow-up is explainable in HighLevel.
+`;
+}
+
+function webhookSmokeTestPowerShell() {
+  const payloads = JSON.stringify(webhookPayloads(), null, 2);
+  const calls = [
+    ['Lead Magnet', '/webhooks/ghl/lead-magnet', 'leadMagnet'],
+    ['Offer Clicked', '/webhooks/ghl/offer-clicked', 'offerClicked'],
+    ['Order Submitted', '/webhooks/ghl/order-submitted', 'orderSubmitted'],
+    ['Order Shipping Review', '/webhooks/shipping/order-review', 'orderShippingReview'],
+    ['Review Submitted', '/webhooks/ghl/review-submitted', 'reviewSubmitted'],
+    ['Referral', '/webhooks/ghl/referral', 'referral'],
+  ];
+
+  return `param(
+  [string]$BaseUrl = "http://localhost:3000"
+)
+
+$Payloads = @'
+${payloads}
+'@ | ConvertFrom-Json
+
+function Invoke-DemoWebhook {
+  param(
+    [string]$Name,
+    [string]$Path,
+    [object]$Payload
+  )
+
+  $Uri = "$BaseUrl$Path"
+  Write-Host ""
+  Write-Host "== $Name =="
+  Write-Host $Uri
+
+  try {
+    $Body = $Payload | ConvertTo-Json -Depth 30
+    $Result = Invoke-RestMethod -Method Post -Uri $Uri -ContentType "application/json" -Body $Body
+    $Result | ConvertTo-Json -Depth 12
+  } catch {
+    Write-Host "Request failed: $($_.Exception.Message)"
+    if ($_.ErrorDetails.Message) {
+      Write-Host $_.ErrorDetails.Message
+    }
+  }
+}
+
+Write-Host "Checking $BaseUrl/health"
+Invoke-RestMethod -Method Get -Uri "$BaseUrl/health" | ConvertTo-Json -Depth 5
+
+${calls.map(([name, path, key]) => `Invoke-DemoWebhook -Name "${name}" -Path "${path}" -Payload $Payloads.${key}`).join('\n')}
 `;
 }
 
@@ -344,6 +680,10 @@ function main() {
   write('social-calendar.csv', socialCalendarCsv());
   write('demo-script.md', demoScriptMarkdown());
   write('webhook-payloads.json', JSON.stringify(webhookPayloads(), null, 2));
+  write('deployment-runbook.md', deploymentRunbookMarkdown());
+  write('highlevel-workflow-checklist.md', highLevelWorkflowChecklistMarkdown());
+  write('demo-test-plan.md', demoTestPlanMarkdown());
+  write('webhook-smoke-test.ps1', webhookSmokeTestPowerShell());
 
   console.log(`Exported Reptiscale demo buildout to ${OUT_DIR}`);
 }

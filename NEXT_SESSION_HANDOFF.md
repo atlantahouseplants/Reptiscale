@@ -2,6 +2,8 @@
 
 Created after the May 5, 2026 build session.
 
+Updated May 6, 2026 morning session with demo-readiness assets.
+
 ## Project Goal
 
 Reptiscale is the productized reptile-seller growth machine built on HighLevel:
@@ -36,9 +38,9 @@ Important git detail:
 git --git-dir=.gitroot --work-tree=. status --short --branch
 ```
 
-Latest local commit:
+Baseline commit before the May 6 morning continuation:
 
-`a19fb4f Add order shipping review normalization`
+`3351105 Add next session handoff`
 
 Recent commits:
 
@@ -52,6 +54,20 @@ Recent commits:
 The nested `HatchKit.ai` folder is its own repo/submodule-like folder. Do not delete it or treat its untracked files as part of the root cleanup unless the user explicitly asks.
 
 ## What Was Built
+
+### Demo Readiness Assets
+
+Added May 6:
+
+- `scripts/verify-demo-readiness.js`
+- `npm run verify:demo`
+- `npm start`
+- `exports/reptiscale-demo/deployment-runbook.md`
+- `exports/reptiscale-demo/highlevel-workflow-checklist.md`
+- `exports/reptiscale-demo/demo-test-plan.md`
+- `exports/reptiscale-demo/webhook-smoke-test.ps1`
+
+`npm run verify:demo` regenerates the demo export and checks that the main demo files, webhook payloads, endpoint references, shipping origin, and smoke-test assets are present.
 
 ### Customer Journey Demo
 
@@ -171,6 +187,7 @@ Run in root:
 npm test
 npm run simulate:shipping-review
 npm run export:demo
+npm run verify:demo
 npm run export:sales
 npm run setup:demo
 ```
@@ -195,6 +212,10 @@ Useful generated files:
 - `exports/reptiscale-demo/workflow-blueprint.json`
 - `exports/reptiscale-demo/webhook-payloads.json`
 - `exports/reptiscale-demo/demo-script.md`
+- `exports/reptiscale-demo/deployment-runbook.md`
+- `exports/reptiscale-demo/highlevel-workflow-checklist.md`
+- `exports/reptiscale-demo/demo-test-plan.md`
+- `exports/reptiscale-demo/webhook-smoke-test.ps1`
 - `exports/reptiscale-commercial-packet/demo-checklist.md`
 
 ## Tomorrow's Recommended Next Steps

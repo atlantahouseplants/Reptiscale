@@ -10,7 +10,7 @@ The HatchKit Express server is the orchestration layer. GHL fires webhooks direc
 GHL Event → HatchKit Webhook Server → Internal Logic → GHL API / Claude / SMS
 ```
 
-The server exposes five endpoints. Each maps to one or more GHL trigger types.
+The server exposes the full Reptiscale journey endpoint set. Each endpoint maps to one or more HighLevel trigger types or demo fulfillment actions.
 
 ---
 

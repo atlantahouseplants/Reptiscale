@@ -49,6 +49,12 @@ Core promise: Every buyer gets captured, followed up with, sold to, shipped safe
 6. Manual blocker
 The HighLevel token may not be able to create opportunities in this account. If opportunity creation fails, manually add the demo opportunities to the pipelines above using demo-script.md as the guide.
 
+7. Useful companion files
+- deployment-runbook.md
+- highlevel-workflow-checklist.md
+- demo-test-plan.md
+- webhook-smoke-test.ps1
+
 ## Webhook Mapping
 
 - Lead magnet forms -> POST /webhooks/ghl/lead-magnet

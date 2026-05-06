@@ -254,6 +254,7 @@
     "referral": "/webhooks/ghl/referral",
     "shippingEvaluate": "/webhooks/shipping/evaluate",
     "shippingOperatorGate": "/webhooks/shipping/operator-gate",
-    "orderShippingReview": "/webhooks/shipping/order-review"
+    "orderShippingReview": "/webhooks/shipping/order-review",
+    "weatherCheck": "/webhooks/shipping/weather-check"
   }
 }
