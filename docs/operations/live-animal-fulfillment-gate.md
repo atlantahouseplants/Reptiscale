@@ -29,6 +29,8 @@ The gate combines both decisions:
 
 `POST /webhooks/shipping/operator-gate`
 
+For storefront or HighLevel order events, use `POST /webhooks/shipping/order-review`. That endpoint normalizes buyer/order/address data first, then sends the result through this same operator gate.
+
 Minimum request:
 
 ```json
@@ -77,3 +79,11 @@ Use it before label creation so the breeder can see whether the shipment is:
 - blocked by weather/species policy,
 - blocked by incomplete label data,
 - or ready for human approval.
+
+## Demo Dry Run
+
+Run this local fixture to prove the order-to-shipping path without touching live weather, HighLevel, FedEx, or any carrier account:
+
+```bash
+npm run simulate:shipping-review
+```

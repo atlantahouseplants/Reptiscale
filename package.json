@@ -7,7 +7,8 @@
     "setup:demo": "node scripts/setup-demo-account.js",
     "export:demo": "node scripts/export-demo-buildout.js",
     "export:sales": "node scripts/export-commercial-packet.js",
-    "test": "node --check server.js && node --check agents/shipping-agent/index.js && node --check agents/shipping-agent/fulfillment-gate.js && node --check agents/lead-scoring/index.js && node --check ghl/multi-tenant.js"
+    "simulate:shipping-review": "node scripts/simulate-order-shipping-review.js",
+    "test": "node --check server.js && node --check agents/shipping-agent/index.js && node --check agents/shipping-agent/fulfillment-gate.js && node --check agents/shipping-agent/order-normalizer.js && node --check scripts/simulate-order-shipping-review.js && node --check agents/lead-scoring/index.js && node --check ghl/multi-tenant.js && node scripts/simulate-order-shipping-review.js --quiet"
   },
   "keywords": [],
   "author": "",

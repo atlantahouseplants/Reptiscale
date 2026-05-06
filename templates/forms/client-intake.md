@@ -43,6 +43,7 @@ Use these fields in HighLevel, Google Forms, Typeform, or a simple intake docume
 - Payment methods
 - Pickup options
 - Shipping options
+- Shipping origin address for fulfillment review
 - Preferred shipping carrier
 - Live arrival guarantee terms
 - Do you offer care kits or supplies?

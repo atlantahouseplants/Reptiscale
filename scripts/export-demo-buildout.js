@@ -42,6 +42,16 @@ function money(value) {
   return Number(value || 0).toFixed(2);
 }
 
+function demoShippingOrigin() {
+  return client.shippingOrigin || {
+    streetLines: ['123 Breeder Lane'],
+    city: 'Raleigh',
+    stateOrProvinceCode: 'NC',
+    postalCode: client.breederZip,
+    countryCode: 'US',
+  };
+}
+
 function workflowBlueprint() {
   return {
     name: machine.name,
@@ -71,6 +81,7 @@ function workflowBlueprint() {
       referral: '/webhooks/ghl/referral',
       shippingEvaluate: '/webhooks/shipping/evaluate',
       shippingOperatorGate: '/webhooks/shipping/operator-gate',
+      orderShippingReview: '/webhooks/shipping/order-review',
     },
   };
 }
@@ -115,6 +126,8 @@ ${machine.campaigns.map((campaign) => `- ${campaign.name}: ${campaign.trigger}`)
 - New crested gecko leads: tag interest:crested-gecko and status:new-lead
 - Hot animal buyers: tag journey:offer-presented or status:hot-lead
 - Shipping holds: tag shipping:hold or shipping:pending-weather-check
+- Operator review queue: tag shipping:operator-review and not shipping:ready-for-operator-approval
+- Ready for label approval: tag shipping:ready-for-operator-approval
 - Review and referral candidates: tag journey:advocacy or review:received
 - Repeat buyer VIP: tag journey:repeat-buyer or status:repeat-buyer
 
@@ -130,6 +143,7 @@ The HighLevel token may not be able to create opportunities in this account. If 
 - Referral form -> POST /webhooks/ghl/referral
 - Shipping check action -> POST /webhooks/shipping/evaluate
 - Pre-label operator review -> POST /webhooks/shipping/operator-gate
+- Order-to-shipping review -> POST /webhooks/shipping/order-review
 `;
 }
 
@@ -150,6 +164,7 @@ Open an animal detail page and reservation page. Explain that the click can tag 
 
 ## 5. Process Purchase And Shipping
 Use the order-submitted webhook or HighLevel payment event. Reptiscale marks the buyer as purchased, sends confirmation, and evaluates weather before shipping.
+Then show the order-to-shipping review package: the system normalizes the buyer address, breeder origin, species, package profile, and weather decision into a review-only label payload for the human operator.
 
 ## 6. Care Onboarding
 Show the post-purchase emails and SMS templates: setup checklist, delivery check-in, day 3 settling-in, and day 7 care.
@@ -202,13 +217,25 @@ function webhookPayloads() {
     },
     orderSubmitted: {
       locationId: client.ghlLocationId,
+      firstName: 'Demo',
+      lastName: 'Buyer',
       email: 'demo.lead@example.com',
+      phone: '+14045550199',
       species_interest: 'Crested Gecko',
       animalInterest: 'Mango - Harlequin Dalmatian',
       productName: 'Animal Reservation Deposit',
       amount: 75,
       purchaseStatus: 'Deposit Paid',
       destinationZip: '30339',
+      shippingAddress: {
+        address1: '100 Buyer Street',
+        city: 'Atlanta',
+        state: 'GA',
+        postalCode: '30339',
+        countryCode: 'US',
+        residential: true,
+      },
+      preferredShipDate: '2026-05-11',
     },
     reviewSubmitted: {
       locationId: client.ghlLocationId,
@@ -239,11 +266,7 @@ function webhookPayloads() {
           email: client.ownerEmail,
         },
         address: {
-          streetLines: ['123 Breeder Lane'],
-          city: 'Raleigh',
-          stateOrProvinceCode: 'NC',
-          postalCode: client.breederZip,
-          countryCode: 'US',
+          ...demoShippingOrigin(),
         },
       },
       recipient: {
@@ -261,6 +284,33 @@ function webhookPayloads() {
           residential: true,
         },
       },
+    },
+    orderShippingReview: {
+      locationId: client.ghlLocationId,
+      contactId: 'optional-ghl-contact-id',
+      customer: {
+        firstName: 'Demo',
+        lastName: 'Buyer',
+        email: 'demo.lead@example.com',
+        phone: '+14045550199',
+      },
+      order: {
+        id: 'DEMO-ORDER-1001',
+        productName: 'Animal Reservation Deposit',
+        amount: 75,
+        purchaseStatus: 'Deposit Paid',
+        species_interest: 'Crested Gecko',
+        animalInterest: 'Mango - Harlequin Dalmatian',
+      },
+      shippingAddress: {
+        address1: '100 Buyer Street',
+        city: 'Atlanta',
+        state: 'GA',
+        postalCode: '30339',
+        countryCode: 'US',
+        residential: true,
+      },
+      preferredShipDate: '2026-05-11',
     },
   };
 }

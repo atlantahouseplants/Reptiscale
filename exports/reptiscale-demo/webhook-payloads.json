@@ -17,13 +17,25 @@
   },
   "orderSubmitted": {
     "locationId": "fqj4rbp2VRkvMa8GWVWn",
+    "firstName": "Demo",
+    "lastName": "Buyer",
     "email": "demo.lead@example.com",
+    "phone": "+14045550199",
     "species_interest": "Crested Gecko",
     "animalInterest": "Mango - Harlequin Dalmatian",
     "productName": "Animal Reservation Deposit",
     "amount": 75,
     "purchaseStatus": "Deposit Paid",
-    "destinationZip": "30339"
+    "destinationZip": "30339",
+    "shippingAddress": {
+      "address1": "100 Buyer Street",
+      "city": "Atlanta",
+      "state": "GA",
+      "postalCode": "30339",
+      "countryCode": "US",
+      "residential": true
+    },
+    "preferredShipDate": "2026-05-11"
   },
   "reviewSubmitted": {
     "locationId": "fqj4rbp2VRkvMa8GWVWn",
@@ -80,5 +92,32 @@
         "residential": true
       }
     }
+  },
+  "orderShippingReview": {
+    "locationId": "fqj4rbp2VRkvMa8GWVWn",
+    "contactId": "optional-ghl-contact-id",
+    "customer": {
+      "firstName": "Demo",
+      "lastName": "Buyer",
+      "email": "demo.lead@example.com",
+      "phone": "+14045550199"
+    },
+    "order": {
+      "id": "DEMO-ORDER-1001",
+      "productName": "Animal Reservation Deposit",
+      "amount": 75,
+      "purchaseStatus": "Deposit Paid",
+      "species_interest": "Crested Gecko",
+      "animalInterest": "Mango - Harlequin Dalmatian"
+    },
+    "shippingAddress": {
+      "address1": "100 Buyer Street",
+      "city": "Atlanta",
+      "state": "GA",
+      "postalCode": "30339",
+      "countryCode": "US",
+      "residential": true
+    },
+    "preferredShipDate": "2026-05-11"
   }
 }

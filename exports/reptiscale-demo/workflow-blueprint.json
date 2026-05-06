@@ -104,8 +104,11 @@
       "tags": [
         "journey:shipping",
         "shipping:pending-weather-check",
+        "shipping:operator-review",
+        "shipping:ready-for-operator-approval",
         "shipping:approved",
         "shipping:hold",
+        "shipping:label-blocked",
         "shipping:in-transit"
       ]
     },
@@ -250,6 +253,7 @@
     "reviewSubmitted": "/webhooks/ghl/review-submitted",
     "referral": "/webhooks/ghl/referral",
     "shippingEvaluate": "/webhooks/shipping/evaluate",
-    "shippingOperatorGate": "/webhooks/shipping/operator-gate"
+    "shippingOperatorGate": "/webhooks/shipping/operator-gate",
+    "orderShippingReview": "/webhooks/shipping/order-review"
   }
 }

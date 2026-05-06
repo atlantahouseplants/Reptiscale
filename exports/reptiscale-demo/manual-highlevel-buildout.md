@@ -41,6 +41,8 @@ Core promise: Every buyer gets captured, followed up with, sold to, shipped safe
 - New crested gecko leads: tag interest:crested-gecko and status:new-lead
 - Hot animal buyers: tag journey:offer-presented or status:hot-lead
 - Shipping holds: tag shipping:hold or shipping:pending-weather-check
+- Operator review queue: tag shipping:operator-review and not shipping:ready-for-operator-approval
+- Ready for label approval: tag shipping:ready-for-operator-approval
 - Review and referral candidates: tag journey:advocacy or review:received
 - Repeat buyer VIP: tag journey:repeat-buyer or status:repeat-buyer
 
@@ -56,3 +58,4 @@ The HighLevel token may not be able to create opportunities in this account. If 
 - Referral form -> POST /webhooks/ghl/referral
 - Shipping check action -> POST /webhooks/shipping/evaluate
 - Pre-label operator review -> POST /webhooks/shipping/operator-gate
+- Order-to-shipping review -> POST /webhooks/shipping/order-review

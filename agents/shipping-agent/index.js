@@ -5,6 +5,7 @@ const Anthropic = require('@anthropic-ai/sdk');
 const { checkShippingViability, getRouteWeather } = require('../../integrations/weather-api');
 const speciesDb = require('../../data/species-db.json');
 const { buildShipmentOperatorReview } = require('./fulfillment-gate');
+const { normalizeOrderForShipment } = require('./order-normalizer');
 
 // Lazy-load GHL client so agent works without GHL config during testing
 let ghlContacts;
@@ -247,6 +248,7 @@ async function createShipmentOperatorReview({
   originZip,
   destinationZip,
   preferredShipDate,
+  shipmentDecision,
   shipper,
   recipient,
   packageProfile,
@@ -254,7 +256,7 @@ async function createShipmentOperatorReview({
   serviceType,
   updateGHL = false,
 } = {}) {
-  const shipmentDecision = await evaluateShipment({
+  const decision = shipmentDecision || await evaluateShipment({
     contactId,
     species,
     originZip,
@@ -264,10 +266,10 @@ async function createShipmentOperatorReview({
   });
 
   return {
-    shipmentDecision,
+    shipmentDecision: decision,
     ...buildShipmentOperatorReview({
-      shipmentDecision,
-      shipDate: shipmentDecision.recommendedShipDate || preferredShipDate,
+      shipmentDecision: decision,
+      shipDate: decision.recommendedShipDate || preferredShipDate,
       speciesId: species,
       shipper,
       recipient,
@@ -278,4 +280,4 @@ async function createShipmentOperatorReview({
   };
 }
 
-module.exports = { evaluateShipment, createShipmentOperatorReview };
+module.exports = { evaluateShipment, createShipmentOperatorReview, normalizeOrderForShipment };

@@ -141,6 +141,55 @@ Evaluates shipping viability for a contact and optionally sends them a decision 
 
 ---
 
+### `POST /webhooks/shipping/operator-gate`
+
+**Trigger:** Manual fulfillment review before any live label is created
+
+Combines the shipping agent's weather/species decision with FedEx-style label payload readiness. This endpoint is review-only and does not buy a label.
+
+Use this when the system already has normalized shipper, recipient, species, origin, destination, and package data.
+
+---
+
+### `POST /webhooks/shipping/order-review`
+
+**Trigger:** Order form/payment confirmation, storefront order event, or HighLevel workflow action
+
+Normalizes a buyer order into a shipment review, then runs the operator gate. This is the best endpoint for the demo purchase-to-fulfillment flow.
+
+**Payload:**
+```json
+{
+  "locationId": "fqj4rbp2VRkvMa8GWVWn",
+  "customer": {
+    "firstName": "Demo",
+    "lastName": "Buyer",
+    "email": "demo.lead@example.com",
+    "phone": "+14045550199"
+  },
+  "order": {
+    "id": "DEMO-ORDER-1001",
+    "productName": "Animal Reservation Deposit",
+    "species_interest": "Crested Gecko",
+    "animalInterest": "Mango - Harlequin Dalmatian",
+    "amount": 75
+  },
+  "shippingAddress": {
+    "address1": "100 Buyer Street",
+    "city": "Atlanta",
+    "state": "GA",
+    "postalCode": "30339",
+    "countryCode": "US",
+    "residential": true
+  },
+  "preferredShipDate": "2026-05-11"
+}
+```
+
+**Response:** Returns the normalized shipment input, the weather/species decision, the review-only label payload, and `operatorDisposition`.
+
+---
+
 ### `POST /webhooks/shipping/weather-check`
 
 **Trigger:** Daily scheduled call (set up a cron job or GHL scheduled workflow)

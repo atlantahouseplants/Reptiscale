@@ -25,16 +25,19 @@ For example, crested geckos are more heat-sensitive than a broad generic live-an
 New files:
 
 - `agents/shipping-agent/fulfillment-gate.js`
+- `agents/shipping-agent/order-normalizer.js`
 - `data/fedex-package-profiles.json`
 - `data/us-state-codes.json`
 
 New server endpoint:
 
 - `POST /webhooks/shipping/operator-gate`
+- `POST /webhooks/shipping/order-review`
 
 New shipping-agent export:
 
 - `createShipmentOperatorReview`
+- `normalizeOrderForShipment`
 
 ## Operator Gate Output
 
@@ -64,8 +67,7 @@ A human must still approve the shipment before any live label purchase.
 
 After HighLevel products/orders and FedEx credentials are available:
 
-1. Normalize HighLevel order data into a shipping input.
-2. Add FedEx rate/transit lookup.
-3. Compare selected service to Priority Overnight expectations.
-4. Add hold-at-FedEx-office preference and address validation.
-5. Keep label creation behind explicit operator approval.
+1. Add FedEx rate/transit lookup.
+2. Compare selected service to Priority Overnight expectations.
+3. Add hold-at-FedEx-office preference and address validation.
+4. Keep label creation behind explicit operator approval.

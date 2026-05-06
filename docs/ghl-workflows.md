@@ -87,10 +87,12 @@ Reference this document when building a snapshot or onboarding a new breeder.
 2. The server will:
    - Fetch contact data
    - Run the shipping agent (weather check + AI decision)
+   - Normalize order/address data into a review-only shipping package when the payment webhook includes it
+   - Return an operator disposition before any label is created
    - Send shipping decision SMS to buyer
    - Update shipping_status custom field
 
-**Notes:** This is the most critical webhook. Make sure the payload includes `contactId`, `pipelineId`, and `pipeline_stage_name`.
+**Notes:** This is the most critical webhook. Make sure the payload includes `contactId`, `pipelineId`, and `pipeline_stage_name`. For order-form payment events, point the workflow to `{BASE_URL}/webhooks/shipping/order-review` when you want to preview the operator package directly.
 
 ---
 

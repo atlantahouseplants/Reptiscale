@@ -51,6 +51,16 @@ async function collectBreederInfo() {
   info.ownerPhone = await ask(rl, 'Owner phone (with country code, e.g. +1...)');
   info.location = await ask(rl, 'Location (City, State)');
   info.breederZip = await ask(rl, 'Breeder ZIP code');
+  const originStreet = await ask(rl, 'Shipping origin street address');
+  const originCity = await ask(rl, 'Shipping origin city', info.location.split(',')[0]?.trim() || '');
+  const originState = await ask(rl, 'Shipping origin state code', info.location.split(',')[1]?.trim() || '');
+  info.shippingOrigin = {
+    streetLines: originStreet ? [originStreet] : [],
+    city: originCity,
+    stateOrProvinceCode: originState.toUpperCase(),
+    postalCode: info.breederZip,
+    countryCode: 'US',
+  };
   info.timezone = await ask(rl, 'Timezone', 'America/New_York');
 
   const speciesInput = await ask(rl, 'Species they breed (comma-separated)', 'Leopard Gecko');
@@ -101,6 +111,13 @@ function getDemoConfig() {
     ownerPhone: '+19195550100',
     location: 'Raleigh, NC',
     breederZip: '27601',
+    shippingOrigin: {
+      streetLines: ['123 Breeder Lane'],
+      city: 'Raleigh',
+      stateOrProvinceCode: 'NC',
+      postalCode: '27601',
+      countryCode: 'US',
+    },
     timezone: 'America/New_York',
     species: ['Crested Gecko', 'Leopard Gecko'],
     morphs: ['Lilly White', 'Harlequin', 'Dalmatian', 'Pinstripe', 'Tricolor', 'Phantom'],

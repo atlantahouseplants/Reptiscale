@@ -49,7 +49,7 @@
       "label": "Safe Shipping",
       "goal": "Check weather, decide ship/hold, communicate clearly, and protect live arrival.",
       "highLevelObjects": ["workflows", "custom-fields", "sms", "opportunities"],
-      "automationTags": ["journey:shipping", "shipping:pending-weather-check", "shipping:approved", "shipping:hold", "shipping:in-transit"]
+      "automationTags": ["journey:shipping", "shipping:pending-weather-check", "shipping:operator-review", "shipping:ready-for-operator-approval", "shipping:approved", "shipping:hold", "shipping:label-blocked", "shipping:in-transit"]
     },
     {
       "key": "onboarding",

@@ -6,7 +6,7 @@ const path = require('path');
 const { parsePipelineChangeEvent, parseNewContactEvent, parseFormSubmissionEvent } = require('./ghl/webhooks');
 const { createContact, updateContact, addTag, searchContacts } = require('./ghl/contacts');
 const { sendSMS, sendEmail } = require('./ghl/conversations');
-const { evaluateShipment, createShipmentOperatorReview } = require('./agents/shipping-agent/index');
+const { evaluateShipment, createShipmentOperatorReview, normalizeOrderForShipment } = require('./agents/shipping-agent/index');
 const { getBreederByLocationId, getAllBreeders, getBreeder } = require('./ghl/multi-tenant');
 const reptiscaleMachine = require('./data/reptiscale-machine.json');
 const demoProducts = require('./data/demo-products.json');
@@ -60,7 +60,8 @@ function fail(res, status, message, err = null) {
  * Returns { breeder, ghlConfig, clientConfig } or null if unknown.
  */
 function resolveBreeder(payload) {
-  const locationId = payload.location_id || payload.locationId;
+  const nested = payload.fields || payload.customData || payload.custom_data || payload.order || {};
+  const locationId = payload.location_id || payload.locationId || nested.location_id || nested.locationId;
   if (locationId) {
     const breeder = getBreederByLocationId(locationId);
     if (breeder) return breeder;
@@ -106,6 +107,18 @@ function tagify(value) {
 
 function shippingSpeciesId(species) {
   return tagify(species).replace(/-/g, '_');
+}
+
+function operatorDispositionTags(disposition) {
+  const tags = ['shipping:operator-review'];
+  if (disposition === 'READY_FOR_OPERATOR_APPROVAL') {
+    tags.push('shipping:ready-for-operator-approval');
+  } else if (disposition === 'DO_NOT_CREATE_LABEL') {
+    tags.push('shipping:label-blocked');
+  } else if (disposition === 'REVIEW_REQUIRED') {
+    tags.push('shipping:manual-review-required');
+  }
+  return tags;
 }
 
 function findByKey(items, key, fallbackIndex = 0) {
@@ -486,6 +499,7 @@ app.get('/', (req, res) => {
       'POST /webhooks/ghl/referral',
       'POST /webhooks/shipping/evaluate',
       'POST /webhooks/shipping/operator-gate',
+      'POST /webhooks/shipping/order-review',
       'POST /webhooks/shipping/weather-check',
       'POST /webhooks/lead-score/evaluate',
       'GET  /api/machine',
@@ -506,6 +520,7 @@ app.get('/api/machine', (req, res) => {
       '/webhooks/ghl/review-submitted',
       '/webhooks/ghl/referral',
       '/webhooks/shipping/operator-gate',
+      '/webhooks/shipping/order-review',
     ],
   });
 });
@@ -785,8 +800,28 @@ app.post('/webhooks/ghl/order-submitted', async (req, res) => {
     const amount = fields.amount || fields.total || fields.value || offer.price || '';
     const purchaseStatus = fields.purchaseStatus || fields.purchase_status || 'Deposit Paid';
     const purchaseTag = productName.toLowerCase().includes('kit') ? 'purchase:care-kit' : 'purchase:animal';
+    const normalizedShipment = normalizeOrderForShipment({
+      ...req.body,
+      fields: {
+        ...fields,
+        species_interest: species,
+        animal_interest: animalInterest,
+        productName,
+        amount,
+        purchaseStatus,
+      },
+    }, breederCtx.clientConfig);
+    const journeyFields = {
+      ...fields,
+      firstName: fields.firstName || fields.first_name || normalizedShipment.contactPayload.firstName,
+      lastName: fields.lastName || fields.last_name || normalizedShipment.contactPayload.lastName,
+      email: fields.email || normalizedShipment.contactPayload.email,
+      phone: fields.phone || normalizedShipment.contactPayload.phone,
+      postalCode: fields.postalCode || fields.postal_code || normalizedShipment.contactPayload.postalCode,
+      contactId: fields.contactId || fields.contact_id || normalizedShipment.contactPayload.contactId,
+    };
 
-    const contact = await upsertJourneyContact(fields, breederCtx, [
+    const contact = await upsertJourneyContact(journeyFields, breederCtx, [
       'journey:purchased',
       'status:customer',
       purchaseTag,
@@ -809,17 +844,19 @@ app.post('/webhooks/ghl/order-submitted', async (req, res) => {
     await sendIfPossible(contact.contactId, 'sms', sms);
 
     let shipping = null;
-    const originZip = fields.originZip || breederCtx.clientConfig.breederZip;
-    const destinationZip = fields.destinationZip || fields.destination_zip || fields.postalCode || contact.postalCode;
+    let operatorReview = null;
+    const originZip = normalizedShipment.shipmentInput.originZip || fields.originZip || breederCtx.clientConfig.breederZip;
+    const destinationZip = normalizedShipment.shipmentInput.destinationZip || fields.destinationZip || fields.destination_zip || fields.postalCode || contact.postalCode;
+    const speciesForShipping = normalizedShipment.shipmentInput.species || shippingSpeciesId(species);
 
-    if (destinationZip && species) {
+    if (destinationZip && speciesForShipping && originZip) {
       try {
         shipping = await evaluateShipment({
           contactId: contact.contactId,
-          species: shippingSpeciesId(species),
+          species: speciesForShipping,
           originZip,
           destinationZip,
-          preferredShipDate: fields.preferredShipDate || fields.preferred_ship_date,
+          preferredShipDate: normalizedShipment.shipmentInput.preferredShipDate || fields.preferredShipDate || fields.preferred_ship_date,
           updateGHL: true,
         });
 
@@ -844,6 +881,42 @@ app.post('/webhooks/ghl/order-submitted', async (req, res) => {
         if (shipping.customerMessage) {
           await sendIfPossible(contact.contactId, 'sms', shipping.customerMessage.slice(0, 300));
         }
+
+        try {
+          operatorReview = await createShipmentOperatorReview({
+            ...normalizedShipment.shipmentInput,
+            contactId: contact.contactId,
+            species: speciesForShipping,
+            originZip,
+            destinationZip,
+            shipmentDecision: shipping,
+            updateGHL: false,
+          });
+
+          await addTag(contact.contactId, operatorDispositionTags(operatorReview.operatorSafetyGate.operatorDisposition));
+
+          const disposition = operatorReview.operatorSafetyGate.operatorDisposition;
+          const operatorNextAction = disposition === 'READY_FOR_OPERATOR_APPROVAL'
+            ? 'Review package details and approve label creation'
+            : disposition === 'DO_NOT_CREATE_LABEL'
+              ? 'Fix shipping blockers before creating any label'
+              : 'Review shipping details before label creation';
+          const operatorStatus = disposition === 'READY_FOR_OPERATOR_APPROVAL'
+            ? 'Ready for Label Approval'
+            : disposition === 'DO_NOT_CREATE_LABEL'
+              ? 'Label Blocked'
+              : 'Operator Review';
+
+          const operatorFields = buildCustomFields(breederCtx, {
+            shipping_status: operatorStatus,
+            next_best_action: operatorNextAction,
+          });
+          if (operatorFields.length > 0) {
+            await updateContact(contact.contactId, { customFields: operatorFields });
+          }
+        } catch (operatorErr) {
+          log('WARN', `Order processed but operator shipping review failed for ${contact.contactId}`, { error: operatorErr.message });
+        }
       } catch (shippingErr) {
         log('WARN', `Order processed but shipping evaluation failed for ${contact.contactId}`, { error: shippingErr.message });
       }
@@ -854,6 +927,8 @@ app.post('/webhooks/ghl/order-submitted', async (req, res) => {
       action: 'order_processed',
       product: productName,
       shipping,
+      operatorReview,
+      normalizedShipment,
     });
   } catch (err) {
     return fail(res, 500, 'Order submission handler error', err);
@@ -996,6 +1071,50 @@ app.post('/webhooks/shipping/operator-gate', async (req, res) => {
     return ok(res, { review });
   } catch (err) {
     return fail(res, 500, 'Shipping operator gate error', err);
+  }
+});
+
+app.post('/webhooks/shipping/order-review', async (req, res) => {
+  try {
+    const breederCtx = resolveBreeder(req.body);
+    if (!breederCtx) return fail(res, 404, 'Unknown breeder location');
+
+    const normalizedShipment = normalizeOrderForShipment(req.body, breederCtx.clientConfig);
+    const { shipmentInput, orderSummary, missing } = normalizedShipment;
+
+    if (missing.weatherInputs.length > 0) {
+      return res.status(400).json({
+        success: false,
+        message: `Required fields: ${missing.weatherInputs.join(', ')}`,
+        order: orderSummary,
+        missing,
+      });
+    }
+
+    log('INFO', 'Order shipping review requested', {
+      contactId: shipmentInput.contactId,
+      species: shipmentInput.species,
+      originZip: shipmentInput.originZip,
+      destinationZip: shipmentInput.destinationZip,
+    });
+
+    const review = await createShipmentOperatorReview({
+      ...shipmentInput,
+      updateGHL: Boolean(req.body.updateGHL && shipmentInput.contactId),
+    });
+
+    if (req.body.updateGHL && shipmentInput.contactId) {
+      await addTag(shipmentInput.contactId, operatorDispositionTags(review.operatorSafetyGate.operatorDisposition));
+    }
+
+    log('SUCCESS', `Order shipping review disposition: ${review.operatorSafetyGate.operatorDisposition}`);
+    return ok(res, {
+      order: orderSummary,
+      normalizedShipment,
+      review,
+    });
+  } catch (err) {
+    return fail(res, 500, 'Order shipping review error', err);
   }
 });
 
@@ -1255,6 +1374,7 @@ if (require.main === module) {
     console.log('│  POST /webhooks/ghl/referral                       │');
     console.log('│  POST /webhooks/shipping/evaluate                  │');
     console.log('│  POST /webhooks/shipping/operator-gate             │');
+    console.log('│  POST /webhooks/shipping/order-review              │');
     console.log('│  POST /webhooks/shipping/weather-check             │');
     console.log('│  POST /webhooks/lead-score/evaluate                │');
     console.log('│  GET  /api/machine                                 │');

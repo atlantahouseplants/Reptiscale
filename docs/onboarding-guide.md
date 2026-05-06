@@ -59,6 +59,13 @@ Example intake.json:
   "ownerPhone": "+13035551234",
   "location": "Denver, CO",
   "breederZip": "80202",
+  "shippingOrigin": {
+    "streetLines": ["123 Breeder Lane"],
+    "city": "Denver",
+    "stateOrProvinceCode": "CO",
+    "postalCode": "80202",
+    "countryCode": "US"
+  },
   "timezone": "America/Denver",
   "species": ["Crested Gecko", "Gargoyle Gecko"],
   "morphs": ["Harlequin", "Dalmatian", "Lilly White"],

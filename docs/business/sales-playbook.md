@@ -48,9 +48,10 @@ Poor fit:
 3. Show the contact created in HighLevel with tags and journey stage.
 4. Show the animal reservation offer.
 5. Show purchase follow-up and safe shipping logic.
-6. Show care onboarding templates.
-7. Show review, referral, and VIP repeat-buyer campaigns.
-8. Close with pricing and the 14-day launch promise.
+6. Show the order-to-shipping operator review package.
+7. Show care onboarding templates.
+8. Show review, referral, and VIP repeat-buyer campaigns.
+9. Close with pricing and the 14-day launch promise.
 
 ## Objections
 

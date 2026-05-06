@@ -80,6 +80,7 @@ Shipping Pipeline:
 - Reservation abandonment
 - Purchase confirmation
 - Shipping decision
+- Order-to-shipping operator review
 - Shipping hold update
 - Care onboarding
 - Review/referral request
@@ -94,7 +95,8 @@ Shipping Pipeline:
 4. Replace logo, colors, and copy.
 5. Load initial animals.
 6. Update webhook base URL.
-7. Test all workflows before activation.
+7. Replace demo shipping origin with the breeder's real fulfillment address.
+8. Test all workflows before activation.
 
 ## Snapshot QA
 

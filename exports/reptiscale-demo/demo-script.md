@@ -14,6 +14,7 @@ Open an animal detail page and reservation page. Explain that the click can tag 
 
 ## 5. Process Purchase And Shipping
 Use the order-submitted webhook or HighLevel payment event. Reptiscale marks the buyer as purchased, sends confirmation, and evaluates weather before shipping.
+Then show the order-to-shipping review package: the system normalizes the buyer address, breeder origin, species, package profile, and weather decision into a review-only label payload for the human operator.
 
 ## 6. Care Onboarding
 Show the post-purchase emails and SMS templates: setup checklist, delivery check-in, day 3 settling-in, and day 7 care.
