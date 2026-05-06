@@ -218,13 +218,13 @@ The first Vercel link/create step should use an explicit lowercase project name.
 
 \`\`\`powershell
 vercel link --yes --project reptiscale-demo
-vercel deploy --project reptiscale-demo
+vercel deploy
 \`\`\`
 
 For a production URL:
 
 \`\`\`powershell
-vercel deploy --prod --project reptiscale-demo
+vercel deploy --prod
 \`\`\`
 
 Required environment variables:
@@ -293,10 +293,10 @@ vercel link --yes --project $ProjectName
 
 if ($Production) {
   Write-Host "Deploying production build for: $ProjectName"
-  vercel deploy --prod --project $ProjectName
+  vercel deploy --prod
 } else {
   Write-Host "Deploying preview build for: $ProjectName"
-  vercel deploy --project $ProjectName
+  vercel deploy
 }
 `;
 }
@@ -331,19 +331,19 @@ If \`ANTHROPIC_API_KEY\` is missing, the shipping agent falls back to rule-based
 Use Vercel's interactive env command so secrets are not printed in shell history:
 
 \`\`\`powershell
-vercel env add GHL_PRIVATE_TOKEN production --project reptiscale-demo
-vercel env add GHL_LOCATION_ID production --project reptiscale-demo
-vercel env add GHL_API_BASE production --project reptiscale-demo
-vercel env add GHL_API_VERSION production --project reptiscale-demo
-vercel env add OPENWEATHERMAP_API_KEY production --project reptiscale-demo
-vercel env add ANTHROPIC_API_KEY production --project reptiscale-demo
-vercel env add CLAUDE_MODEL production --project reptiscale-demo
+vercel env add GHL_PRIVATE_TOKEN production
+vercel env add GHL_LOCATION_ID production
+vercel env add GHL_API_BASE production
+vercel env add GHL_API_VERSION production
+vercel env add OPENWEATHERMAP_API_KEY production
+vercel env add ANTHROPIC_API_KEY production
+vercel env add CLAUDE_MODEL production
 \`\`\`
 
 After adding or changing environment variables, redeploy:
 
 \`\`\`powershell
-vercel deploy --prod --project reptiscale-demo
+vercel deploy --prod
 \`\`\`
 
 ## Safe Partial Deploy

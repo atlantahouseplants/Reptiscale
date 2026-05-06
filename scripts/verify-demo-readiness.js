@@ -125,6 +125,7 @@ check(includes('exports/reptiscale-demo/deployment-runbook.md', 'review-only'), 
 check(includes('exports/reptiscale-demo/deployment-runbook.md', '--project reptiscale-demo'), 'Deployment runbook missing explicit Vercel project command');
 check(includes('exports/reptiscale-demo/vercel-env-checklist.md', 'GHL_PRIVATE_TOKEN'), 'Vercel env checklist missing GHL_PRIVATE_TOKEN');
 check(includes('exports/reptiscale-demo/vercel-deploy.ps1', 'vercel link --yes --project'), 'Vercel deploy helper missing explicit project link');
+check(includes('exports/reptiscale-demo/vercel-deploy.ps1', 'vercel deploy --prod'), 'Vercel deploy helper missing production deploy command');
 check(includes('exports/reptiscale-demo/highlevel-workflow-checklist.md', 'Manual Blocker'), 'Workflow checklist missing manual blocker section');
 check(includes('exports/reptiscale-demo/demo-test-plan.md', 'Pass Criteria'), 'Demo test plan missing pass criteria');
 check(includes('exports/reptiscale-demo/webhook-smoke-test.ps1', 'Invoke-DemoWebhook'), 'Webhook smoke test missing Invoke-DemoWebhook helper');

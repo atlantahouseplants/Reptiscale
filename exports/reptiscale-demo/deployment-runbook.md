@@ -42,13 +42,13 @@ The first Vercel link/create step should use an explicit lowercase project name.
 
 ```powershell
 vercel link --yes --project reptiscale-demo
-vercel deploy --project reptiscale-demo
+vercel deploy
 ```
 
 For a production URL:
 
 ```powershell
-vercel deploy --prod --project reptiscale-demo
+vercel deploy --prod
 ```
 
 Required environment variables:
