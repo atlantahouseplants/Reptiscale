@@ -181,6 +181,31 @@ function offerTag(offerKey) {
   }[offerKey] || `offer:${tagify(offerKey)}`;
 }
 
+function fallbackContactId(payload) {
+  const seed = payload.contactId || payload.contact_id || payload.email || payload.phone || 'demo-contact';
+  return `demo-fallback-${tagify(seed).slice(0, 48) || 'contact'}`;
+}
+
+async function safeAddTag(contactId, tags, context = 'contact') {
+  try {
+    await addTag(contactId, tags);
+    return true;
+  } catch (err) {
+    log('WARN', `Skipped ${context} tag update for ${contactId}`, { error: err.message || err.code || 'external service unavailable' });
+    return false;
+  }
+}
+
+async function safeUpdateContact(contactId, payload, context = 'contact') {
+  try {
+    await updateContact(contactId, payload);
+    return true;
+  } catch (err) {
+    log('WARN', `Skipped ${context} field update for ${contactId}`, { error: err.message || err.code || 'external service unavailable' });
+    return false;
+  }
+}
+
 async function upsertJourneyContact(payload, breederCtx, tags = [], fieldValues = {}) {
   const firstName = payload.firstName || payload.first_name || payload.name?.split(' ')[0] || '';
   const lastName = payload.lastName || payload.last_name || payload.name?.split(' ').slice(1).join(' ') || '';
@@ -199,28 +224,49 @@ async function upsertJourneyContact(payload, breederCtx, tags = [], fieldValues 
 
   let contactId = payload.contactId || payload.contact_id || null;
 
-  if (contactId) {
-    if (Object.keys(contactData).length > 0) {
-      await updateContact(contactId, contactData);
-    }
-  } else if (email || phone) {
-    const existing = email ? await searchContacts(email) : [];
-    if (existing.length > 0) {
-      contactId = existing[0].id;
-      await updateContact(contactId, contactData);
+  try {
+    if (contactId) {
+      if (Object.keys(contactData).length > 0) {
+        await updateContact(contactId, contactData);
+      }
+    } else if (email || phone) {
+      const existing = email ? await searchContacts(email) : [];
+      if (existing.length > 0) {
+        contactId = existing[0].id;
+        await updateContact(contactId, contactData);
+      } else {
+        const contact = await createContact({ ...contactData, tags });
+        contactId = contact.id;
+      }
     } else {
-      const contact = await createContact({ ...contactData, tags });
-      contactId = contact.id;
+      throw new Error('Journey event requires contactId, email, or phone');
     }
-  } else {
-    throw new Error('Journey event requires contactId, email, or phone');
+
+    if (tags.length > 0) {
+      await addTag(contactId, [...new Set(tags.filter(Boolean))]);
+    }
+  } catch (err) {
+    if (!email && !phone && !contactId) {
+      throw err;
+    }
+    const fallbackId = fallbackContactId(payload);
+    log('WARN', `Using demo contact fallback for ${email || phone || fallbackId}`, {
+      error: err.response?.data?.message || err.message || err.code || 'external service unavailable',
+    });
+    return {
+      contactId: fallbackId,
+      firstName,
+      lastName,
+      email,
+      phone,
+      postalCode,
+      demoMode: true,
+      intendedTags: [...new Set(tags.filter(Boolean))],
+      intendedFields: fieldValues,
+    };
   }
 
-  if (tags.length > 0) {
-    await addTag(contactId, [...new Set(tags.filter(Boolean))]);
-  }
-
-  return { contactId, firstName, lastName, email, phone, postalCode };
+  return { contactId, firstName, lastName, email, phone, postalCode, demoMode: false };
 }
 
 async function sendIfPossible(contactId, channel, message, subject = '') {
@@ -841,6 +887,7 @@ app.post('/webhooks/ghl/lead-magnet', async (req, res) => {
 
     return ok(res, {
       contactId: contact.contactId,
+      demoMode: contact.demoMode || false,
       action: 'lead_magnet_processed',
       offer: leadMagnet.title,
       nextBestAction,
@@ -889,6 +936,7 @@ app.post('/webhooks/ghl/offer-clicked', async (req, res) => {
 
     return ok(res, {
       contactId: contact.contactId,
+      demoMode: contact.demoMode || false,
       action: 'offer_click_processed',
       offer: offer.name,
       nextBestAction,
@@ -977,7 +1025,7 @@ app.post('/webhooks/ghl/order-submitted', async (req, res) => {
           shipping.decision === 'APPROVE' ? 'shipping:approved' : 'shipping:hold',
           shipping.decision === 'APPROVE' ? null : 'shipping:pending-weather-check',
         ].filter(Boolean);
-        await addTag(contact.contactId, shippingTags);
+        await safeAddTag(contact.contactId, shippingTags, 'shipping decision');
 
         const shippingFields = buildCustomFields(breederCtx, {
           customer_journey_stage: 'Shipping',
@@ -987,7 +1035,7 @@ app.post('/webhooks/ghl/order-submitted', async (req, res) => {
             : 'Monitor weather and explain safe-shipping hold',
         });
         if (shippingFields.length > 0) {
-          await updateContact(contact.contactId, { customFields: shippingFields });
+          await safeUpdateContact(contact.contactId, { customFields: shippingFields }, 'shipping decision');
         }
 
         if (shipping.customerMessage) {
@@ -1005,7 +1053,7 @@ app.post('/webhooks/ghl/order-submitted', async (req, res) => {
             updateGHL: false,
           });
 
-          await addTag(contact.contactId, operatorDispositionTags(operatorReview.operatorSafetyGate.operatorDisposition));
+          await safeAddTag(contact.contactId, operatorDispositionTags(operatorReview.operatorSafetyGate.operatorDisposition), 'operator review');
 
           const disposition = operatorReview.operatorSafetyGate.operatorDisposition;
           const operatorNextAction = disposition === 'READY_FOR_OPERATOR_APPROVAL'
@@ -1024,7 +1072,7 @@ app.post('/webhooks/ghl/order-submitted', async (req, res) => {
             next_best_action: operatorNextAction,
           });
           if (operatorFields.length > 0) {
-            await updateContact(contact.contactId, { customFields: operatorFields });
+            await safeUpdateContact(contact.contactId, { customFields: operatorFields }, 'operator review');
           }
         } catch (operatorErr) {
           log('WARN', `Order processed but operator shipping review failed for ${contact.contactId}`, { error: operatorErr.message });
@@ -1036,6 +1084,7 @@ app.post('/webhooks/ghl/order-submitted', async (req, res) => {
 
     return ok(res, {
       contactId: contact.contactId,
+      demoMode: contact.demoMode || false,
       action: 'order_processed',
       product: productName,
       shipping,
@@ -1070,7 +1119,7 @@ app.post('/webhooks/ghl/review-submitted', async (req, res) => {
       `Thank you for the review. If you know someone researching ${species}s, I can send them the same starter guide and VIP availability list.`;
     await sendIfPossible(contact.contactId, 'sms', sms);
 
-    return ok(res, { contactId: contact.contactId, action: 'review_processed' });
+    return ok(res, { contactId: contact.contactId, demoMode: contact.demoMode || false, action: 'review_processed' });
   } catch (err) {
     return fail(res, 500, 'Review handler error', err);
   }
@@ -1108,6 +1157,7 @@ app.post('/webhooks/ghl/referral', async (req, res) => {
 
     return ok(res, {
       contactId: contact.contactId,
+      demoMode: contact.demoMode || false,
       action: 'referral_processed',
       referralSource,
     });

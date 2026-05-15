@@ -210,7 +210,14 @@ async function evaluateShipment({ contactId, species: speciesId, originZip, dest
     if (err.response?.status === 401) {
       throw new Error('Weather API key inactive. Add a valid OPENWEATHERMAP_API_KEY to .env');
     }
-    throw err;
+    console.warn(`[ShippingAgent] Weather API unavailable, using demo fallback: ${err.message || err.code || 'external service unavailable'}`);
+    viability = demoWeatherFallback(originZip, destinationZip, species, preferredShipDate);
+    routeData = {
+      origin: { zip: originZip, name: 'Demo origin', weather: { forecast: [] } },
+      destination: { zip: destinationZip, name: 'Demo destination', weather: { forecast: [] } },
+      hubs: [],
+      source: 'demo_weather_fallback',
+    };
   }
 
   // 3. Generate decision (Claude or rule-based)
@@ -233,7 +240,30 @@ async function evaluateShipment({ contactId, species: speciesId, originZip, dest
 
   return {
     ...result,
+    source: routeData.source || result.source,
     input: { contactId, species: speciesId, originZip, destinationZip, preferredShipDate },
+  };
+}
+
+function demoWeatherFallback(originZip, destinationZip, species, preferredShipDate) {
+  const recommendedShipDate = preferredShipDate || new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+  return {
+    canShip: true,
+    recommendedShipDate,
+    packingInstructions: {
+      heatPack: false,
+      coldPack: false,
+      insulationType: 'none_needed',
+    },
+    holdAtFacility: false,
+    warnings: ['Live weather service unavailable; using demo fallback for review-only workflow.'],
+    reason: 'Demo fallback: live weather service unavailable, so this is not a live ship approval.',
+    routeSummary: {
+      originZip,
+      destinationZip,
+      worstRouteLow: species.min_ship_temp + 5,
+      worstRouteHigh: species.max_ship_temp - 5,
+    },
   };
 }
 
