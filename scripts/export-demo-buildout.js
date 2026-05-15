@@ -214,6 +214,12 @@ https://abc123.ngrok-free.app
 
 Use this for repeatable demos where the URL should stay stable.
 
+Current deployed alias:
+
+\`\`\`text
+https://reptiscale-demo.vercel.app
+\`\`\`
+
 The first Vercel link/create step should use an explicit lowercase project name. This avoids the project-name validation error that can happen when Vercel infers a name from the local shell/session.
 
 \`\`\`powershell
@@ -239,6 +245,8 @@ Required environment variables:
 
 The repo already includes \`vercel.json\` for a Node server deployment.
 
+On Vercel, webhook request logs are written to the runtime temp folder so API routes do not fail on read-only app files.
+
 Use \`vercel-env-checklist.md\` before wiring live HighLevel workflows.
 
 ## Preflight
@@ -258,6 +266,8 @@ Replace \`BASE_URL\` with the tunnel or hosted URL:
 \`\`\`powershell
 Invoke-RestMethod -Method Get -Uri "BASE_URL/health"
 Invoke-RestMethod -Method Get -Uri "BASE_URL/api/machine"
+Invoke-RestMethod -Method Get -Uri "BASE_URL/api/demo/readiness"
+Invoke-RestMethod -Method Post -Uri "BASE_URL/api/demo/shipping-review-fixture" -ContentType "application/json" -Body "{}"
 \`\`\`
 
 Open:

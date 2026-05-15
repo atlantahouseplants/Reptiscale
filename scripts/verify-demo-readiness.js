@@ -126,6 +126,9 @@ check(includes('exports/reptiscale-demo/deployment-runbook.md', '--project repti
 check(includes('exports/reptiscale-demo/vercel-env-checklist.md', 'GHL_PRIVATE_TOKEN'), 'Vercel env checklist missing GHL_PRIVATE_TOKEN');
 check(includes('exports/reptiscale-demo/vercel-deploy.ps1', 'vercel link --yes --project'), 'Vercel deploy helper missing explicit project link');
 check(includes('exports/reptiscale-demo/vercel-deploy.ps1', 'vercel deploy --prod'), 'Vercel deploy helper missing production deploy command');
+check(includes('server.js', 'process.env.VERCEL'), 'server.js logging is not Vercel-aware');
+check(includes('server.js', 'hatchkit-webhooks.log'), 'server.js missing Vercel temp log filename');
+check(includes('server.js', 'log file unavailable'), 'server.js file logging can still crash API routes');
 check(includes('exports/reptiscale-demo/highlevel-workflow-checklist.md', 'Manual Blocker'), 'Workflow checklist missing manual blocker section');
 check(includes('exports/reptiscale-demo/demo-test-plan.md', 'Pass Criteria'), 'Demo test plan missing pass criteria');
 check(includes('exports/reptiscale-demo/webhook-smoke-test.ps1', 'Invoke-DemoWebhook'), 'Webhook smoke test missing Invoke-DemoWebhook helper');

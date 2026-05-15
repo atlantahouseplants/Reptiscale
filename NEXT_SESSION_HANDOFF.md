@@ -2,7 +2,7 @@
 
 Created after the May 5, 2026 build session.
 
-Updated May 6, 2026 morning session with demo-readiness assets.
+Updated May 15, 2026 resume session with Vercel deployment status and API logging fix.
 
 ## Project Goal
 
@@ -22,6 +22,39 @@ The demo account is SunScale Geckos.
 HighLevel sub-account/location ID:
 
 `fqj4rbp2VRkvMa8GWVWn`
+
+## Live Demo Status
+
+Vercel project:
+
+`reptiscale-demo`
+
+Live alias:
+
+`https://reptiscale-demo.vercel.app`
+
+The demo was deployed to Vercel and `/health` plus `/demo` loaded successfully after the first deploy.
+
+Important fix now in the local code:
+
+- Vercel API routes were returning `500` because the request logger tried to write to the local `logs` folder.
+- `server.js` now writes Vercel logs to `/tmp/hatchkit-webhooks.log`.
+- If file logging fails, it warns in console but does not crash the route.
+
+Redeploy before using this URL in HighLevel:
+
+```powershell
+cd C:\Users\wallg\OneDrive\Desktop\HatchKit
+.\exports\reptiscale-demo\vercel-deploy.ps1 -Production
+```
+
+Then verify:
+
+```powershell
+Invoke-RestMethod -Method Get -Uri "https://reptiscale-demo.vercel.app/health"
+Invoke-RestMethod -Method Get -Uri "https://reptiscale-demo.vercel.app/api/demo/readiness"
+Invoke-RestMethod -Method Post -Uri "https://reptiscale-demo.vercel.app/api/demo/shipping-review-fixture" -ContentType "application/json" -Body "{}"
+```
 
 ## Current Repo State
 
@@ -45,6 +78,11 @@ Baseline commit before the May 6 morning continuation:
 Recent commits:
 
 - `a19fb4f Add order shipping review normalization`
+- `d3eba5b Add demo deployment readiness packet`
+- `c0e618c Add Reptiscale demo console`
+- `36ba1c3 Prepare demo server for deployment`
+- `b08c4ad Add Vercel deploy runbook fixes`
+- `7f10f92 Fix linked Vercel deploy helper`
 - `138f6b7 Integrate Gecko shipper safety gate`
 - `fcba3cb Point website submodule to Reptiscale offer alignment`
 - `ff24c67 Add Reptiscale customer handoff guides`
@@ -246,7 +284,7 @@ If using Vercel, link with an explicit project name to avoid project-name infere
 
 ```powershell
 vercel link --yes --project reptiscale-demo
-vercel deploy --project reptiscale-demo
+vercel deploy --prod
 ```
 
 3. In HighLevel, manually create the three pipelines and demo opportunities because the token cannot do this.

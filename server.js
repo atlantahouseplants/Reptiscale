@@ -12,7 +12,11 @@ const { buildDemoShippingFixture } = require('./lib/demo-shipping-fixture');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const LOG_FILE = path.join(__dirname, 'logs', 'webhooks.log');
+const LOG_FILE = process.env.HATCHKIT_LOG_FILE || (
+  process.env.VERCEL
+    ? path.join('/tmp', 'hatchkit-webhooks.log')
+    : path.join(__dirname, 'logs', 'webhooks.log')
+);
 
 let ghlContacts;
 let ghlConversations;
@@ -73,10 +77,14 @@ function ensureLogDir() {
 }
 
 function log(type, message, data = null) {
-  ensureLogDir();
   const ts = new Date().toISOString();
   const line = JSON.stringify({ ts, type, message, ...(data ? { data } : {}) });
-  fs.appendFileSync(LOG_FILE, line + '\n');
+  try {
+    ensureLogDir();
+    fs.appendFileSync(LOG_FILE, line + '\n');
+  } catch (err) {
+    console.warn(`[${ts.slice(11, 19)}] log file unavailable: ${err.message}`);
+  }
   const label = { REQUEST: '→', SUCCESS: '✅', ERROR: '❌', INFO: 'ℹ️ ', WARN: '⚠️ ' }[type] || '·';
   console.log(`[${ts.slice(11, 19)}] ${label} ${message}`);
 }
@@ -570,38 +578,42 @@ app.get('/api/machine', (req, res) => {
 });
 
 app.get('/api/demo/readiness', (_req, res) => {
-  const fixture = buildDemoShippingFixture();
-  res.json({
-    success: true,
-    client: fixture.client,
-    machine: {
-      name: reptiscaleMachine.name,
-      version: reptiscaleMachine.version,
-      positioning: reptiscaleMachine.positioning,
-      lifecycleStages: reptiscaleMachine.lifecycleStages,
-    },
-    endpoints: [
-      '/webhooks/ghl/lead-magnet',
-      '/webhooks/ghl/offer-clicked',
-      '/webhooks/ghl/order-submitted',
-      '/webhooks/ghl/review-submitted',
-      '/webhooks/ghl/referral',
-      '/webhooks/shipping/order-review',
-      '/webhooks/shipping/operator-gate',
-      '/webhooks/shipping/weather-check',
-      '/demo',
-      '/api/machine',
-      '/api/demo/readiness',
-      '/api/demo/shipping-review-fixture',
-    ],
-    demoFixture: {
-      order: fixture.normalizedShipment.orderSummary,
-      operatorDisposition: fixture.review.operatorSafetyGate.operatorDisposition,
-      readyForLiveLabelCreation: fixture.review.readiness.readyForLiveLabelCreation,
-      reviewOnly: fixture.review.operatorSafetyGate.reviewOnly,
-      missing: fixture.normalizedShipment.missing,
-    },
-  });
+  try {
+    const fixture = buildDemoShippingFixture();
+    res.json({
+      success: true,
+      client: fixture.client,
+      machine: {
+        name: reptiscaleMachine.name,
+        version: reptiscaleMachine.version,
+        positioning: reptiscaleMachine.positioning,
+        lifecycleStages: reptiscaleMachine.lifecycleStages,
+      },
+      endpoints: [
+        '/webhooks/ghl/lead-magnet',
+        '/webhooks/ghl/offer-clicked',
+        '/webhooks/ghl/order-submitted',
+        '/webhooks/ghl/review-submitted',
+        '/webhooks/ghl/referral',
+        '/webhooks/shipping/order-review',
+        '/webhooks/shipping/operator-gate',
+        '/webhooks/shipping/weather-check',
+        '/demo',
+        '/api/machine',
+        '/api/demo/readiness',
+        '/api/demo/shipping-review-fixture',
+      ],
+      demoFixture: {
+        order: fixture.normalizedShipment.orderSummary,
+        operatorDisposition: fixture.review.operatorSafetyGate.operatorDisposition,
+        readyForLiveLabelCreation: fixture.review.readiness.readyForLiveLabelCreation,
+        reviewOnly: fixture.review.operatorSafetyGate.reviewOnly,
+        missing: fixture.normalizedShipment.missing,
+      },
+    });
+  } catch (err) {
+    return fail(res, 500, 'Demo readiness error', err);
+  }
 });
 
 app.post('/api/demo/shipping-review-fixture', (req, res) => {
