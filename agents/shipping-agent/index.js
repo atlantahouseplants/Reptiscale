@@ -207,10 +207,11 @@ async function evaluateShipment({ contactId, species: speciesId, originZip, dest
       getRouteWeather(originZip, destinationZip),
     ]);
   } catch (err) {
-    if (err.response?.status === 401) {
+    const strictWeather = process.env.REPTISCALE_STRICT_WEATHER === 'true';
+    if (err.response?.status === 401 && strictWeather) {
       throw new Error('Weather API key inactive. Add a valid OPENWEATHERMAP_API_KEY to .env');
     }
-    console.warn(`[ShippingAgent] Weather API unavailable, using demo fallback: ${err.message || err.code || 'external service unavailable'}`);
+    console.warn(`[ShippingAgent] Weather API unavailable, using demo fallback: ${err.response?.status || err.message || err.code || 'external service unavailable'}`);
     viability = demoWeatherFallback(originZip, destinationZip, species, preferredShipDate);
     routeData = {
       origin: { zip: originZip, name: 'Demo origin', weather: { forecast: [] } },
