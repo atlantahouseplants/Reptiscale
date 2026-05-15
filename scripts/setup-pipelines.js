@@ -14,13 +14,15 @@ const configPath = path.join(__dirname, '..', 'data', 'ghl-config.json');
 
 const PIPELINES = [
   {
-    name: 'HatchKit — Lead Pipeline',
+    name: 'HatchKit - Lead Pipeline',
     key: 'lead_pipeline',
+    fallbackNames: ['HatchKit - Lead Pipeline', 'HatchKit — Lead Pipeline'],
     stages: ['New Lead', 'Contacted', 'Interested', 'Qualified', 'Customer', 'Lost'],
   },
   {
-    name: 'HatchKit — Sales Pipeline',
+    name: 'HatchKit - Sales Pipeline',
     key: 'sales_pipeline',
+    fallbackNames: ['HatchKit - Sales Pipeline', 'HatchKit — Sales Pipeline'],
     stages: [
       'Animal Selected',
       'Invoice Sent',
@@ -32,8 +34,9 @@ const PIPELINES = [
     ],
   },
   {
-    name: 'HatchKit — Shipping Pipeline',
+    name: 'HatchKit - Shipping Pipeline',
     key: 'shipping_pipeline',
+    fallbackNames: ['HatchKit - Shipping Pipeline', 'HatchKit — Shipping Pipeline'],
     stages: [
       'Pending Review',
       'Weather Check',
@@ -63,13 +66,14 @@ async function main() {
   // Fetch existing pipelines
   const existingData = await ghl.get('/opportunities/pipelines', { locationId });
   const existing = existingData.pipelines || [];
-  const existingNames = new Set(existing.map((p) => p.name.toLowerCase()));
 
   for (const pipeline of PIPELINES) {
-    if (existingNames.has(pipeline.name.toLowerCase())) {
-      const found = existing.find((p) => p.name.toLowerCase() === pipeline.name.toLowerCase());
+    const names = pipeline.fallbackNames || [pipeline.name];
+    const found = existing.find((p) => names.some((name) => p.name.trim().toLowerCase() === name.toLowerCase()));
+
+    if (found) {
       config.pipelines[pipeline.key] = buildPipelineEntry(found);
-      console.log(`  ⏭  Skipped (already exists): ${pipeline.name}`);
+      console.log(`  ⏭  Skipped (already exists): ${found.name}`);
     } else {
       const payload = {
         name: pipeline.name,

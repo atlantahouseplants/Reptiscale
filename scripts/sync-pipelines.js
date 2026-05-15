@@ -15,9 +15,21 @@ const locationId = process.env.GHL_LOCATION_ID;
 const configPath = path.join(__dirname, '..', 'data', 'ghl-config.json');
 
 const EXPECTED_PIPELINES = [
-  { key: 'lead_pipeline',     name: 'HatchKit — Lead Pipeline' },
-  { key: 'sales_pipeline',    name: 'HatchKit — Sales Pipeline' },
-  { key: 'shipping_pipeline', name: 'HatchKit — Shipping Pipeline' },
+  {
+    key: 'lead_pipeline',
+    name: 'HatchKit - Lead Pipeline',
+    fallbackNames: ['HatchKit - Lead Pipeline', 'HatchKit — Lead Pipeline'],
+  },
+  {
+    key: 'sales_pipeline',
+    name: 'HatchKit - Sales Pipeline',
+    fallbackNames: ['HatchKit - Sales Pipeline', 'HatchKit — Sales Pipeline'],
+  },
+  {
+    key: 'shipping_pipeline',
+    name: 'HatchKit - Shipping Pipeline',
+    fallbackNames: ['HatchKit - Shipping Pipeline', 'HatchKit — Shipping Pipeline'],
+  },
 ];
 
 function slugify(str) {
@@ -37,7 +49,8 @@ async function main() {
   const missing = [];
 
   for (const expected of EXPECTED_PIPELINES) {
-    const match = all.find(p => p.name.trim() === expected.name.trim());
+    const expectedNames = expected.fallbackNames || [expected.name];
+    const match = all.find((p) => expectedNames.some((name) => p.name.trim() === name.trim()));
 
     if (!match) {
       missing.push(expected.name);

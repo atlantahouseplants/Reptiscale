@@ -257,9 +257,9 @@ async function onboard(info) {
 
       // Create pipelines based on tier
       const PIPELINES = [
-        { name: 'HatchKit — Lead Pipeline', key: 'lead_pipeline', stages: ['New Lead', 'Contacted', 'Interested', 'Qualified', 'Customer', 'Lost'] },
-        { name: 'HatchKit — Sales Pipeline', key: 'sales_pipeline', stages: ['Animal Selected', 'Invoice Sent', 'Payment Received', 'Shipping Scheduled', 'Shipped', 'Delivered', 'Follow-Up Complete'] },
-        { name: 'HatchKit — Shipping Pipeline', key: 'shipping_pipeline', stages: ['Pending Review', 'Weather Check', 'Approved to Ship', 'Label Created', 'Dropped Off', 'In Transit', 'Delivered', 'LAG Confirmed', 'Complete'] },
+        { name: 'HatchKit - Lead Pipeline', key: 'lead_pipeline', stages: ['New Lead', 'Contacted', 'Interested', 'Qualified', 'Customer', 'Lost'] },
+        { name: 'HatchKit - Sales Pipeline', key: 'sales_pipeline', stages: ['Animal Selected', 'Invoice Sent', 'Payment Received', 'Shipping Scheduled', 'Shipped', 'Delivered', 'Follow-Up Complete'] },
+        { name: 'HatchKit - Shipping Pipeline', key: 'shipping_pipeline', stages: ['Pending Review', 'Weather Check', 'Approved to Ship', 'Label Created', 'Dropped Off', 'In Transit', 'Delivered', 'LAG Confirmed', 'Complete'] },
       ];
 
       const existingPipelines = await ghlApi.get('/opportunities/pipelines', { params: { locationId: info.ghlLocationId } });

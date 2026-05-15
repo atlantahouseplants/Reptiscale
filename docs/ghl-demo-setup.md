@@ -10,7 +10,7 @@ Follow these in order. Each section takes 5-15 minutes.
 
 ## 1. Create Pipelines (15 min)
 
-### Lead Pipeline — "HatchKit — Lead Pipeline"
+### Lead Pipeline — "HatchKit - Lead Pipeline"
 Go to: **Opportunities > Pipelines > + Create Pipeline**
 
 | Stage Order | Stage Name  |
@@ -22,7 +22,7 @@ Go to: **Opportunities > Pipelines > + Create Pipeline**
 | 5           | Customer    |
 | 6           | Lost        |
 
-### Sales Pipeline — "HatchKit — Sales Pipeline"
+### Sales Pipeline — "HatchKit - Sales Pipeline"
 
 | Stage Order | Stage Name       |
 |-------------|------------------|
@@ -34,7 +34,7 @@ Go to: **Opportunities > Pipelines > + Create Pipeline**
 | 6           | Delivered        |
 | 7           | Follow-Up Complete |
 
-### Shipping Pipeline — "HatchKit — Shipping Pipeline"
+### Shipping Pipeline — "HatchKit - Shipping Pipeline"
 
 | Stage Order | Stage Name      |
 |-------------|-----------------|

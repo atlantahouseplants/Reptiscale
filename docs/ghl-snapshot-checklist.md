@@ -7,11 +7,11 @@ Use this as a checklist when building or verifying a snapshot.
 
 ## Pipelines (3)
 
-- [ ] **Lead Pipeline** — "HatchKit — Lead Pipeline"
+- [ ] **Lead Pipeline** — "HatchKit - Lead Pipeline"
   - Stages: New Lead → Contacted → Interested → Qualified → Customer → Lost
-- [ ] **Sales Pipeline** — "HatchKit — Sales Pipeline"
+- [ ] **Sales Pipeline** — "HatchKit - Sales Pipeline"
   - Stages: Animal Selected → Invoice Sent → Payment Received → Shipping Scheduled → Shipped → Delivered → Follow-Up Complete
-- [ ] **Shipping Pipeline** — "HatchKit — Shipping Pipeline"
+- [ ] **Shipping Pipeline** — "HatchKit - Shipping Pipeline"
   - Stages: Pending Review → Weather Check → Approved to Ship → Label Created → Dropped Off → In Transit → Delivered → LAG Confirmed → Complete
 
 ---

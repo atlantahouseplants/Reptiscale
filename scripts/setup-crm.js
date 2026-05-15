@@ -87,11 +87,11 @@ const CUSTOM_FIELDS = [
 
 const PIPELINES = [
   {
-    name: 'HatchKit — Lead Pipeline',
+    name: 'HatchKit - Lead Pipeline',
     stages: ['New Lead', 'Contacted', 'Interested', 'Qualified', 'Customer', 'Lost'],
   },
   {
-    name: 'HatchKit — Sales Pipeline',
+    name: 'HatchKit - Sales Pipeline',
     stages: [
       'Animal Selected',
       'Invoice Sent',
@@ -103,7 +103,7 @@ const PIPELINES = [
     ],
   },
   {
-    name: 'HatchKit — Shipping Pipeline',
+    name: 'HatchKit - Shipping Pipeline',
     stages: [
       'Pending Review',
       'Weather Check',
