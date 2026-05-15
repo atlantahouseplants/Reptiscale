@@ -41,6 +41,16 @@ Important fix now in the local code:
 - `server.js` now writes Vercel logs to `/tmp/hatchkit-webhooks.log`.
 - If file logging fails, it warns in console but does not crash the route.
 
+Added during the May 15 resume session:
+
+- `GET /api/demo/control-room`
+- `lib/demo-control-room.js`
+- A larger `/demo` control-room section showing:
+  - customer journey proof
+  - manual HighLevel build queue
+  - offer ladder and demo cart
+  - next seven social/content pushes
+
 Redeploy before using this URL in HighLevel:
 
 ```powershell
@@ -53,6 +63,7 @@ Then verify:
 ```powershell
 Invoke-RestMethod -Method Get -Uri "https://reptiscale-demo.vercel.app/health"
 Invoke-RestMethod -Method Get -Uri "https://reptiscale-demo.vercel.app/api/demo/readiness"
+Invoke-RestMethod -Method Get -Uri "https://reptiscale-demo.vercel.app/api/demo/control-room"
 Invoke-RestMethod -Method Post -Uri "https://reptiscale-demo.vercel.app/api/demo/shipping-review-fixture" -ContentType "application/json" -Body "{}"
 ```
 
@@ -109,6 +120,7 @@ Added May 6:
 - `templates/pages/reptiscale-demo-console.html`
 - `GET /demo`
 - `GET /api/demo/readiness`
+- `GET /api/demo/control-room`
 - `POST /api/demo/shipping-review-fixture`
 
 `npm run verify:demo` regenerates the demo export and checks that the main demo files, webhook payloads, endpoint references, shipping origin, and smoke-test assets are present.

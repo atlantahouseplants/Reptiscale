@@ -9,6 +9,7 @@ const { getBreederByLocationId, getAllBreeders, getBreeder } = require('./ghl/mu
 const reptiscaleMachine = require('./data/reptiscale-machine.json');
 const demoProducts = require('./data/demo-products.json');
 const { buildDemoShippingFixture } = require('./lib/demo-shipping-fixture');
+const { buildDemoControlRoom } = require('./lib/demo-control-room');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -60,6 +61,7 @@ function sendEmail(...args) {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/exports', express.static(path.join(__dirname, 'exports')));
+app.use('/templates', express.static(path.join(__dirname, 'templates')));
 
 // Request logger
 app.use((req, res, next) => {
@@ -549,6 +551,7 @@ app.get('/', (req, res) => {
       'POST /webhooks/lead-score/evaluate',
       'GET  /demo',
       'GET  /api/demo/readiness',
+      'GET  /api/demo/control-room',
       'POST /api/demo/shipping-review-fixture',
       'GET  /api/machine',
       'GET  /health',
@@ -601,6 +604,7 @@ app.get('/api/demo/readiness', (_req, res) => {
         '/demo',
         '/api/machine',
         '/api/demo/readiness',
+        '/api/demo/control-room',
         '/api/demo/shipping-review-fixture',
       ],
       demoFixture: {
@@ -613,6 +617,14 @@ app.get('/api/demo/readiness', (_req, res) => {
     });
   } catch (err) {
     return fail(res, 500, 'Demo readiness error', err);
+  }
+});
+
+app.get('/api/demo/control-room', (_req, res) => {
+  try {
+    return ok(res, { controlRoom: buildDemoControlRoom() });
+  } catch (err) {
+    return fail(res, 500, 'Demo control room error', err);
   }
 });
 
@@ -1479,6 +1491,7 @@ if (require.main === module) {
     console.log('│  POST /webhooks/lead-score/evaluate                │');
     console.log('│  GET  /demo                                        │');
     console.log('│  GET  /api/demo/readiness                          │');
+    console.log('│  GET  /api/demo/control-room                       │');
     console.log('│  POST /api/demo/shipping-review-fixture            │');
     console.log('│  GET  /api/machine                                 │');
     console.log('│  GET  /health                                      │');

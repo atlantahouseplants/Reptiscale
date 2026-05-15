@@ -91,6 +91,7 @@ Replace `BASE_URL` with the tunnel or hosted URL:
 Invoke-RestMethod -Method Get -Uri "BASE_URL/health"
 Invoke-RestMethod -Method Get -Uri "BASE_URL/api/machine"
 Invoke-RestMethod -Method Get -Uri "BASE_URL/api/demo/readiness"
+Invoke-RestMethod -Method Get -Uri "BASE_URL/api/demo/control-room"
 Invoke-RestMethod -Method Post -Uri "BASE_URL/api/demo/shipping-review-fixture" -ContentType "application/json" -Body "{}"
 ```
 

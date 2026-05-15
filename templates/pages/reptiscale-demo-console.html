@@ -273,8 +273,67 @@
       text-decoration: none;
     }
 
+    .control-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+      gap: 14px;
+      align-items: start;
+    }
+
+    .timeline,
+    .manual-list,
+    .content-list,
+    .offer-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .timeline-item,
+    .manual-item,
+    .content-item,
+    .offer-item {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 11px 12px;
+      background: var(--surface);
+      display: grid;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .row-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .row-head strong,
+    .row-head span {
+      overflow-wrap: anywhere;
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .mini-metric {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 12px;
+      background: var(--surface-2);
+      min-height: 72px;
+      display: grid;
+      gap: 6px;
+      align-content: start;
+    }
+
     @media (max-width: 1040px) {
       .grid,
+      .control-grid,
       .status-row,
       .link-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .stage-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -287,6 +346,8 @@
       .status-row,
       .stage-list,
       .review-grid,
+      .control-grid,
+      .mini-grid,
       .link-grid { grid-template-columns: 1fr; }
       .endpoint { align-items: flex-start; flex-direction: column; }
     }
@@ -327,9 +388,73 @@
 
     <section class="link-grid" aria-label="Demo pages">
       <a href="/api/demo/readiness">Readiness API</a>
+      <a href="/api/demo/control-room">Control Room API</a>
       <a href="/exports/reptiscale-demo/deployment-runbook.md">Deployment Runbook</a>
       <a href="/exports/reptiscale-demo/highlevel-workflow-checklist.md">Workflow Checklist</a>
-      <a href="/exports/reptiscale-demo/demo-test-plan.md">Demo Test Plan</a>
+    </section>
+
+    <section class="panel" aria-label="Sales control room">
+      <div class="panel-head">
+        <div>
+          <span class="eyebrow">Control Room</span>
+          <h1>Demo Business Snapshot</h1>
+        </div>
+        <span class="tag blue" id="controlGenerated">Loading</span>
+      </div>
+      <div class="mini-grid">
+        <div class="mini-metric">
+          <span class="eyebrow">Sample Animal</span>
+          <strong id="sampleAnimal">-</strong>
+        </div>
+        <div class="mini-metric">
+          <span class="eyebrow">Demo Cart</span>
+          <strong id="demoCart">-</strong>
+        </div>
+        <div class="mini-metric">
+          <span class="eyebrow">Manual Setup</span>
+          <strong id="manualSetupCount">-</strong>
+        </div>
+      </div>
+      <div class="control-grid">
+        <div>
+          <div class="panel-head">
+            <div>
+              <span class="eyebrow">Scenario</span>
+              <h2>Customer Journey Proof</h2>
+            </div>
+          </div>
+          <div class="timeline" id="scenarioList"></div>
+        </div>
+        <div>
+          <div class="panel-head">
+            <div>
+              <span class="eyebrow">HighLevel</span>
+              <h2>Manual Build Queue</h2>
+            </div>
+          </div>
+          <div class="manual-list" id="manualSetupList"></div>
+        </div>
+      </div>
+      <div class="control-grid">
+        <div>
+          <div class="panel-head">
+            <div>
+              <span class="eyebrow">Marketing</span>
+              <h2>Next Content Pushes</h2>
+            </div>
+          </div>
+          <div class="content-list" id="contentList"></div>
+        </div>
+        <div>
+          <div class="panel-head">
+            <div>
+              <span class="eyebrow">Revenue</span>
+              <h2>Offer Ladder</h2>
+            </div>
+          </div>
+          <div class="offer-list" id="offerList"></div>
+        </div>
+      </div>
     </section>
 
     <section class="grid">
@@ -389,6 +514,7 @@
     const state = {
       readiness: null,
       fixture: null,
+      controlRoom: null,
     };
 
     const els = {
@@ -397,6 +523,14 @@
       endpointCount: document.getElementById('endpointCount'),
       disposition: document.getElementById('disposition'),
       payloadReady: document.getElementById('payloadReady'),
+      controlGenerated: document.getElementById('controlGenerated'),
+      sampleAnimal: document.getElementById('sampleAnimal'),
+      demoCart: document.getElementById('demoCart'),
+      manualSetupCount: document.getElementById('manualSetupCount'),
+      scenarioList: document.getElementById('scenarioList'),
+      manualSetupList: document.getElementById('manualSetupList'),
+      contentList: document.getElementById('contentList'),
+      offerList: document.getElementById('offerList'),
       machineVersion: document.getElementById('machineVersion'),
       stageList: document.getElementById('stageList'),
       endpointList: document.getElementById('endpointList'),
@@ -449,6 +583,78 @@
         code.textContent = endpoint;
         item.appendChild(code);
         els.endpointList.appendChild(item);
+      });
+    }
+
+    function renderScenario(items) {
+      els.scenarioList.innerHTML = '';
+      items.slice(0, 9).forEach((stage) => {
+        const item = document.createElement('article');
+        item.className = 'timeline-item';
+        const head = document.createElement('div');
+        head.className = 'row-head';
+        const title = document.createElement('strong');
+        title.textContent = `${stage.number}. ${stage.label}`;
+        head.append(title, tag((stage.highLevelObjects || [])[0] || 'workflow', 'blue'));
+        const outcome = document.createElement('p');
+        outcome.className = 'muted';
+        outcome.textContent = stage.outcome;
+        item.append(head, outcome);
+        els.scenarioList.appendChild(item);
+      });
+    }
+
+    function renderManualSetup(groups) {
+      els.manualSetupList.innerHTML = '';
+      groups.forEach((group) => {
+        const item = document.createElement('article');
+        item.className = 'manual-item';
+        const head = document.createElement('div');
+        head.className = 'row-head';
+        const title = document.createElement('strong');
+        title.textContent = group.area;
+        head.append(title, tag(group.status, group.status === 'needed' ? 'danger' : 'accent'));
+        const detail = document.createElement('p');
+        detail.className = 'muted';
+        detail.textContent = `${group.owner}: ${(group.items || []).slice(0, 3).join(', ')}`;
+        item.append(head, detail);
+        els.manualSetupList.appendChild(item);
+      });
+    }
+
+    function renderContentCalendar(posts) {
+      els.contentList.innerHTML = '';
+      posts.slice(0, 7).forEach((post) => {
+        const item = document.createElement('article');
+        item.className = 'content-item';
+        const head = document.createElement('div');
+        head.className = 'row-head';
+        const title = document.createElement('strong');
+        title.textContent = post.topic;
+        head.append(title, tag(post.platform, 'blue'));
+        const detail = document.createElement('p');
+        detail.className = 'muted';
+        detail.textContent = `${post.date} - ${post.pillar} - ${post.cta}`;
+        item.append(head, detail);
+        els.contentList.appendChild(item);
+      });
+    }
+
+    function renderOffers(offers) {
+      els.offerList.innerHTML = '';
+      offers.forEach((offer) => {
+        const item = document.createElement('article');
+        item.className = 'offer-item';
+        const head = document.createElement('div');
+        head.className = 'row-head';
+        const title = document.createElement('strong');
+        title.textContent = offer.name;
+        head.append(title, tag(offer.priceLabel, offer.price > 0 ? 'accent' : 'blue'));
+        const detail = document.createElement('p');
+        detail.className = 'muted';
+        detail.textContent = offer.goal;
+        item.append(head, detail);
+        els.offerList.appendChild(item);
       });
     }
 
@@ -511,12 +717,28 @@
       }
     }
 
+    async function loadControlRoom() {
+      const response = await fetch('/api/demo/control-room');
+      const data = await response.json();
+      const controlRoom = data.controlRoom;
+      state.controlRoom = controlRoom;
+
+      setText('controlGenerated', new Date(controlRoom.generatedAt).toLocaleString());
+      setText('sampleAnimal', `${controlRoom.revenueSnapshot.sampleAnimal} ${controlRoom.revenueSnapshot.animalPriceLabel}`);
+      setText('demoCart', controlRoom.revenueSnapshot.immediateCartLabel);
+      setText('manualSetupCount', `${controlRoom.manualSetup.length} queues`);
+      renderScenario(controlRoom.journeyScenario || []);
+      renderManualSetup(controlRoom.manualSetup || []);
+      renderContentCalendar(controlRoom.contentCalendar || []);
+      renderOffers(controlRoom.offerStack || []);
+    }
+
     els.refreshBtn.addEventListener('click', () => {
-      loadReadiness().then(buildReview);
+      Promise.all([loadReadiness(), loadControlRoom()]).then(buildReview);
     });
     els.reviewBtn.addEventListener('click', buildReview);
 
-    loadReadiness().then(buildReview).catch((error) => {
+    Promise.all([loadReadiness(), loadControlRoom()]).then(buildReview).catch((error) => {
       setText('clientLine', error.message);
       els.reviewJson.textContent = error.stack || error.message;
     });

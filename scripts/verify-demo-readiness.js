@@ -19,6 +19,7 @@ const requiredFiles = [
   'data/breeders/sunscale-geckos/client.json',
   'agents/shipping-agent/fulfillment-gate.js',
   'agents/shipping-agent/order-normalizer.js',
+  'lib/demo-control-room.js',
   'lib/demo-shipping-fixture.js',
   'templates/pages/reptiscale-demo-console.html',
   'exports/reptiscale-demo/manual-highlevel-buildout.md',
@@ -48,6 +49,7 @@ const requiredServerEndpoints = [
   ...requiredWebhookEndpoints,
   '/demo',
   '/api/demo/readiness',
+  '/api/demo/control-room',
   '/api/demo/shipping-review-fixture',
 ];
 
@@ -129,6 +131,8 @@ check(includes('exports/reptiscale-demo/vercel-deploy.ps1', 'vercel deploy --pro
 check(includes('server.js', 'process.env.VERCEL'), 'server.js logging is not Vercel-aware');
 check(includes('server.js', 'hatchkit-webhooks.log'), 'server.js missing Vercel temp log filename');
 check(includes('server.js', 'log file unavailable'), 'server.js file logging can still crash API routes');
+check(includes('templates/pages/reptiscale-demo-console.html', 'Demo Business Snapshot'), 'Demo console missing control room snapshot');
+check(includes('templates/pages/reptiscale-demo-console.html', '/api/demo/control-room'), 'Demo console missing control room API link');
 check(includes('exports/reptiscale-demo/highlevel-workflow-checklist.md', 'Manual Blocker'), 'Workflow checklist missing manual blocker section');
 check(includes('exports/reptiscale-demo/demo-test-plan.md', 'Pass Criteria'), 'Demo test plan missing pass criteria');
 check(includes('exports/reptiscale-demo/webhook-smoke-test.ps1', 'Invoke-DemoWebhook'), 'Webhook smoke test missing Invoke-DemoWebhook helper');
