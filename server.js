@@ -223,19 +223,34 @@ async function upsertJourneyContact(payload, breederCtx, tags = [], fieldValues 
   };
 
   let contactId = payload.contactId || payload.contact_id || null;
+  const warnings = [];
 
   try {
     if (contactId) {
       if (Object.keys(contactData).length > 0) {
-        await updateContact(contactId, contactData);
+        try {
+          await updateContact(contactId, contactData);
+        } catch (err) {
+          warnings.push('contact_update_failed');
+          log('WARN', `Contact update failed for ${contactId}`, {
+            error: err.response?.data?.message || err.message || err.code || 'external service unavailable',
+          });
+        }
       }
     } else if (email || phone) {
       const existing = email ? await searchContacts(email) : [];
       if (existing.length > 0) {
         contactId = existing[0].id;
-        await updateContact(contactId, contactData);
+        try {
+          await updateContact(contactId, contactData);
+        } catch (err) {
+          warnings.push('contact_update_failed');
+          log('WARN', `Contact update failed for ${contactId}`, {
+            error: err.response?.data?.message || err.message || err.code || 'external service unavailable',
+          });
+        }
       } else {
-        const contact = await createContact({ ...contactData, tags });
+        const contact = await createContact(contactData);
         contactId = contact.id;
       }
     } else {
@@ -243,7 +258,10 @@ async function upsertJourneyContact(payload, breederCtx, tags = [], fieldValues 
     }
 
     if (tags.length > 0) {
-      await addTag(contactId, [...new Set(tags.filter(Boolean))]);
+      const tagApplied = await safeAddTag(contactId, [...new Set(tags.filter(Boolean))], 'journey contact');
+      if (!tagApplied) {
+        warnings.push('tag_update_failed');
+      }
     }
   } catch (err) {
     if (!email && !phone && !contactId) {
@@ -266,7 +284,7 @@ async function upsertJourneyContact(payload, breederCtx, tags = [], fieldValues 
     };
   }
 
-  return { contactId, firstName, lastName, email, phone, postalCode, demoMode: false };
+  return { contactId, firstName, lastName, email, phone, postalCode, demoMode: false, warnings };
 }
 
 async function sendIfPossible(contactId, channel, message, subject = '') {
@@ -888,6 +906,7 @@ app.post('/webhooks/ghl/lead-magnet', async (req, res) => {
     return ok(res, {
       contactId: contact.contactId,
       demoMode: contact.demoMode || false,
+      warnings: contact.warnings || [],
       action: 'lead_magnet_processed',
       offer: leadMagnet.title,
       nextBestAction,
@@ -937,6 +956,7 @@ app.post('/webhooks/ghl/offer-clicked', async (req, res) => {
     return ok(res, {
       contactId: contact.contactId,
       demoMode: contact.demoMode || false,
+      warnings: contact.warnings || [],
       action: 'offer_click_processed',
       offer: offer.name,
       nextBestAction,
@@ -1085,6 +1105,7 @@ app.post('/webhooks/ghl/order-submitted', async (req, res) => {
     return ok(res, {
       contactId: contact.contactId,
       demoMode: contact.demoMode || false,
+      warnings: contact.warnings || [],
       action: 'order_processed',
       product: productName,
       shipping,
@@ -1119,7 +1140,12 @@ app.post('/webhooks/ghl/review-submitted', async (req, res) => {
       `Thank you for the review. If you know someone researching ${species}s, I can send them the same starter guide and VIP availability list.`;
     await sendIfPossible(contact.contactId, 'sms', sms);
 
-    return ok(res, { contactId: contact.contactId, demoMode: contact.demoMode || false, action: 'review_processed' });
+    return ok(res, {
+      contactId: contact.contactId,
+      demoMode: contact.demoMode || false,
+      warnings: contact.warnings || [],
+      action: 'review_processed',
+    });
   } catch (err) {
     return fail(res, 500, 'Review handler error', err);
   }
@@ -1158,6 +1184,7 @@ app.post('/webhooks/ghl/referral', async (req, res) => {
     return ok(res, {
       contactId: contact.contactId,
       demoMode: contact.demoMode || false,
+      warnings: contact.warnings || [],
       action: 'referral_processed',
       referralSource,
     });

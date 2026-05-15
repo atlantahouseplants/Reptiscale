@@ -48,3 +48,6 @@ HatchKit.ai/.vercel/
 
 # Temporary external repo inspections
 _inspect_gecko_shipper_*/
+
+.vercel
+.env*.local

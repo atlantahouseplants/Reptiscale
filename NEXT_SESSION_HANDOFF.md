@@ -33,6 +33,17 @@ Live alias:
 
 `https://reptiscale-demo.vercel.app`
 
+Vercel env helper:
+
+`exports/reptiscale-demo/vercel-sync-env.ps1`
+
+Run it from a normal PowerShell window to sync the local `.env` values into Vercel production and redeploy:
+
+```powershell
+cd C:\Users\wallg\OneDrive\Desktop\HatchKit
+.\exports\reptiscale-demo\vercel-sync-env.ps1
+```
+
 The demo was deployed to Vercel and `/health` plus `/demo` loaded successfully after the first deploy.
 
 Important fix now in the local code:

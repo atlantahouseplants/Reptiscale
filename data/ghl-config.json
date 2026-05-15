@@ -104,5 +104,134 @@
       "dataType": "TEXT"
     }
   },
-  "pipelines": {}
+  "pipelines": {
+    "lead_pipeline": {
+      "id": "lS4oUBXXwn56NZR0UP45",
+      "name": "HatchKit - Lead Pipeline",
+      "stages": {
+        "new_lead": {
+          "id": "9263694b-e24e-4c75-a8fc-b1acd53590e8",
+          "name": "New Lead",
+          "position": 0
+        },
+        "contacted": {
+          "id": "7e1dbd0f-8298-4333-a6f7-db9a7705f09a",
+          "name": "Contacted",
+          "position": 1
+        },
+        "interested": {
+          "id": "10c7b4ed-d1d2-478c-97ec-e5eb6cf6e121",
+          "name": "Interested",
+          "position": 2
+        },
+        "qualified": {
+          "id": "02004125-c071-4f3f-8b1c-fb85f02cb4cc",
+          "name": "Qualified",
+          "position": 3
+        },
+        "customer": {
+          "id": "24a8544c-f16d-4a3e-bf07-61880cbe7c83",
+          "name": "Customer",
+          "position": 4
+        },
+        "lost": {
+          "id": "e356b2ae-a616-4da0-bf8b-7df3fb744c62",
+          "name": "Lost",
+          "position": 5
+        }
+      }
+    },
+    "sales_pipeline": {
+      "id": "ZZc455CbwqMld5BE8t9T",
+      "name": "HatchKit - Sales Pipeline",
+      "stages": {
+        "animal_selected": {
+          "id": "b7ff7ea7-0825-4c6f-aa8d-7a254f292653",
+          "name": "Animal Selected",
+          "position": 0
+        },
+        "invoice_sent": {
+          "id": "7d39d19c-988b-4a98-a8be-fcd96d6dbffa",
+          "name": "Invoice Sent",
+          "position": 1
+        },
+        "payment_received": {
+          "id": "c56f21a8-aad4-48b6-9d2c-7277161af6e6",
+          "name": "Payment Received",
+          "position": 2
+        },
+        "shipping_scheduled": {
+          "id": "07c0ad28-4313-4a79-ae14-d3c87074fcb9",
+          "name": "Shipping Scheduled",
+          "position": 3
+        },
+        "shipped": {
+          "id": "44431aa8-c817-49cf-ad28-19b742808859",
+          "name": "Shipped",
+          "position": 4
+        },
+        "delivered": {
+          "id": "d135dfc7-70a9-4eb9-9b19-584d6f2cd327",
+          "name": "Delivered",
+          "position": 5
+        },
+        "follow_up_complete": {
+          "id": "6343e57e-f696-422a-b439-eb80e7205f6d",
+          "name": "Follow-Up Complete",
+          "position": 6
+        }
+      }
+    },
+    "shipping_pipeline": {
+      "id": "uEkPynF52pDVoNRO2FNF",
+      "name": "HatchKit - Shipping Pipeline",
+      "stages": {
+        "pending_review": {
+          "id": "366e5bd5-67d4-4386-9104-090ee46f0594",
+          "name": "Pending Review",
+          "position": 0
+        },
+        "weather_check": {
+          "id": "d9742616-ce50-4432-b246-e41018109ac0",
+          "name": "Weather Check",
+          "position": 1
+        },
+        "approved_to_ship": {
+          "id": "7093b2ca-5c8d-4661-8a7e-c1991afdf649",
+          "name": "Approved to Ship",
+          "position": 2
+        },
+        "label_created": {
+          "id": "c35c6845-d09b-4e2a-b13e-4a1045cf467f",
+          "name": "Label Created",
+          "position": 3
+        },
+        "dropped_off": {
+          "id": "02368b0d-6ee1-4a4f-91a4-be9081c47fc2",
+          "name": "Dropped Off",
+          "position": 4
+        },
+        "in_transit": {
+          "id": "a6df3f86-7fcf-408d-9aa0-1d75657548d5",
+          "name": "In Transit",
+          "position": 5
+        },
+        "delivered": {
+          "id": "27226327-a085-4980-823a-fea98831f991",
+          "name": "Delivered",
+          "position": 6
+        },
+        "lag_confirmed": {
+          "id": "fad589b9-162e-4b49-ab62-3917fbd10634",
+          "name": "LAG Confirmed",
+          "position": 7
+        },
+        "complete": {
+          "id": "798b5ca4-03fb-4ea1-b4ca-d24327f8444f",
+          "name": "Complete",
+          "position": 8
+        }
+      }
+    }
+  }
 }

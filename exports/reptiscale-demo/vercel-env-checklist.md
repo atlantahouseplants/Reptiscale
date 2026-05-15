@@ -22,7 +22,18 @@ Set these in Vercel before wiring live HighLevel workflows.
 
 If `ANTHROPIC_API_KEY` is missing, the shipping agent falls back to rule-based decisions.
 
-## Commands
+## One-Command Sync
+
+From your normal PowerShell window, run:
+
+```powershell
+cd C:\Users\wallg\OneDrive\Desktop\HatchKit
+.\exports\reptiscale-demo\vercel-sync-env.ps1
+```
+
+That script reads the local `.env`, upserts the required variables into the Vercel `production` environment, and redeploys the production demo.
+
+## Manual Commands
 
 Use Vercel's interactive env command so secrets are not printed in shell history:
 
