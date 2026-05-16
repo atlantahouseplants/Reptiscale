@@ -28,6 +28,7 @@ const requiredFiles = [
   'exports/reptiscale-demo/deployment-runbook.md',
   'exports/reptiscale-demo/vercel-env-checklist.md',
   'exports/reptiscale-demo/highlevel-workflow-checklist.md',
+  'exports/reptiscale-demo/highlevel-ai-workflow-prompts.md',
   'exports/reptiscale-demo/demo-test-plan.md',
   'exports/reptiscale-demo/vercel-deploy.ps1',
   'exports/reptiscale-demo/webhook-smoke-test.ps1',
@@ -134,6 +135,8 @@ check(includes('server.js', 'log file unavailable'), 'server.js file logging can
 check(includes('templates/pages/reptiscale-demo-console.html', 'Demo Business Snapshot'), 'Demo console missing control room snapshot');
 check(includes('templates/pages/reptiscale-demo-console.html', '/api/demo/control-room'), 'Demo console missing control room API link');
 check(includes('exports/reptiscale-demo/highlevel-workflow-checklist.md', 'Manual Blocker'), 'Workflow checklist missing manual blocker section');
+check(includes('exports/reptiscale-demo/highlevel-ai-workflow-prompts.md', 'Reptiscale - Daily Shipping Weather Re-Check'), 'Workflow prompt pack missing weather re-check prompt');
+check(includes('exports/reptiscale-demo/highlevel-ai-workflow-prompts.md', 'shipping:ready-for-operator-approval'), 'Workflow prompt pack missing operator approval prompt');
 check(includes('exports/reptiscale-demo/demo-test-plan.md', 'Pass Criteria'), 'Demo test plan missing pass criteria');
 check(includes('exports/reptiscale-demo/webhook-smoke-test.ps1', 'Invoke-DemoWebhook'), 'Webhook smoke test missing Invoke-DemoWebhook helper');
 check(includes('templates/pages/reptiscale-demo-console.html', 'Reptiscale Demo Console'), 'Demo console missing title');

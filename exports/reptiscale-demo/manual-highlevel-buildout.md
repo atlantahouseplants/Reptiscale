@@ -53,6 +53,7 @@ The HighLevel token may not be able to create opportunities in this account. If 
 - deployment-runbook.md
 - vercel-env-checklist.md
 - highlevel-workflow-checklist.md
+- highlevel-ai-workflow-prompts.md
 - demo-test-plan.md
 - vercel-deploy.ps1
 - webhook-smoke-test.ps1

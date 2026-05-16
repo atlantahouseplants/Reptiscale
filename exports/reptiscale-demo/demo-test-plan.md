@@ -29,6 +29,11 @@ The smoke test posts demo buyer events. Use demo contact details only.
 - Manual pipelines exist.
 - Workflow webhook actions point to the correct `BASE_URL`.
 - Order/payment workflow includes shipping address fields.
+- The first three workflows have executed successfully:
+  - `Reptiscale - Lead Magnet Delivery`
+  - `Reptiscale - Offer Clicked`
+  - `Reptiscale - Order Submitted`
+- The review/referral/weather/operator/care workflows from `highlevel-ai-workflow-prompts.md` are built or intentionally marked as pending.
 
 ## Sales Demo Path
 
