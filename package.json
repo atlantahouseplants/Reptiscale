@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "setup:demo": "node scripts/setup-demo-account.js",
+    "sync:smart-list-tags": "node scripts/sync-smart-list-tags.js",
     "export:demo": "node scripts/export-demo-buildout.js",
     "export:sales": "node scripts/export-commercial-packet.js",
     "simulate:shipping-review": "node scripts/simulate-order-shipping-review.js",
