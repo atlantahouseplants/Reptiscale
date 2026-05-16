@@ -2,7 +2,7 @@
 
 Created after the May 5, 2026 build session.
 
-Updated May 15, 2026 resume session with Vercel deployment status and API logging fix.
+Updated May 16, 2026 after HighLevel workflows, workflow settings, smart-list tags, and smart lists were completed.
 
 ## Project Goal
 
@@ -226,27 +226,48 @@ Synced:
   - `shipping:manual-review-required`
   - `shipping:label-blocked`
 
+Completed in HighLevel on May 16, 2026:
+
+- Three main webhook workflows were tested successfully:
+  - `Reptiscale - Lead Magnet Delivery`
+  - `Reptiscale - Offer Clicked`
+  - `Reptiscale - Order Submitted`
+- Remaining workflows were built and tested successfully:
+  - `Reptiscale - Review Submitted`
+  - `Reptiscale - Referral Submitted`
+  - `Reptiscale - Daily Shipping Weather Re-Check`
+  - `Reptiscale - Shipping Hold Operator Alert`
+  - `Reptiscale - Ready For Label Approval`
+  - `Reptiscale - Post-Purchase Care Onboarding`
+  - `Reptiscale - Review And Referral Request`
+- Workflow settings were adjusted:
+  - Re-entry enabled where repeat events should be allowed.
+  - Stop on response enabled for nurture/care/review workflows and disabled for safety/operator workflows.
+  - Shipping/weather workflows are not blocked by a customer-message time window.
+- Smart-list tags were verified with `npm.cmd run sync:smart-list-tags`.
+- Smart lists were created:
+  - New Crested Gecko Leads
+  - Hot Animal Buyers
+  - Shipping Holds
+  - Operator Review Queue
+  - Ready For Label Approval
+  - Review / Referral Candidates
+  - Repeat Buyer VIP
+
 Still blocked by HighLevel API scope:
 
 - Creating pipelines
 - Creating opportunities
 
-Manual HighLevel work still needed:
+Manual HighLevel work still needed or worth verifying:
 
 1. Create/verify these pipelines:
    - `HatchKit - Lead Pipeline`
    - `HatchKit - Sales Pipeline`
    - `HatchKit - Shipping Pipeline`
 2. Add the demo opportunities listed by `npm run setup:demo`.
-3. Wire HighLevel workflows to the webhook URLs once there is a deployed base URL.
-4. Build smart lists for:
-   - New crested gecko leads
-   - Hot animal buyers
-   - Shipping holds
-   - Operator review queue
-   - Ready for label approval
-   - Review/referral candidates
-   - Repeat buyer VIP
+3. Verify every workflow is published only after its test contact behaves correctly.
+4. Verify smart lists show the expected demo contacts after the full smoke test.
 
 ## Verification Already Passed
 
