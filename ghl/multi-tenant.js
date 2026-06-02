@@ -21,6 +21,34 @@ let _breederCache = null;
 let _cacheTime = 0;
 const CACHE_TTL_MS = 30000; // 30 seconds
 
+function mergeLegacyConfigFallback(ghlConfig) {
+  if (!fs.existsSync(LEGACY_CONFIG_PATH)) return ghlConfig;
+
+  try {
+    const legacyConfig = JSON.parse(fs.readFileSync(LEGACY_CONFIG_PATH, 'utf8'));
+    const sameLocation =
+      !ghlConfig.locationId ||
+      !legacyConfig.locationId ||
+      ghlConfig.locationId === legacyConfig.locationId;
+
+    if (!sameLocation) return ghlConfig;
+
+    return {
+      ...ghlConfig,
+      customFields: {
+        ...(legacyConfig.customFields || {}),
+        ...(ghlConfig.customFields || {}),
+      },
+      pipelines: Object.keys(ghlConfig.pipelines || {}).length
+        ? ghlConfig.pipelines
+        : (legacyConfig.pipelines || {}),
+    };
+  } catch (err) {
+    console.warn('[multi-tenant] Failed to merge legacy config fallback:', err.message);
+    return ghlConfig;
+  }
+}
+
 // ─── Breeder Config Loading ──────────────────────────────────────────────────
 
 /**
@@ -49,7 +77,7 @@ function loadAllBreeders() {
       if (!fs.existsSync(ghlConfigPath)) continue;
 
       try {
-        const ghlConfig = JSON.parse(fs.readFileSync(ghlConfigPath, 'utf8'));
+        const ghlConfig = mergeLegacyConfigFallback(JSON.parse(fs.readFileSync(ghlConfigPath, 'utf8')));
         const clientConfig = fs.existsSync(clientConfigPath)
           ? JSON.parse(fs.readFileSync(clientConfigPath, 'utf8'))
           : {};
