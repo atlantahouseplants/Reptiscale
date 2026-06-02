@@ -40,7 +40,7 @@ $Payloads = @'
       "countryCode": "US",
       "residential": true
     },
-    "preferredShipDate": "2026-05-11"
+    "preferredShipDate": "2026-06-08"
   },
   "reviewSubmitted": {
     "locationId": "fqj4rbp2VRkvMa8GWVWn",
@@ -61,7 +61,7 @@ $Payloads = @'
     "species": "crested_gecko",
     "originZip": "27601",
     "destinationZip": "30339",
-    "preferredShipDate": "2026-05-11",
+    "preferredShipDate": "2026-06-08",
     "profileKey": "crestedGecko",
     "shipper": {
       "contact": {
@@ -123,7 +123,7 @@ $Payloads = @'
       "countryCode": "US",
       "residential": true
     },
-    "preferredShipDate": "2026-05-11"
+    "preferredShipDate": "2026-06-08"
   }
 }
 '@ | ConvertFrom-Json

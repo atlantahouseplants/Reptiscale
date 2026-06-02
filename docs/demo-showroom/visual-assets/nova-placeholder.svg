@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <rect width="800" height="600" fill="#e8ece5"/>
+  <path d="M120 366c64-177 240-286 403-210 112 52 160 153 119 242-51 111-191 159-331 99-91-39-158-103-191-131Z" fill="#f3e8c8"/>
+  <path d="M180 353c73-94 188-136 290-87 75 36 103 102 72 158-39 72-140 95-236 46-54-27-96-70-126-117Z" fill="#f6f2df"/>
+  <path d="M249 260c96-45 199-25 286 72" fill="none" stroke="#d09f3d" stroke-width="18" stroke-linecap="round" opacity=".8"/>
+  <circle cx="544" cy="301" r="14" fill="#17211c"/>
+  <text x="44" y="70" font-family="Arial, sans-serif" font-size="42" font-weight="800" fill="#123526">Nova</text>
+  <text x="44" y="112" font-family="Arial, sans-serif" font-size="24" fill="#617167">Lilly White</text>
+</svg>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <rect width="800" height="600" fill="#e7e0d7"/>
+  <path d="M132 365c79-162 260-245 411-159 97 55 134 151 88 237-57 106-193 147-328 79-81-41-141-101-171-157Z" fill="#cfa56b"/>
+  <path d="M205 348c72-87 185-122 281-63 61 38 82 99 51 151-39 65-132 80-215 35-50-27-87-66-117-123Z" fill="#f0d198"/>
+  <g fill="#1f1a14">
+    <circle cx="263" cy="330" r="8"/><circle cx="322" cy="287" r="11"/><circle cx="386" cy="317" r="7"/><circle cx="421" cy="368" r="10"/><circle cx="486" cy="413" r="8"/><circle cx="300" cy="425" r="7"/><circle cx="515" cy="300" r="9"/>
+  </g>
+  <circle cx="548" cy="302" r="14" fill="#17211c"/>
+  <text x="44" y="70" font-family="Arial, sans-serif" font-size="42" font-weight="800" fill="#123526">Pepper</text>
+  <text x="44" y="112" font-family="Arial, sans-serif" font-size="24" fill="#617167">Super Dalmatian</text>
+</svg>

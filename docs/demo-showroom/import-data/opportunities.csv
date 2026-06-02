@@ -1,0 +1,10 @@
+contactEmail,pipelineKey,pipelineName,stage,name,value,status
+hatchkit.demo.ava@example.com,lead_pipeline,HatchKit - Lead Pipeline,Qualified,Ava Bennett - Lilly White crested gecko lead,1200,open
+hatchkit.demo.marcus@example.com,sales_pipeline,HatchKit - Sales Pipeline,Payment Received,Marcus Hill - Tricolor crested gecko sale,475,open
+hatchkit.demo.marcus@example.com,shipping_pipeline,HatchKit - Shipping Pipeline,Weather Check,Ship Marcus Hill - heat hold demo,475,open
+hatchkit.demo.jenna@example.com,lead_pipeline,HatchKit - Lead Pipeline,Interested,Jenna Ortiz - Dalmatian inquiry,225,open
+hatchkit.demo.noah@example.com,lead_pipeline,HatchKit - Lead Pipeline,New Lead,Noah Parker - show QR signup,95,open
+hatchkit.demo.priya@example.com,sales_pipeline,HatchKit - Sales Pipeline,Shipping Scheduled,Priya Raman - Phantom crested gecko sale,650,open
+hatchkit.demo.priya@example.com,shipping_pipeline,HatchKit - Shipping Pipeline,Approved to Ship,Ship Priya Raman - approved window,650,open
+hatchkit.demo.drew@example.com,sales_pipeline,HatchKit - Sales Pipeline,Delivered,Drew Coleman - delivered leopard gecko sale,185,open
+hatchkit.demo.drew@example.com,shipping_pipeline,HatchKit - Shipping Pipeline,LAG Confirmed,Drew Coleman - live arrival confirmed,185,open

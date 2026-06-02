@@ -924,20 +924,20 @@ Show the advocacy workflow: review request, photo permission, referral link, and
 
 function socialCalendarCsv() {
   const rows = [
-    ['2026-05-04', 'Instagram', 'Animal spotlight', 'Nova the Lilly White crested gecko', 'Reserve Nova or join the VIP list'],
-    ['2026-05-05', 'Facebook', 'Care tip', 'Humidity mistakes new crested gecko owners make', 'Download the starter guide'],
-    ['2026-05-06', 'Instagram', 'Behind the scenes', 'Feeding night and growth checks', 'Ask about current availability'],
-    ['2026-05-07', 'TikTok', 'Education', 'Beginner versus collector crested geckos', 'Comment budget for recommendations'],
-    ['2026-05-08', 'Instagram', 'Offer', 'Reservation deposits explained', 'Reserve a gecko'],
-    ['2026-05-09', 'Facebook', 'Proof', 'Safe arrival and setup checklist story', 'Join the starter guide list'],
-    ['2026-05-10', 'Instagram', 'Waitlist', 'Next clutch preview and VIP first look', 'Join VIP availability alerts'],
-    ['2026-05-11', 'Instagram', 'Animal spotlight', 'Mango the Harlequin Dalmatian', 'View details'],
-    ['2026-05-12', 'Facebook', 'Care tip', 'What to do during the first 72 hours', 'Download the starter guide'],
-    ['2026-05-13', 'Instagram', 'Shipping', 'Why weather holds protect the animal', 'Ask about shipping'],
-    ['2026-05-14', 'TikTok', 'Education', 'Crested gecko food routine for beginners', 'Save this checklist'],
-    ['2026-05-15', 'Instagram', 'Offer', 'Care Starter Kit order bump', 'Add the kit before pickup'],
-    ['2026-05-16', 'Facebook', 'Referral', 'Refer a friend researching crested geckos', 'Share the guide'],
-    ['2026-05-17', 'Instagram', 'Behind the scenes', 'Cleaning and enrichment day', 'Join the VIP list'],
+    ['2026-06-02', 'Instagram', 'Animal spotlight', 'Nova the Lilly White crested gecko', 'Reserve Nova or join the VIP list'],
+    ['2026-06-03', 'Facebook', 'Care tip', 'Humidity mistakes new crested gecko owners make', 'Download the starter guide'],
+    ['2026-06-04', 'Instagram', 'Behind the scenes', 'Feeding night and growth checks', 'Ask about current availability'],
+    ['2026-06-05', 'TikTok', 'Education', 'Beginner versus collector crested geckos', 'Comment budget for recommendations'],
+    ['2026-06-06', 'Instagram', 'Offer', 'Reservation deposits explained', 'Reserve a gecko'],
+    ['2026-06-07', 'Facebook', 'Proof', 'Safe arrival and setup checklist story', 'Join the starter guide list'],
+    ['2026-06-08', 'Instagram', 'Waitlist', 'Next clutch preview and VIP first look', 'Join VIP availability alerts'],
+    ['2026-06-09', 'Instagram', 'Animal spotlight', 'Mango the Harlequin Dalmatian', 'View details'],
+    ['2026-06-10', 'Facebook', 'Care tip', 'What to do during the first 72 hours', 'Download the starter guide'],
+    ['2026-06-11', 'Instagram', 'Shipping', 'Why weather holds protect the animal', 'Ask about shipping'],
+    ['2026-06-12', 'TikTok', 'Education', 'Crested gecko food routine for beginners', 'Save this checklist'],
+    ['2026-06-13', 'Instagram', 'Offer', 'Care Starter Kit order bump', 'Add the kit before pickup'],
+    ['2026-06-14', 'Facebook', 'Referral', 'Refer a friend researching crested geckos', 'Share the guide'],
+    ['2026-06-15', 'Instagram', 'Behind the scenes', 'Cleaning and enrichment day', 'Join the VIP list'],
   ].map(([date, platform, pillar, topic, cta]) => ({ date, platform, pillar, topic, cta }));
   return toCsv(rows, ['date', 'platform', 'pillar', 'topic', 'cta']);
 }
@@ -980,7 +980,7 @@ function webhookPayloads() {
         countryCode: 'US',
         residential: true,
       },
-      preferredShipDate: '2026-05-11',
+      preferredShipDate: '2026-06-08',
     },
     reviewSubmitted: {
       locationId: client.ghlLocationId,
@@ -1001,7 +1001,7 @@ function webhookPayloads() {
       species: 'crested_gecko',
       originZip: client.breederZip,
       destinationZip: '30339',
-      preferredShipDate: '2026-05-11',
+      preferredShipDate: '2026-06-08',
       profileKey: 'crestedGecko',
       shipper: {
         contact: {
@@ -1055,7 +1055,7 @@ function webhookPayloads() {
         countryCode: 'US',
         residential: true,
       },
-      preferredShipDate: '2026-05-11',
+      preferredShipDate: '2026-06-08',
     },
   };
 }

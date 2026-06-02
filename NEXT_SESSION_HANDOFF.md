@@ -17,6 +17,32 @@ Reptiscale is the productized reptile-seller growth machine built on HighLevel:
 - Reviews, referrals, repeat-buyer campaigns
 - Social content engine and demo/sales materials
 
+## Current Product Direction
+
+The near-term sellable product is a done-for-you GoHighLevel subaccount and snapshot system for reptile breeders.
+
+The Vercel app is the automation/webhook support layer. It is not the main prospect-facing product demo.
+
+The next build priority is the GoHighLevel demo showroom:
+
+- one clean master snapshot account
+- one SunScale Geckos demo account
+- buyer-facing storefront/funnel/reservation path
+- accelerated demo workflows
+- HighLevel CRM, inbox, pipelines, smart lists, shipping review, care, review, referral, and VIP proof
+
+Source of truth for this build:
+
+`docs/demo-showroom/`
+
+Key files:
+
+- `docs/demo-showroom/hatchkit-ghl-demo-showroom-prd.md`
+- `docs/demo-showroom/master-build-plan.md`
+- `docs/demo-showroom/subagent-execution-plan.md`
+- `docs/demo-showroom/gap-register.md`
+- `docs/demo-showroom/breeder-input-checklist.md`
+
 The demo account is SunScale Geckos.
 
 HighLevel sub-account/location ID:

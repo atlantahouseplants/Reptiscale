@@ -1,0 +1,10 @@
+name,value,notes
+webhook_base_url,https://reptiscale-demo.vercel.app,Used by webhook actions and standalone demo pages
+demo_location_id,REPLACE_WITH_SUNSCALE_DEMO_LOCATION_ID,Set after new HighLevel subaccount exists
+storefront_url,REPLACE_WITH_HIGHLEVEL_STOREFRONT_URL,SunScale storefront page
+starter_guide_url,REPLACE_WITH_HIGHLEVEL_STARTER_GUIDE_URL,Lead magnet page
+mango_detail_url,REPLACE_WITH_HIGHLEVEL_MANGO_DETAIL_URL,Mango animal detail page
+reservation_url,REPLACE_WITH_HIGHLEVEL_RESERVATION_URL,Mango reservation page
+review_url,REPLACE_WITH_HIGHLEVEL_REVIEW_URL,Review submission page
+referral_url,REPLACE_WITH_HIGHLEVEL_REFERRAL_URL,Referral form page
+vip_url,REPLACE_WITH_HIGHLEVEL_VIP_URL,VIP availability page

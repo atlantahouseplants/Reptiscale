@@ -188,6 +188,7 @@ const REQUIRED_TAGS = [
   'shipping:manual-review-required',
   'shipping:label-blocked',
   'shipping:in-transit',
+  'shipping:lag-confirmed',
   'follow-up:complete',
   'repeat-buyer-candidate',
   'review-requested',

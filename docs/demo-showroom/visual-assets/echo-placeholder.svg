@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <rect width="800" height="600" fill="#dce7e3"/>
+  <path d="M124 366c77-164 254-246 407-160 99 56 139 150 95 234-55 106-193 147-328 83-85-40-147-99-174-157Z" fill="#1f5c44"/>
+  <path d="M195 348c66-89 173-125 268-72 66 37 90 97 60 150-38 67-133 86-222 40-49-26-86-64-106-118Z" fill="#d9a24b"/>
+  <path d="M242 314c103-42 203-15 290 76" fill="none" stroke="#f0e5cf" stroke-width="14" stroke-linecap="round"/>
+  <circle cx="541" cy="301" r="14" fill="#17211c"/>
+  <text x="44" y="70" font-family="Arial, sans-serif" font-size="42" font-weight="800" fill="#123526">Echo</text>
+  <text x="44" y="112" font-family="Arial, sans-serif" font-size="24" fill="#617167">Tricolor Pinstripe</text>
+</svg>

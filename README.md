@@ -244,6 +244,7 @@ GHL (webhooks) ──→ server.js ──→ Route by event type
 
 The project now includes a complete commercial package for selling Reptiscale as a productized service:
 
+- Demo showroom PRD and build plan: `docs/demo-showroom/`
 - Positioning: `docs/business/reptiscale-positioning.md`
 - Pricing: `docs/business/pricing-and-packaging.md`
 - Sales playbook: `docs/business/sales-playbook.md`
