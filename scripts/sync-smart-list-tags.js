@@ -1,8 +1,22 @@
 #!/usr/bin/env node
 require('dotenv').config({ quiet: true });
 const axios = require('axios');
+const fs = require('fs');
+const path = require('path');
 
-const locationId = process.env.GHL_LOCATION_ID || 'fqj4rbp2VRkvMa8GWVWn';
+const clientId = process.argv.find((arg) => arg.startsWith('--client='))?.split('=')[1] || 'sunscale-geckos';
+const explicitLocationId = process.argv.find((arg) => arg.startsWith('--location='))?.split('=')[1];
+const breederConfigPath = path.join(__dirname, '..', 'data', 'breeders', clientId, 'ghl-config.json');
+const clientConfigPath = path.join(__dirname, '..', 'data', 'breeders', clientId, 'client.json');
+
+function readJson(filePath) {
+  if (!fs.existsSync(filePath)) return {};
+  return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+}
+
+const breederConfig = readJson(breederConfigPath);
+const clientConfig = readJson(clientConfigPath);
+const locationId = explicitLocationId || breederConfig.locationId || clientConfig.ghlLocationId || process.env.GHL_LOCATION_ID;
 const token = process.env.GHL_PRIVATE_TOKEN;
 const baseURL = process.env.GHL_API_BASE || 'https://services.leadconnectorhq.com';
 const version = process.env.GHL_API_VERSION || '2021-07-28';
@@ -24,6 +38,16 @@ const requiredTags = [
 
 if (!token) {
   console.error('GHL_PRIVATE_TOKEN is missing from .env');
+  process.exit(1);
+}
+
+if (!locationId) {
+  console.error('No HighLevel location ID found. Pass --location=... or update the breeder config first.');
+  process.exit(1);
+}
+
+if (/^(PENDING|REPLACE_WITH)/.test(locationId)) {
+  console.error('SunScale demo location ID is still pending. Create the new HighLevel subaccount, then update the breeder config or pass --location=...');
   process.exit(1);
 }
 

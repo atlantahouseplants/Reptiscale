@@ -1,0 +1,245 @@
+{
+  "generatedAt": "2026-06-08T04:25:39.099Z",
+  "locationId": "oCn199rzTjj0rPgqXyXU",
+  "overallStatus": "store_shell_created_visual_builder_required",
+  "checks": [
+    {
+      "label": "Required demo products exist",
+      "pass": true,
+      "evidence": "8/8",
+      "status": "pass"
+    },
+    {
+      "label": "Required products are visible in online store",
+      "pass": true,
+      "evidence": "8/8",
+      "status": "pass"
+    },
+    {
+      "label": "Required products have prices",
+      "pass": true,
+      "evidence": "8/8",
+      "status": "pass"
+    },
+    {
+      "label": "Required products have store images",
+      "pass": true,
+      "evidence": "8/8",
+      "status": "pass"
+    },
+    {
+      "label": "HighLevel Store shell is recorded",
+      "pass": true,
+      "evidence": "c6oIcQOaIihVIc23qseX",
+      "status": "pass"
+    },
+    {
+      "label": "Store shipping origin is available",
+      "pass": true,
+      "evidence": "available",
+      "status": "pass"
+    },
+    {
+      "label": "Store shipping origin matches SunScale demo",
+      "pass": true,
+      "evidence": "Raleigh, NC 27601",
+      "status": "pass"
+    },
+    {
+      "label": "Required product collections exist",
+      "pass": true,
+      "evidence": "6/6",
+      "status": "pass"
+    }
+  ],
+  "products": [
+    {
+      "id": "6a1fa5f260f0fd10c14e55f8",
+      "name": "Pepper - Super Dalmatian",
+      "productType": "PHYSICAL",
+      "availableInStore": true,
+      "status": "active",
+      "priceCount": 1,
+      "priceIds": [
+        "6a1fa5f260f0fddd084e55fd"
+      ],
+      "priceBlocked": null,
+      "image": "https://reptiscale-demo.vercel.app/demo-showroom/assets/pepper-placeholder.svg"
+    },
+    {
+      "id": "6a1fa5f27e3c81f4b434baf4",
+      "name": "Echo - Tricolor Pinstripe",
+      "productType": "PHYSICAL",
+      "availableInStore": true,
+      "status": "active",
+      "priceCount": 1,
+      "priceIds": [
+        "6a1fa5f2aa07d2cc045cf9a9"
+      ],
+      "priceBlocked": null,
+      "image": "https://reptiscale-demo.vercel.app/demo-showroom/assets/echo-placeholder.svg"
+    },
+    {
+      "id": "6a1fa5f17e3c81562334baf2",
+      "name": "Mango - Harlequin Dalmatian",
+      "productType": "PHYSICAL",
+      "availableInStore": true,
+      "status": "active",
+      "priceCount": 1,
+      "priceIds": [
+        "6a1fa5f160f0fd21ea4e55f6"
+      ],
+      "priceBlocked": null,
+      "image": "https://reptiscale-demo.vercel.app/demo-showroom/assets/mango-placeholder.svg"
+    },
+    {
+      "id": "6a1fa5f160f0fd7fa24e55dc",
+      "name": "Nova - Lilly White",
+      "productType": "PHYSICAL",
+      "availableInStore": true,
+      "status": "active",
+      "priceCount": 1,
+      "priceIds": [
+        "6a1fa5f1aa07d2599e5cf9a4"
+      ],
+      "priceBlocked": null,
+      "image": "https://reptiscale-demo.vercel.app/demo-showroom/assets/nova-placeholder.svg"
+    },
+    {
+      "id": "6a1fa59660f0fd0bd64e5266",
+      "name": "Crested Gecko Starter Guide",
+      "productType": "DIGITAL",
+      "availableInStore": true,
+      "status": "active",
+      "priceCount": 1,
+      "priceIds": [
+        "6a1fa596b465a15726ba628b"
+      ],
+      "priceBlocked": null,
+      "image": "https://reptiscale-demo.vercel.app/demo-showroom/assets/starter-guide-cover.svg"
+    },
+    {
+      "id": "6a1fa5965e7d1ef63ab93b1e",
+      "name": "30-Minute Setup Review",
+      "productType": "DIGITAL",
+      "availableInStore": true,
+      "status": "active",
+      "priceCount": 1,
+      "priceIds": [
+        "6a1fa5967e3c810dc334b79f"
+      ],
+      "priceBlocked": null,
+      "image": "https://reptiscale-demo.vercel.app/demo-showroom/assets/sunscale-logo.svg"
+    },
+    {
+      "id": "6a1fa595b465a1248fba6277",
+      "name": "Crested Gecko Care Starter Kit",
+      "productType": "PHYSICAL",
+      "availableInStore": true,
+      "status": "active",
+      "priceCount": 1,
+      "priceIds": [
+        "6a1fa595aa07d2284f5cf5dd"
+      ],
+      "priceBlocked": null,
+      "image": "https://reptiscale-demo.vercel.app/demo-showroom/assets/starter-guide-cover.svg"
+    },
+    {
+      "id": "6a1fa595b465a1dec1ba6275",
+      "name": "Animal Reservation Deposit",
+      "productType": "DIGITAL",
+      "availableInStore": true,
+      "status": "active",
+      "priceCount": 1,
+      "priceIds": [
+        "6a1fa59560f0fd0c5b4e525b"
+      ],
+      "priceBlocked": null,
+      "image": "https://reptiscale-demo.vercel.app/demo-showroom/assets/mango-placeholder.svg"
+    }
+  ],
+  "missingProducts": [],
+  "collections": [
+    {
+      "id": "6a263f80b6557d53f72dc8d5",
+      "name": "Deposits & Reservations",
+      "slug": "deposits-reservations",
+      "type": "manual"
+    },
+    {
+      "id": "6a263f80b6557d022f2dc8d4",
+      "name": "Lead Magnets / Digital",
+      "slug": "lead-magnets-digital",
+      "type": "manual"
+    },
+    {
+      "id": "6a263f8088fcf53b772e8c3f",
+      "name": "Care & Supplies",
+      "slug": "care-supplies",
+      "type": "manual"
+    },
+    {
+      "id": "6a263f7f88fcf5dbf02e8c3e",
+      "name": "Reserved / Sold Examples",
+      "slug": "reserved-sold-examples",
+      "type": "manual"
+    },
+    {
+      "id": "6a263f7fb6557da9902dc8d0",
+      "name": "Crested Geckos",
+      "slug": "crested-geckos",
+      "type": "manual"
+    },
+    {
+      "id": "6a263f12e736e3168e046bfd",
+      "name": "Available Animals",
+      "slug": "available-animals",
+      "type": "manual"
+    }
+  ],
+  "missingCollections": [],
+  "highLevelStore": {
+    "id": "c6oIcQOaIihVIc23qseX",
+    "name": "SunScale Geckos Store",
+    "builderUrl": "https://app.gohighlevel.com/location/oCn199rzTjj0rPgqXyXU/page-builder/c6oIcQOaIihVIc23qseX?source=store",
+    "previewUrl": "https://sites.leadconnectorhq.com/preview/c6oIcQOaIihVIc23qseX",
+    "status": "created_unpublished_visual_builder_required",
+    "createdAt": "2026-06-08",
+    "previewQa": {
+      "productsList": "https://sites.leadconnectorhq.com/preview/c6oIcQOaIihVIc23qseX",
+      "productDetail": "https://sites.leadconnectorhq.com/preview/42Y3BhSN0LLhByDhGEYK/product/6a1fa5965e7d1ef63ab93b1e",
+      "cart": "https://sites.leadconnectorhq.com/preview/Trzn1oAHez3m6DY9UPZe",
+      "checkout": "https://sites.leadconnectorhq.com/preview/WDEPbXE6RmTlKyGdqUcb",
+      "verifiedAt": "2026-06-08",
+      "notes": "Preview confirms product list, product detail, add-to-cart drawer, cart page, and checkout page load. Payment/order submission was intentionally not tested."
+    }
+  },
+  "storeSettings": {
+    "id": "6a1f9f116ed4cbb46c173b36",
+    "shippingOrigin": {
+      "name": "SunScale Geckos - Demo",
+      "street1": "123 Breeder Lane",
+      "city": "Raleigh",
+      "state": "NC",
+      "country": "US",
+      "zip": "27601",
+      "email": "sarah@sunscalegeckos.com",
+      "phone": "+19843001621"
+    },
+    "storeOrderNotification": {
+      "enabled": true,
+      "allowGuestDigitalDownloads": true
+    }
+  },
+  "uiRequired": [
+    "Update generic Store Builder branding from My Store / Our Products to SunScale Geckos",
+    "Confirm Products List Page layout on desktop and mobile",
+    "Polish Product Details Page copy for animal listings",
+    "Polish Cart Page copy for live-animal reservation context",
+    "Polish Checkout Page copy before publishing",
+    "Thank You Page exists",
+    "Store checkout copy explains weather/operator review before live-animal shipping",
+    "Store footer links to Privacy Policy and Terms of Service",
+    "Store is published and reachable from the main demo domain"
+  ]
+}

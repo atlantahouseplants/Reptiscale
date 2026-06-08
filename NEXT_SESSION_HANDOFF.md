@@ -1,388 +1,269 @@
-# Reptiscale / HatchKit Next Session Handoff
+# Hatchkit Next Session Handoff
 
-Created after the May 5, 2026 build session.
-
-Updated May 16, 2026 after HighLevel workflows, workflow settings, smart-list tags, and smart lists were completed.
-
-## Project Goal
-
-Reptiscale is the productized reptile-seller growth machine built on HighLevel:
-
-- Online storefront and reservation funnel
-- Lead magnet and buyer education
-- CRM tagging, custom fields, and customer journey tracking
-- Payment/order follow-up
-- Live-animal shipping safety workflow
-- Care onboarding
-- Reviews, referrals, repeat-buyer campaigns
-- Social content engine and demo/sales materials
-
-## Current Product Direction
-
-The near-term sellable product is a done-for-you GoHighLevel subaccount and snapshot system for reptile breeders.
-
-The Vercel app is the automation/webhook support layer. It is not the main prospect-facing product demo.
-
-The next build priority is the GoHighLevel demo showroom:
-
-- one clean master snapshot account
-- one SunScale Geckos demo account
-- buyer-facing storefront/funnel/reservation path
-- accelerated demo workflows
-- HighLevel CRM, inbox, pipelines, smart lists, shipping review, care, review, referral, and VIP proof
-
-Source of truth for this build:
-
-`docs/demo-showroom/`
-
-Key files:
-
-- `docs/demo-showroom/hatchkit-ghl-demo-showroom-prd.md`
-- `docs/demo-showroom/master-build-plan.md`
-- `docs/demo-showroom/subagent-execution-plan.md`
-- `docs/demo-showroom/gap-register.md`
-- `docs/demo-showroom/breeder-input-checklist.md`
-
-The demo account is SunScale Geckos.
-
-HighLevel sub-account/location ID:
-
-`fqj4rbp2VRkvMa8GWVWn`
-
-## Live Demo Status
-
-Vercel project:
-
-`reptiscale-demo`
-
-Live alias:
-
-`https://reptiscale-demo.vercel.app`
-
-Vercel env helper:
-
-`exports/reptiscale-demo/vercel-sync-env.ps1`
-
-Run it from a normal PowerShell window to sync the local `.env` values into Vercel production and redeploy:
-
-```powershell
-cd C:\Users\wallg\OneDrive\Desktop\HatchKit
-.\exports\reptiscale-demo\vercel-sync-env.ps1
-```
-
-The demo was deployed to Vercel and `/health` plus `/demo` loaded successfully after the first deploy.
-
-Important fix now in the local code:
-
-- Vercel API routes were returning `500` because the request logger tried to write to the local `logs` folder.
-- `server.js` now writes Vercel logs to `/tmp/hatchkit-webhooks.log`.
-- If file logging fails, it warns in console but does not crash the route.
-
-Added during the May 15 resume session:
-
-- `GET /api/demo/control-room`
-- `lib/demo-control-room.js`
-- A larger `/demo` control-room section showing:
-  - customer journey proof
-  - manual HighLevel build queue
-  - offer ladder and demo cart
-  - next seven social/content pushes
-
-Redeploy before using this URL in HighLevel:
-
-```powershell
-cd C:\Users\wallg\OneDrive\Desktop\HatchKit
-.\exports\reptiscale-demo\vercel-deploy.ps1 -Production
-```
-
-Then verify:
-
-```powershell
-Invoke-RestMethod -Method Get -Uri "https://reptiscale-demo.vercel.app/health"
-Invoke-RestMethod -Method Get -Uri "https://reptiscale-demo.vercel.app/api/demo/readiness"
-Invoke-RestMethod -Method Get -Uri "https://reptiscale-demo.vercel.app/api/demo/control-room"
-Invoke-RestMethod -Method Post -Uri "https://reptiscale-demo.vercel.app/api/demo/shipping-review-fixture" -ContentType "application/json" -Body "{}"
-```
-
-## Current Repo State
+Last updated: 2026-06-08
 
 Workspace:
 
 `C:\Users\wallg\OneDrive\Desktop\HatchKit`
 
-Important git detail:
+## Product Direction
 
-- The main repo uses `.gitroot`, not a normal `.git` folder.
-- Use this pattern for git commands:
+Hatchkit is a done-for-you HighLevel agency/SaaS system for reptile breeders.
 
-```powershell
-git --git-dir=.gitroot --work-tree=. status --short --branch
-```
+Use `Hatchkit` for all new product, snapshot, and customer-facing naming. Some historical infrastructure names and backend URLs still contain `reptiscale-demo`; do not rename those unless a separate migration is planned.
 
-Baseline commit before the May 6 morning continuation:
+GoHighLevel should be treated as the main client operating system and repeatable snapshot engine:
 
-`3351105 Add next session handoff`
+- HighLevel Stores/Websites as the main online storefront
+- funnels for lead magnets, show QR, featured animal, VIP/drop, review/referral, and other campaigns
+- forms and order forms
+- contacts, tags, custom fields, opportunities, and pipelines
+- smart lists
+- workflows
+- inbox/conversations
+- social planner where accounts are connected
+- reusable snapshots for future clients
 
-Recent commits:
+The Vercel backend is the webhook and automation support layer:
 
-- `a19fb4f Add order shipping review normalization`
-- `d3eba5b Add demo deployment readiness packet`
-- `c0e618c Add Reptiscale demo console`
-- `36ba1c3 Prepare demo server for deployment`
-- `b08c4ad Add Vercel deploy runbook fixes`
-- `7f10f92 Fix linked Vercel deploy helper`
-- `138f6b7 Integrate Gecko shipper safety gate`
-- `fcba3cb Point website submodule to Reptiscale offer alignment`
-- `ff24c67 Add Reptiscale customer handoff guides`
-- `434fe86 Add Reptiscale commercial readiness kit`
-- `059ed38 Build Reptiscale customer journey demo`
+- `https://reptiscale-demo.vercel.app`
+- shipping/weather review
+- operator approval payloads
+- buyer journey webhook handling
+- fallback public helper pages
 
-The nested `HatchKit.ai` folder is its own repo/submodule-like folder. Do not delete it or treat its untracked files as part of the root cleanup unless the user explicitly asks.
+Do not treat the Vercel app as the main prospect-facing sales demo long term.
 
-## What Was Built
+## Current HighLevel Accounts
 
-### Demo Readiness Assets
+Hatchkit business CRM:
 
-Added May 6:
+- Use for Hatchkit marketing, sales, customers, onboarding, and support.
+- Do not use it as the client template unless internal records are intentionally separated.
 
-- `scripts/verify-demo-readiness.js`
-- `npm run verify:demo`
-- `npm start`
-- `exports/reptiscale-demo/deployment-runbook.md`
-- `exports/reptiscale-demo/vercel-env-checklist.md`
-- `exports/reptiscale-demo/highlevel-workflow-checklist.md`
-- `exports/reptiscale-demo/demo-test-plan.md`
-- `exports/reptiscale-demo/vercel-deploy.ps1`
-- `exports/reptiscale-demo/webhook-smoke-test.ps1`
-- `templates/pages/reptiscale-demo-console.html`
-- `GET /demo`
-- `GET /api/demo/readiness`
-- `GET /api/demo/control-room`
-- `POST /api/demo/shipping-review-fixture`
+Live showroom and source prototype:
 
-`npm run verify:demo` regenerates the demo export and checks that the main demo files, webhook payloads, endpoint references, shipping origin, and smoke-test assets are present.
+- `SunScale Geckos - Demo`
+- Location ID: `oCn199rzTjj0rPgqXyXU`
+- This is the active sales/demo account with dummy data.
+- Use this as the source prototype for reusable storefront, workflow, page, pipeline, trigger link, smart-list, and product structure.
+- The next source-prototype build priority is finishing/publishing the real HighLevel Store, not another funnel-only storefront.
 
-The `/demo` page shows the Reptiscale journey, endpoint surface, and a safe review-only shipping fixture. It does not call live weather, HighLevel, FedEx, UPS, or any carrier API for the fixture.
+Clean master snapshot account:
 
-### Customer Journey Demo
+- `Hatchkit Master Snapshot - v1`
+- Location ID: `H81tekJbNbeyYsnTRKVH`
+- This is the clean account that should eventually export `Hatchkit Client Snapshot - v1`.
+- Do not seed demo contacts or fake opportunities into this account.
 
-Core files:
+Ignore stale references to old location ID `fqj4rbp2VRkvMa8GWVWn`.
 
-- `data/reptiscale-machine.json`
-- `data/demo-products.json`
-- `templates/pages/reptiscale-storefront.html`
-- `templates/pages/crested-gecko-starter-guide.html`
-- `templates/pages/animal-detail.html`
-- `templates/pages/reservation-offer.html`
-- `templates/emails/lifecycle/*`
-- `templates/sms/lifecycle/*`
+## Source Of Truth
 
-Key journey webhooks in `server.js`:
+Read these first:
 
-- `POST /webhooks/ghl/lead-magnet`
-- `POST /webhooks/ghl/offer-clicked`
-- `POST /webhooks/ghl/order-submitted`
-- `POST /webhooks/ghl/review-submitted`
-- `POST /webhooks/ghl/referral`
+1. `docs/demo-showroom/README.md`
+2. `docs/demo-showroom/highlevel-demo-account-build-status.md`
+3. `docs/demo-showroom/manual-highlevel-build-queue.md`
+4. `docs/demo-showroom/sunscale-subaccount-setup-runbook.md`
+5. `docs/demo-showroom/accelerated-workflow-recipes.md`
+6. `docs/demo-showroom/repeatable-client-snapshot-process.md`
+7. `docs/demo-showroom/live-showroom-audit.md`
+8. `docs/demo-showroom/automation-message-audit-and-corrections.md`
+9. `docs/demo-showroom/highlevel-workflow-ui-correction-worksheet.md`
+10. `docs/hatchkit-master-snapshot/README.md`
+11. `docs/hatchkit-master-snapshot/strategic-build-plan.md`
+12. `docs/hatchkit-master-snapshot/source-snapshot-asset-map.md`
+13. `docs/hatchkit-master-snapshot/execution-loop.md`
+14. `docs/hatchkit-master-snapshot/internal-execution-prompt.md`
+15. `docs/hatchkit-master-snapshot/snapshot-asset-inventory.md`
+16. `docs/demo-showroom/store-first-commerce-decision.md`
+17. `docs/demo-showroom/highlevel-store-build-queue.md`
+18. `docs/demo-showroom/sunscale-store-readiness.md`
+19. `docs/demo-showroom/next-codex-chat-prompt.md`
 
-### Gecko Shipping Safety Integration
+## Current Live Build Status
 
-The external Gecko-shipper repo was reviewed and its best ideas were folded into Reptiscale.
-
-Core files:
-
-- `agents/shipping-agent/fulfillment-gate.js`
-- `agents/shipping-agent/order-normalizer.js`
-- `agents/shipping-agent/index.js`
-- `data/fedex-package-profiles.json`
-- `data/us-state-codes.json`
-- `docs/operations/live-animal-fulfillment-gate.md`
-- `docs/operations/order-to-shipping-normalization.md`
-- `docs/operations/gecko-shipper-import-notes.md`
-
-Shipping endpoints:
-
-- `POST /webhooks/shipping/evaluate`
-- `POST /webhooks/shipping/operator-gate`
-- `POST /webhooks/shipping/order-review`
-- `POST /webhooks/shipping/weather-check`
-
-Important safety rule:
-
-The system prepares review-only shipping payloads. It must not buy a live carrier label without human operator approval.
-
-### Order-To-Shipping Review
-
-The newest completed build lets a storefront/HighLevel order become a structured shipping review package.
-
-It normalizes:
-
-- Buyer/contact info
-- Order/product info
-- Species interest
-- Animal interest
-- Shipping address
-- Breeder origin
-- Package profile
-
-Then it runs the weather/species decision and operator safety gate.
-
-Local dry run:
+Run:
 
 ```powershell
-npm run simulate:shipping-review
+npm run setup:showroom
+npm run audit:showroom
 ```
 
-Expected result:
+Latest verified state:
 
-`operatorDisposition` should be `READY_FOR_OPERATOR_APPROVAL` for the demo fixture.
+- `npm run setup:showroom` passes and is idempotent.
+- `npm run audit:showroom` passes 17 of 17 checks.
+- `npm run verify:demo` passes 115 checks.
+- `npm test` passes.
+- Direct live audit with `node scripts\audit-demo-showroom-live.js` passes 17 of 17 checks.
+- Browser test on 2026-06-07 confirmed `https://demo.hatchkitai.com/mango` -> `Reserve Mango` redirects to `https://demo.hatchkitai.com/reserve` with no on-page error and no console errors.
+- Live message audit with `node scripts\audit-highlevel-automation-messages.js --wait=90 --fail-on-mismatch` now reports `overallStatus=pass` and `mismatchCount=0`.
 
-## HighLevel State
+The audit is fully passing and the 12 accelerated HighLevel demo workflows are published.
 
-`npm run setup:demo` was run successfully.
+Current blocker:
 
-Synced:
+- A2P Brand Registration for `SunScale Geckos - Demo` is registered with TCR.
+- Confirmation email came from LeadConnector on 2026-06-05.
+- A2P Campaign Registration update came from LeadConnector on 2026-06-05: the campaign has been submitted for review.
+- Next check is whether the campaign is approved and the messaging number is fully usable for live SMS in HighLevel.
+- The demo can still be tested for pages, forms, webhooks, CRM records, tags, custom fields, pipelines, and workflow execution logs.
+- Run a real opted-in SMS test after campaign approval before treating live messaging as production-ready.
 
-- 17 custom fields
-- Journey/source/offer/purchase/content/care/referral tags
-- 6 demo contacts
-- New shipping operator tags:
-  - `shipping:operator-review`
-  - `shipping:ready-for-operator-approval`
-  - `shipping:manual-review-required`
-  - `shipping:label-blocked`
+## Built Through HighLevel API
 
-Completed in HighLevel on May 16, 2026:
+Already built and verified in `SunScale Geckos - Demo`:
 
-- Three main webhook workflows were tested successfully:
-  - `Reptiscale - Lead Magnet Delivery`
-  - `Reptiscale - Offer Clicked`
-  - `Reptiscale - Order Submitted`
-- Remaining workflows were built and tested successfully:
-  - `Reptiscale - Review Submitted`
-  - `Reptiscale - Referral Submitted`
-  - `Reptiscale - Daily Shipping Weather Re-Check`
-  - `Reptiscale - Shipping Hold Operator Alert`
-  - `Reptiscale - Ready For Label Approval`
-  - `Reptiscale - Post-Purchase Care Onboarding`
-  - `Reptiscale - Review And Referral Request`
-- Workflow settings were adjusted:
-  - Re-entry enabled where repeat events should be allowed.
-  - Stop on response enabled for nurture/care/review workflows and disabled for safety/operator workflows.
-  - Shipping/weather workflows are not blocked by a customer-message time window.
-- Smart-list tags were verified with `npm.cmd run sync:smart-list-tags`.
-- Smart lists were created:
-  - New Crested Gecko Leads
-  - Hot Animal Buyers
-  - Shipping Holds
-  - Operator Review Queue
-  - Ready For Label Approval
-  - Review / Referral Candidates
-  - Repeat Buyer VIP
+- SunScale business profile settings verified
+- store shipping origin synced to SunScale demo origin
+- demo-only shipping zone: `SunScale Demo - Shipping Review Only`
+- review-only shipping rate: `Shipping quoted after weather review`
+- 17 custom contact fields
+- required structured tags
+- 7 buyer demo contacts
+- 1 demo operator contact
+- 3 HatchKit pipelines
+- 12 demo opportunities
+- 10 custom values
+- 8 products with prices
+- 8 products with store images
+- 6 product collections
+- 6 trigger links
+- 8 pinned contact notes
+- 8 contact follow-up tasks
+- smart-list support tags
+- public SunScale helper pages deployed on Vercel
+- public helper-page forms wired to live Reptiscale webhooks
+- real QR SVG generated for `https://reptiscale-demo.vercel.app/demo/show-qr`
+- HighLevel funnel published at `https://demo.hatchkitai.com`
+- HighLevel page URL custom values and trigger links updated to published funnel URLs
+- Store-first decision made on 2026-06-08: the funnel stays as campaign proof, but Hatchkit's client product should use a real HighLevel Store/Website for browsing, product details, cart, checkout, inventory, and order-triggered workflows.
+- `SunScale Geckos Store` was created in HighLevel Store Builder on 2026-06-08 with builder ID `c6oIcQOaIihVIc23qseX` and preview URL `https://sites.leadconnectorhq.com/preview/c6oIcQOaIihVIc23qseX`.
+- `npm run audit:store-readiness` reports `overallStatus=store_shell_created_visual_builder_required`: 8/8 required products exist, are visible in the online store, have prices, have images, 6/6 product collections exist, the store shell is recorded, and the store shipping origin matches SunScale.
+- embedded HighLevel page forms can submit to Reptiscale webhooks from `https://demo.hatchkitai.com`
+- the published page forms are custom HTML/code forms, not native HighLevel form elements
+- on 2026-06-06, Vercel production env values were corrected so the webhook backend uses the SunScale location ID `oCn199rzTjj0rPgqXyXU`
+- a controlled live Starter Guide webhook test created a SunScale contact with the expected lead tags and `journey:nurture` appeared after one minute
+- on 2026-06-07, the Mango detail `Reserve Mango` no-contact error was fixed in the Reptiscale webhook backend and redeployed to Vercel
+- on 2026-06-07, a browser click test saved proof at `docs/demo-showroom/mango-reserve-click-pass-20260607.png`
+- on 2026-06-07, the public Starter Guide webhook path was protected from the bad HighLevel lead-drip copy by using `journey:lead-captured-webhook` plus direct webhook-sent guide email
+- on 2026-06-07, the HighLevel `DEMO - Reptiscale - Starter Guide Lead Capture` and `Lead Education Drip` email bodies were manually corrected and published with properly formatted email copy
+- on 2026-06-07, the fresh non-SMS site/webhook/CRM path passed with `hatchkit.demo.liveqa.20260607050914@example.com`
+- on 2026-06-07, a later fresh non-SMS published demo path passed 14/14 with `hatchkit.demo.liveqa.20260607195758@example.com`
+- Privacy Policy and Terms pages published on `https://demo.hatchkitai.com`
+- Storefront compliance footer and HighLevel chat widget added for A2P review
 
-Still blocked by HighLevel API scope:
+## Hatchkit Master Snapshot Status
 
-- Creating pipelines
-- Creating opportunities
+Clean master account:
 
-Manual HighLevel work still needed or worth verifying:
+- `Hatchkit Master Snapshot - v1`
+- Location ID: `H81tekJbNbeyYsnTRKVH`
 
-1. Create/verify these pipelines:
-   - `HatchKit - Lead Pipeline`
-   - `HatchKit - Sales Pipeline`
-   - `HatchKit - Shipping Pipeline`
-2. Add the demo opportunities listed by `npm run setup:demo`.
-3. Verify every workflow is published only after its test contact behaves correctly.
-4. Verify smart lists show the expected demo contacts after the full smoke test.
+API-built foundation:
 
-## Verification Already Passed
+- 17 reusable custom fields
+- 65 structured tags
+- 12 placeholder custom values
+- 4 reusable products/prices
 
-Run in root:
+Current master blocker:
+
+- Pipeline creation is blocked by missing opportunities/pipelines write scope unless solved by snapshot import, updated API scope, or manual UI creation.
+
+Latest source/master inventory:
+
+| Asset | SunScale Source | Hatchkit Master |
+|---|---:|---:|
+| custom fields | 17 | 17 |
+| tags | 84 | 65 |
+| custom values | 10 | 12 |
+| pipelines | 3 | 0 |
+| products | 8 | 4 |
+| trigger links | 6 | 0 |
+| workflows | 12 | 0 |
+
+Run:
 
 ```powershell
-npm test
-npm run simulate:shipping-review
-npm run export:demo
-npm run verify:demo
-npm run export:sales
-npm run setup:demo
+npm run audit:snapshot-assets
+npm run audit:store-readiness
 ```
 
-These passed during the last session.
+## Remaining Work
 
-`setup:demo` still reports pipeline/opportunity blockers because of HighLevel API scope. That is expected.
+Use:
 
-## Demo Export Locations
+`docs/demo-showroom/manual-highlevel-build-queue.md`
 
-Demo buildout packet:
+Completed manually in HighLevel:
 
-`exports/reptiscale-demo`
+1. Business profile settings.
+2. Smart lists.
+3. HighLevel campaign funnel pages.
+4. Demo-safe reservation/payment simulation.
+5. All 12 accelerated demo workflows.
+6. Privacy/Terms pages and Storefront compliance footer/chat widget.
 
-Commercial sales packet:
+Remaining manual or provider-dependent items:
 
-`exports/reptiscale-commercial-packet`
+1. Finish/publish `SunScale Geckos Store` in HighLevel `Sites -> Stores`.
+2. Replace generic Store Builder branding/copy (`My Store`, `Our Products`, default hero image) with SunScale/Hatchkit-ready copy.
+3. Confirm Products List, Product Details, Cart, Checkout, and Thank You pages.
+4. Select/use the API-created product collections and configure checkout/thank-you copy.
+5. Add store-triggered workflows for abandoned checkout, order submitted, and order fulfilled/shipping review.
+6. A2P campaign approval, then live SMS delivery retest with a real opted-in test number.
+7. Inbox demo messages after a usable conversation provider/messaging setup exists.
+8. Social Planner proof after social accounts exist. Brianna Yetigex (`brianna@hatchkitai.com`) has been added as `ACCOUNT-ADMIN` staff and can be used for staff/approval-style demo proof after confirming her exact HighLevel user ID.
+9. Full SMS-inclusive outside-in demo test with a fresh contact after A2P approval.
 
-Useful generated files:
+Workflow note:
 
-- `exports/reptiscale-demo/manual-highlevel-buildout.md`
-- `exports/reptiscale-demo/workflow-blueprint.json`
-- `exports/reptiscale-demo/webhook-payloads.json`
-- `exports/reptiscale-demo/demo-script.md`
-- `exports/reptiscale-demo/deployment-runbook.md`
-- `exports/reptiscale-demo/highlevel-workflow-checklist.md`
-- `exports/reptiscale-demo/demo-test-plan.md`
-- `exports/reptiscale-demo/webhook-smoke-test.ps1`
-- `exports/reptiscale-commercial-packet/demo-checklist.md`
+- Because the published forms are custom-code webhook forms, do not rely only on native HighLevel `Form Submitted` triggers.
+- The public Starter Guide path currently uses `journey:lead-captured-webhook` and a direct webhook-sent guide email; this remains a safe public path even though the HighLevel UI lead-capture email body has now been corrected.
+- Do not switch the public Starter Guide path back to `journey:lead-captured` unless intentionally testing the HighLevel lead-capture workflow and `npm run audit:messages` remains clean afterward.
+- The Referral path should trigger downstream automations from `journey:referral-captured`; do not route referred friends into the generic `journey:lead-captured` drip unless the drip has referral-specific branching.
+- Use `docs/demo-showroom/automation-message-audit-and-corrections.md` to replace generic AI-generated workflow copy such as `Discover Mango & Exclusive Offers at Our Storefront`.
+- Use `docs/demo-showroom/highlevel-workflow-ui-correction-worksheet.md` for the exact workflow IDs, priority HighLevel UI edits, and post-edit audit commands.
+- Run `npm run audit:messages` to audit live workflow messages. Latest run on 2026-06-07 showed `overallStatus=pass`: referral isolation, public Starter Guide webhook, manually triggered `journey:lead-captured`, and review/VIP paths all pass with no mismatch flags.
+- For the demo account, workflow execution windows should be 24/7. Remove Monday-Friday/business-hours restrictions.
+- Leave "mark emails as read" off.
+- Use `America/New_York` as the workflow timezone.
+- Recommended demo re-entry:
+  - ON for Starter Guide Lead Capture, Lead Education Drip, Animal Interest - Mango, Reservation Abandonment, Review And Referral, Repeat Buyer VIP.
+  - OFF for Deposit Paid, Order Shipping Review, Simulated Shipped, Simulated Delivered And LAG, and Care Onboarding unless intentionally resetting a test contact.
 
-## Tomorrow's Recommended Next Steps
+## Safety Constraints
 
-1. Confirm GitHub is current:
+- Do not expose or print `.env` secrets.
+- Do not touch the nested `HatchKit.ai` folder unless explicitly asked.
+- Do not create live shipping labels.
+- Do not create real payment charges during demos.
+- Keep the SunScale demo account separate from the clean master/snapshot account.
+- Treat `docs/demo-showroom/` as the source of truth for this phase.
 
-```powershell
-cd C:\Users\wallg\OneDrive\Desktop\HatchKit
-git --git-dir=.gitroot --work-tree=. status --short --branch
-git --git-dir=.gitroot --work-tree=. push origin main
-```
+## Repeatable Snapshot Direction
 
-If the push says everything is up to date, continue.
+Use:
 
-2. Decide deployment path for the webhook server:
-   - local tunnel for demo testing, or
-   - real hosted deployment.
+`docs/demo-showroom/repeatable-client-snapshot-process.md`
 
-If using Vercel, link with an explicit project name to avoid project-name inference errors:
+Recommended process:
 
-```powershell
-vercel link --yes --project reptiscale-demo
-vercel deploy --prod
-```
+1. Finish/publish the real HighLevel Store in `SunScale Geckos - Demo`.
+2. Create `SunScale Demo Source - Hatchkit Base v0`.
+3. Load that source snapshot into `Hatchkit Master Snapshot - v1`.
+4. Sanitize names, copy, placeholders, timing, triggers, products, tags, and workflow settings.
+5. Remove fake contacts, demo opportunities, and SunScale-only proof from the master.
+6. Keep SMS gated until each client has A2P approval and an opted-in SMS test passes.
+7. Export `Hatchkit Client Snapshot - v1` from the master.
+8. Import into `Hatchkit Snapshot QA - v1`.
+9. Run the full QA test path before using the snapshot for a paying customer.
 
-3. In HighLevel, manually create the three pipelines and demo opportunities because the token cannot do this.
+## Fresh Prompt
 
-4. Wire the demo workflows in HighLevel using the exported webhook payloads.
+For the next Codex chat, copy:
 
-5. Test the complete demo path:
-   - Starter guide form
-   - Offer click
-   - Order submitted
-   - Order shipping review
-   - Shipping hold/approval tags
-   - Care onboarding
-   - Review/referral
-
-6. Replace SunScale's demo `shippingOrigin` address before any real fulfillment workflow goes live.
-
-7. Consider next product work:
-   - Deployable demo server
-   - HighLevel workflow setup checklist with screenshots
-   - Customer-facing Reptiscale dashboard/demo UI
-   - FedEx rate/address validation behind explicit human approval
-   - Real social content approval flow polish
-
-## Notes For The Next Builder
-
-- Do not print `.env` secrets.
-- Do not revert the nested `HatchKit.ai` state unless asked.
-- The Gecko shipping integration is intentionally conservative. Keep the review-only boundary.
-- The product positioning is Reptiscale, not generic HatchKit CRM.
-- The user wants a sellable working demo for reptile breeders and online pet sellers, starting with a crested gecko breeder.
+`docs/demo-showroom/next-codex-chat-prompt.md`

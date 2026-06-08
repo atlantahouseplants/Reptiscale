@@ -3,7 +3,8 @@ const ghl = require('./client');
 const locationId = ghl.locationId;
 
 async function createContact(data) {
-  const result = await ghl.post('/contacts/', { ...data, locationId });
+  const targetLocationId = data.locationId || locationId;
+  const result = await ghl.post('/contacts/', { ...data, locationId: targetLocationId });
   return result.contact || result;
 }
 
@@ -17,17 +18,17 @@ async function getContact(id) {
   return result.contact || result;
 }
 
-async function searchContacts(query) {
+async function searchContacts(query, targetLocationId = locationId) {
   const result = await ghl.get('/contacts/', {
-    locationId,
+    locationId: targetLocationId,
     query,
   });
   return result.contacts || [];
 }
 
-async function getContactsByTag(tag) {
+async function getContactsByTag(tag, targetLocationId = locationId) {
   const result = await ghl.get('/contacts/', {
-    locationId,
+    locationId: targetLocationId,
     tags: tag,
   });
   return result.contacts || [];

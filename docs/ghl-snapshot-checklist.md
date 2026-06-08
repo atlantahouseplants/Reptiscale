@@ -148,7 +148,33 @@ All pointing to: `https://YOUR_VERCEL_URL`
 
 ---
 
-## Pages / Funnels (2)
+## HighLevel Store
+
+- [ ] **Store/Website**
+  - Product List Page
+  - Product Details Page
+  - Cart Page
+  - Checkout Page
+  - Thank You Page
+  - Breeder's logo + brand colors
+  - Privacy/Terms footer
+  - Checkout copy explains live-animal shipping review
+
+- [ ] **Product Collections**
+  - Available Animals
+  - Species-specific collections
+  - Care & Supplies
+  - Lead Magnets / Digital
+
+- [ ] **Available Animals Product List**
+  - Grid of animal cards with photos
+  - Each card: photo, species, morph, sex, price, status
+  - Product detail pages or default Product Details Page
+  - Add-to-cart/reserve action
+
+---
+
+## Campaign Funnels
 
 - [ ] **Show QR Landing Page**
   - Mobile-first opt-in form
@@ -156,10 +182,9 @@ All pointing to: `https://YOUR_VERCEL_URL`
   - "Thanks for stopping by {{business_name}}!"
   - Links to Show QR Lead Capture Form
 
-- [ ] **Available Animals Gallery** (Growth/Pro only)
-  - Grid of animal cards with photos
-  - Each card: photo, species, morph, sex, price, status
-  - "I'm Interested" button → Website Contact Form
+- [ ] **Starter Guide / VIP / Review-Referral Campaign Pages**
+  - Campaign-specific copy
+  - Tag-added or webhook-safe triggers
 
 ---
 

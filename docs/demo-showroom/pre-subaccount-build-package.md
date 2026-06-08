@@ -1,8 +1,8 @@
 # Pre-Subaccount Build Package
 
-Last updated: 2026-06-02
+Last updated: 2026-06-05
 
-This package completes the five prep tasks requested while waiting for the `SunScale Geckos - Demo` HighLevel subaccount.
+This package started as the pre-subaccount prep bundle and now also indexes the post-subaccount API build artifacts for the `SunScale Geckos - Demo` showroom.
 
 ## 1. Copy-Ready SunScale Pages
 
@@ -19,13 +19,19 @@ Local page drafts:
 - `templates/pages/sunscale-demo/thank-you.html`
 - `templates/pages/sunscale-demo/review-referral.html`
 - `templates/pages/sunscale-demo/vip.html`
+- `templates/pages/sunscale-demo/show-qr.html`
 - `templates/pages/sunscale-demo/sunscale-demo.css`
 
 Use:
 
-- preview locally
-- paste/rebuild into HighLevel pages
-- replace `REPLACE_WITH_SUNSCALE_DEMO_LOCATION_ID` after the new account exists
+- reference if the HighLevel pages need to be rebuilt or edited
+- location ID is already set to `oCn199rzTjj0rPgqXyXU` in local page drafts that need it
+
+Status:
+
+- HighLevel funnel pages are built and published at `https://demo.hatchkitai.com`.
+- Privacy Policy and Terms pages are also published.
+- The real HighLevel Store/Website is now the primary next build, and these local pages should be treated as fallback/copy references for campaign funnels and Store Builder content.
 
 ## 2. Accelerated HighLevel Workflow Recipes
 
@@ -61,6 +67,8 @@ Files:
 - `products.csv`
 - `animals.csv`
 - `custom-values.csv`
+- `smart-lists.csv`
+- `contact-activity.csv`
 
 Use:
 
@@ -105,23 +113,58 @@ Use:
 - visual references for the HighLevel build
 - replace with real breeder photos or final generated PNGs before public sales demos if desired
 
-## Blocked Until New Subaccount Exists
+## 6. Subaccount Setup Runbook
 
-- new HighLevel location ID
-- account-specific page URLs
-- account-specific payment links/order forms
-- workflow publishing/testing in the new account
-- real HighLevel screenshots from the demo account
+File:
 
-## First Actions After Subaccount Exists
+- `docs/demo-showroom/sunscale-subaccount-setup-runbook.md`
 
-1. Record the new location ID.
-2. Replace `SUNSCALE_DEMO_LOCATION_ID` in workflow recipes.
-3. Replace `REPLACE_WITH_SUNSCALE_DEMO_LOCATION_ID` in page drafts if using standalone pages.
-4. Set custom values from `custom-values.csv`.
-5. Create/publish the pages.
-6. Create products/payment simulation.
-7. Build workflows from `accelerated-workflow-recipes.md`.
-8. Load demo contacts/opportunities.
-9. Run the test path in the sales script.
+Use:
 
+- refresh or verify the existing `SunScale Geckos - Demo` account
+- confirm the local SunScale config still uses the current location ID
+- understand the completed fields, tags, pipelines, custom values, products, pages, smart lists, workflows, demo records, and test path
+
+## 7. Build Status
+
+File:
+
+- `docs/demo-showroom/highlevel-demo-account-build-status.md`
+
+Use:
+
+- see what has already been built through the HighLevel API
+- see what was built manually and what remains provider/compliance-dependent
+
+## 8. Manual HighLevel Build Queue
+
+File:
+
+- `docs/demo-showroom/manual-highlevel-build-queue.md`
+
+Use:
+
+- see the completed UI build and remaining provider/compliance-dependent work
+- track SMS sending verification, inbox, and social proof follow-up
+
+## 9. Repeatable Client Snapshot Process
+
+File:
+
+- `docs/demo-showroom/repeatable-client-snapshot-process.md`
+
+Use:
+
+- understand what stays in HighLevel versus the Vercel support layer
+- build a repeatable master snapshot for future breeder clients
+
+## Current Next Actions
+
+1. Finish/publish `SunScale Geckos Store` in HighLevel `Sites -> Stores`.
+2. Run `npm run sync:store-catalog` and `npm run audit:store-readiness`.
+3. Confirm live audit still passes with `node scripts\audit-demo-showroom-live.js`.
+4. Confirm the A2P campaign is approved and the phone number is usable for SMS in HighLevel.
+5. Run a real opted-in SMS test after campaign approval.
+6. Run the full published Store plus campaign funnel test path with a fresh contact.
+7. Verify tags, fields, smart lists, opportunities, workflow logs, email, and SMS where available.
+8. Create the SunScale source snapshot only after the Store path is demo-ready.

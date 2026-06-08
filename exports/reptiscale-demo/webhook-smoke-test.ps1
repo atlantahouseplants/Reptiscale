@@ -5,7 +5,7 @@ param(
 $Payloads = @'
 {
   "leadMagnet": {
-    "locationId": "fqj4rbp2VRkvMa8GWVWn",
+    "locationId": "oCn199rzTjj0rPgqXyXU",
     "firstName": "Demo",
     "email": "demo.lead@example.com",
     "phone": "+14045550199",
@@ -14,14 +14,14 @@ $Payloads = @'
     "offerKey": "crested_gecko_starter_guide"
   },
   "offerClicked": {
-    "locationId": "fqj4rbp2VRkvMa8GWVWn",
+    "locationId": "oCn199rzTjj0rPgqXyXU",
     "email": "demo.lead@example.com",
     "species_interest": "Crested Gecko",
     "animalInterest": "Mango - Harlequin Dalmatian",
     "offerKey": "animal_reservation"
   },
   "orderSubmitted": {
-    "locationId": "fqj4rbp2VRkvMa8GWVWn",
+    "locationId": "oCn199rzTjj0rPgqXyXU",
     "firstName": "Demo",
     "lastName": "Buyer",
     "email": "demo.lead@example.com",
@@ -43,13 +43,13 @@ $Payloads = @'
     "preferredShipDate": "2026-06-08"
   },
   "reviewSubmitted": {
-    "locationId": "fqj4rbp2VRkvMa8GWVWn",
+    "locationId": "oCn199rzTjj0rPgqXyXU",
     "email": "demo.lead@example.com",
     "species_interest": "Crested Gecko",
     "rating": 5
   },
   "referral": {
-    "locationId": "fqj4rbp2VRkvMa8GWVWn",
+    "locationId": "oCn199rzTjj0rPgqXyXU",
     "firstName": "Referral",
     "email": "referral.lead@example.com",
     "phone": "+14045550198",
@@ -99,7 +99,7 @@ $Payloads = @'
     }
   },
   "orderShippingReview": {
-    "locationId": "fqj4rbp2VRkvMa8GWVWn",
+    "locationId": "oCn199rzTjj0rPgqXyXU",
     "contactId": "optional-ghl-contact-id",
     "customer": {
       "firstName": "Demo",

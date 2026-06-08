@@ -13,8 +13,17 @@ These are project-local placeholder assets for the SunScale Geckos demo showroom
 - `echo-placeholder.svg`: Echo animal card placeholder.
 - `pepper-placeholder.svg`: Pepper animal card placeholder.
 - `starter-guide-cover.svg`: lead magnet cover placeholder.
-- `qr-placeholder.svg`: non-functional QR image placeholder.
+- `qr-placeholder.svg`: old non-functional QR image placeholder.
+- `show-qr-live.svg`: real QR code pointing to `https://reptiscale-demo.vercel.app/demo/show-qr`.
 - `sunscale-reference-sheet.png`: generated bitmap concept sheet for the showroom look.
+
+## Deployable Copies
+
+The Vercel deployment ignores `docs/`, so the SVG assets used by public helper routes are also copied into:
+
+- `templates/pages/sunscale-demo/assets/`
+
+Keep the deployable copies in sync when replacing the placeholder assets.
 
 ## Replacement Guidance
 

@@ -108,7 +108,7 @@ function getDemoConfig() {
     ownerName: 'Sarah Mitchell',
     ownerFirstName: 'Sarah',
     ownerEmail: 'sarah@sunscalegeckos.com',
-    ownerPhone: '+19195550100',
+    ownerPhone: '+19843001621',
     location: 'Raleigh, NC',
     breederZip: '27601',
     shippingOrigin: {

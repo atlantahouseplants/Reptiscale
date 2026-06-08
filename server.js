@@ -13,6 +13,12 @@ const { buildDemoControlRoom } = require('./lib/demo-control-room');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const ALLOWED_ORIGINS = new Set([
+  'https://demo.hatchkitai.com',
+  'https://reptiscale-demo.vercel.app',
+  'http://localhost:3000',
+  'http://127.0.0.1:3000',
+]);
 const LOG_FILE = process.env.HATCHKIT_LOG_FILE || (
   process.env.VERCEL
     ? path.join('/tmp', 'hatchkit-webhooks.log')
@@ -60,8 +66,21 @@ function sendEmail(...args) {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use((req, res, next) => {
+  const origin = req.get('origin');
+  if (origin && ALLOWED_ORIGINS.has(origin)) {
+    res.set('Access-Control-Allow-Origin', origin);
+    res.set('Vary', 'Origin');
+    res.set('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
+    res.set('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+  }
+  if (req.method === 'OPTIONS') return res.sendStatus(204);
+  return next();
+});
 app.use('/exports', express.static(path.join(__dirname, 'exports')));
 app.use('/templates', express.static(path.join(__dirname, 'templates')));
+app.use('/demo/sunscale', express.static(path.join(__dirname, 'templates', 'pages', 'sunscale-demo')));
+app.use('/demo-showroom/assets', express.static(path.join(__dirname, 'templates', 'pages', 'sunscale-demo', 'assets')));
 
 // Request logger
 app.use((req, res, next) => {
@@ -186,6 +205,20 @@ function fallbackContactId(payload) {
   return `demo-fallback-${tagify(seed).slice(0, 48) || 'contact'}`;
 }
 
+function wait(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function findExistingContactWithRetry(email, locationId, attempts = 8) {
+  if (!email) return null;
+  for (let attempt = 0; attempt < attempts; attempt += 1) {
+    if (attempt > 0) await wait(1000);
+    const existing = await searchContacts(email, locationId);
+    if (existing.length > 0) return existing[0];
+  }
+  return null;
+}
+
 async function safeAddTag(contactId, tags, context = 'contact') {
   try {
     await addTag(contactId, tags);
@@ -212,6 +245,7 @@ async function upsertJourneyContact(payload, breederCtx, tags = [], fieldValues 
   const email = payload.email || '';
   const phone = normalizePhone(payload.phone || '');
   const postalCode = payload.postalCode || payload.postal_code || payload.zip || payload.destinationZip || '';
+  const locationId = breederCtx?.locationId || payload.locationId || payload.location_id;
   const customFields = buildCustomFields(breederCtx, fieldValues);
   const contactData = {
     ...(firstName ? { firstName } : {}),
@@ -219,17 +253,19 @@ async function upsertJourneyContact(payload, breederCtx, tags = [], fieldValues 
     ...(email ? { email } : {}),
     ...(phone ? { phone } : {}),
     ...(postalCode ? { postalCode } : {}),
+    ...(locationId ? { locationId } : {}),
     ...(customFields.length > 0 ? { customFields } : {}),
   };
+  const { locationId: _updateLocationId, ...contactUpdateData } = contactData;
 
   let contactId = payload.contactId || payload.contact_id || null;
   const warnings = [];
 
   try {
     if (contactId) {
-      if (Object.keys(contactData).length > 0) {
+      if (Object.keys(contactUpdateData).length > 0) {
         try {
-          await updateContact(contactId, contactData);
+          await updateContact(contactId, contactUpdateData);
         } catch (err) {
           warnings.push('contact_update_failed');
           log('WARN', `Contact update failed for ${contactId}`, {
@@ -238,11 +274,11 @@ async function upsertJourneyContact(payload, breederCtx, tags = [], fieldValues 
         }
       }
     } else if (email || phone) {
-      const existing = email ? await searchContacts(email) : [];
+      const existing = email ? await searchContacts(email, locationId) : [];
       if (existing.length > 0) {
         contactId = existing[0].id;
         try {
-          await updateContact(contactId, contactData);
+          await updateContact(contactId, contactUpdateData);
         } catch (err) {
           warnings.push('contact_update_failed');
           log('WARN', `Contact update failed for ${contactId}`, {
@@ -250,8 +286,22 @@ async function upsertJourneyContact(payload, breederCtx, tags = [], fieldValues 
           });
         }
       } else {
-        const contact = await createContact(contactData);
-        contactId = contact.id;
+        try {
+          const contact = await createContact(contactData);
+          contactId = contact.id;
+        } catch (createErr) {
+          const retryContact = await findExistingContactWithRetry(email, locationId);
+          if (!retryContact) throw createErr;
+          contactId = retryContact.id;
+          try {
+            await updateContact(contactId, contactUpdateData);
+          } catch (err) {
+            warnings.push('contact_update_failed');
+            log('WARN', `Contact update failed for ${contactId}`, {
+              error: err.response?.data?.message || err.message || err.code || 'external service unavailable',
+            });
+          }
+        }
       }
     } else {
       throw new Error('Journey event requires contactId, email, or phone');
@@ -299,6 +349,43 @@ async function sendIfPossible(contactId, channel, message, subject = '') {
     log('WARN', `${channel.toUpperCase()} send failed for ${contactId}`, { error: err.message });
     return false;
   }
+}
+
+function escapeHtml(value) {
+  return String(value || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function starterGuideEmailHtml(firstName, businessName) {
+  const name = escapeHtml(firstName || 'there');
+  const safeBusinessName = escapeHtml(businessName);
+  return [
+    `<p>Hi ${name},</p>`,
+    `<p>Here is the Crested Gecko Starter Guide from ${safeBusinessName}: <a href="https://demo.hatchkitai.com/guide">https://demo.hatchkitai.com/guide</a></p>`,
+    '<p>Start with enclosure size, humidity, food, and the first-week checklist. If you want help choosing a beginner-friendly gecko, reply with your budget and what kind of animal you like.</p>',
+    '<p>Mango is the beginner-friendly animal I would show you first when you are ready to compare options: <a href="https://demo.hatchkitai.com/mango">https://demo.hatchkitai.com/mango</a></p>',
+    `<p>Sarah<br>${safeBusinessName}</p>`,
+  ].join('\n');
+}
+
+function referralWelcomeEmailHtml(firstName, businessName, referralSource) {
+  const name = escapeHtml(firstName || 'there');
+  const safeBusinessName = escapeHtml(businessName);
+  const safeReferralSource = escapeHtml(referralSource || '');
+  const sourceLine = referralSource && referralSource !== 'Customer referral'
+    ? `${safeReferralSource} thought you might like ${safeBusinessName} because you are researching crested geckos.`
+    : `Someone thought you might like ${safeBusinessName} because you are researching crested geckos.`;
+  return [
+    `<p>Hi ${name},</p>`,
+    `<p>${sourceLine}</p>`,
+    '<p>Start here with the Crested Gecko Starter Guide: <a href="https://demo.hatchkitai.com/guide">https://demo.hatchkitai.com/guide</a></p>',
+    '<p>It covers setup basics, feeding, humidity, handling, and what to look for in a beginner-friendly animal. If you want help comparing animals later, reply with your budget and experience level.</p>',
+    `<p>Sarah<br>${safeBusinessName}</p>`,
+  ].join('\n');
 }
 
 // ─── Pipeline-Aware Stage Routing ────────────────────────────────────────────
@@ -627,6 +714,22 @@ app.get('/demo', (_req, res) => {
   res.sendFile(path.join(__dirname, 'templates', 'pages', 'reptiscale-demo-console.html'));
 });
 
+const sunscaleDemoRoutes = {
+  '/demo/store': '/demo/sunscale/storefront.html',
+  '/demo/guide': '/demo/sunscale/starter-guide.html',
+  '/demo/animal/mango': '/demo/sunscale/mango-detail.html',
+  '/demo/reserve': '/demo/sunscale/reservation.html',
+  '/demo/thank-you': '/demo/sunscale/thank-you.html',
+  '/demo/review': '/demo/sunscale/review-referral.html',
+  '/demo/vip': '/demo/sunscale/vip.html',
+  '/demo/show-qr': '/demo/sunscale/show-qr.html',
+  '/demo/operator': '/demo',
+};
+
+for (const [route, target] of Object.entries(sunscaleDemoRoutes)) {
+  app.get(route, (_req, res) => res.redirect(302, target));
+}
+
 app.get('/api/machine', (req, res) => {
   res.json({
     machine: reptiscaleMachine,
@@ -882,7 +985,8 @@ app.post('/webhooks/ghl/lead-magnet', async (req, res) => {
     const nextBestAction = leadMagnet.followUpOffer || 'Send buyer guide follow-up';
 
     const tags = [
-      'journey:lead-captured',
+      'journey:lead-captured-webhook',
+      'message:starter-guide-sent',
       'status:new-lead',
       `source:${tagify(source)}`,
       `interest:${tagify(species)}`,
@@ -898,10 +1002,16 @@ app.post('/webhooks/ghl/lead-magnet', async (req, res) => {
     });
 
     const businessName = breederCtx.clientConfig.businessName || 'SunScale Geckos';
+    const emailSent = await sendIfPossible(
+      contact.contactId,
+      'email',
+      starterGuideEmailHtml(contact.firstName, businessName),
+      'Your Crested Gecko Starter Guide'
+    );
     const sms =
       `Hey ${contact.firstName || 'there'}! I sent the ${leadMagnet.title} from ${businessName}. ` +
       `I'll also send a few care tips and available animals that match your interest. Reply STOP anytime.`;
-    await sendIfPossible(contact.contactId, 'sms', sms);
+    const smsSent = await sendIfPossible(contact.contactId, 'sms', sms);
 
     return ok(res, {
       contactId: contact.contactId,
@@ -910,6 +1020,7 @@ app.post('/webhooks/ghl/lead-magnet', async (req, res) => {
       action: 'lead_magnet_processed',
       offer: leadMagnet.title,
       nextBestAction,
+      messaging: { emailSent, smsSent },
     });
   } catch (err) {
     return fail(res, 500, 'Lead magnet handler error', err);
@@ -937,6 +1048,24 @@ app.post('/webhooks/ghl/offer-clicked', async (req, res) => {
       `interest:${tagify(species)}`,
       animalInterest ? `animal:${tagify(animalInterest)}` : null,
     ].filter(Boolean);
+
+    const hasContactIdentity = Boolean(
+      fields.contactId ||
+      fields.contact_id ||
+      fields.email ||
+      fields.phone
+    );
+
+    if (!hasContactIdentity) {
+      return ok(res, {
+        contactId: null,
+        demoMode: true,
+        warnings: ['contact_identity_missing'],
+        action: 'offer_click_record_skipped',
+        offer: offer.name,
+        nextBestAction,
+      });
+    }
 
     const contact = await upsertJourneyContact(fields, breederCtx, tags, {
       customer_journey_stage: 'Offer Presented',
@@ -1164,22 +1293,29 @@ app.post('/webhooks/ghl/referral', async (req, res) => {
     const contact = await upsertJourneyContact(fields, breederCtx, [
       'source:referral',
       'referral:received',
-      'journey:lead-captured',
+      'journey:referral-captured',
       'status:new-lead',
+      'status:referred-lead',
       `interest:${tagify(species)}`,
     ], {
-      customer_journey_stage: 'Lead Captured',
+      customer_journey_stage: 'Referral Captured',
       species_interest: species,
       referral_source: referralSource,
       purchase_status: 'No Purchase',
-      next_best_action: 'Send referral welcome, starter guide, and available animals',
+      next_best_action: 'Send referral welcome and starter guide before presenting animals',
     });
 
     const businessName = breederCtx.clientConfig.businessName || 'SunScale Geckos';
+    const emailSent = await sendIfPossible(
+      contact.contactId,
+      'email',
+      referralWelcomeEmailHtml(contact.firstName, businessName, referralSource),
+      'A crested gecko starter guide from SunScale Geckos'
+    );
     const sms =
       `Hey ${contact.firstName || 'there'}, welcome to ${businessName}. ` +
       `I'll send the starter guide and current ${species} availability so you can see good-fit options.`;
-    await sendIfPossible(contact.contactId, 'sms', sms);
+    const smsSent = await sendIfPossible(contact.contactId, 'sms', sms);
 
     return ok(res, {
       contactId: contact.contactId,
@@ -1187,6 +1323,7 @@ app.post('/webhooks/ghl/referral', async (req, res) => {
       warnings: contact.warnings || [],
       action: 'referral_processed',
       referralSource,
+      messaging: { emailSent, smsSent },
     });
   } catch (err) {
     return fail(res, 500, 'Referral handler error', err);

@@ -8,19 +8,20 @@
       <h1>Crested Gecko Starter Guide</h1>
       <p>A simple care plan for new keepers who want to know what to buy, how to set up the enclosure, and how to tell whether a beginner gecko is the right fit.</p>
       <ul><li>Enclosure size, humidity, feeding, heat, and first-week expectations.</li><li>What to buy before pickup or shipping day.</li><li>How to choose between beginner, collector, and breeder-quality animals.</li></ul>
-      <form data-endpoint="/webhooks/ghl/lead-magnet">
+      <form data-endpoint="/webhooks/ghl/lead-magnet" data-success="Your guide request is in. The demo account has been updated.">
         <input name="firstName" placeholder="First name" required>
         <input name="email" type="email" placeholder="Email" required>
         <input name="phone" type="tel" placeholder="Mobile phone">
         <select name="price_tier"><option value="">Budget range</option><option>Budget ($25-75)</option><option>Mid-Range ($75-250)</option><option>Premium ($250-750)</option><option>Designer ($750+)</option></select>
-        <input type="hidden" name="locationId" value="REPLACE_WITH_SUNSCALE_DEMO_LOCATION_ID">
+        <input type="hidden" name="locationId" value="oCn199rzTjj0rPgqXyXU">
         <input type="hidden" name="species_interest" value="Crested Gecko">
         <input type="hidden" name="source" value="lead-magnet-page">
         <input type="hidden" name="offerKey" value="crested_gecko_starter_guide">
         <button type="submit">Send the Free Guide</button>
       </form>
     </section>
-    <section class="visual"><img src="../../../docs/demo-showroom/visual-assets/starter-guide-cover.svg" alt="Starter guide preview"></section>
+    <section class="visual"><img src="/demo-showroom/assets/starter-guide-cover.svg" alt="Starter guide preview"></section>
   </main>
+  <script src="./sunscale-demo.js"></script>
 </body>
 </html>

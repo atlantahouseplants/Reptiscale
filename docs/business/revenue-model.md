@@ -1,4 +1,4 @@
-# Reptiscale Revenue Model
+# Hatchkit Revenue Model
 
 The fastest path to money is a productized service:
 

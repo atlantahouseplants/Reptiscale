@@ -1,4 +1,4 @@
-# Reptiscale Sales Playbook
+# Hatchkit Sales Playbook
 
 ## Sales Goal
 
@@ -7,7 +7,7 @@ Sell a working growth system, not software access.
 The buyer should leave the demo believing:
 
 - Their current lead follow-up is leaking money.
-- Reptiscale fixes a real operational problem.
+- Hatchkit fixes a real operational problem.
 - They do not have to build it themselves.
 - The system can pay for itself with a few recovered sales.
 
@@ -43,11 +43,11 @@ Poor fit:
 
 ## Demo Flow
 
-1. Start with the storefront.
+1. Start with the HighLevel Store.
 2. Submit the starter guide form.
 3. Show the contact created in HighLevel with tags and journey stage.
-4. Show the animal reservation offer.
-5. Show purchase follow-up and safe shipping logic.
+4. Show an animal product page and the reservation/cart path.
+5. Show purchase follow-up, abandoned checkout, and safe shipping logic.
 6. Show the order-to-shipping operator review package.
 7. Show care onboarding templates.
 8. Show review, referral, and VIP repeat-buyer campaigns.
@@ -57,7 +57,7 @@ Poor fit:
 
 ### "I already use MorphMarket."
 
-MorphMarket is a listing channel. Reptiscale is what captures everyone who does not buy immediately, follows up with them, and turns them into future buyers.
+MorphMarket is a listing channel. Hatchkit is what captures everyone who does not buy immediately, follows up with them, and turns them into future buyers.
 
 ### "I do not have time to learn new software."
 
@@ -69,7 +69,7 @@ Starter is for smaller breeders. If you lose even a few warm leads from shows or
 
 ### "Can I just build this myself in HighLevel?"
 
-Yes, if you have the time and know the workflows. Reptiscale gives you the reptile-specific system, copy, tags, shipping logic, care sequences, and support already packaged.
+Yes, if you have the time and know the workflows. Hatchkit gives you the reptile-specific system, copy, tags, shipping logic, care sequences, and support already packaged.
 
 ### "I do not ship many animals."
 
@@ -77,15 +77,15 @@ The system still handles lead capture, nurture, deposits, pickup coordination, r
 
 ## Close
 
-"The next step is simple: we set up your Reptiscale account, build the lead magnet and storefront, load your first animals, and launch the first buyer journey. Once it is live, every new lead starts moving through the system automatically."
+"The next step is simple: we set up your Hatchkit account, build the lead magnet and HighLevel Store, load your first animals, and launch the first buyer journey. Once it is live, every new lead and store buyer starts moving through the system automatically."
 
 ## Follow-Up Email
 
-Subject: Your Reptiscale demo recap
+Subject: Your Hatchkit demo recap
 
 Hi {{first_name}},
 
-Thanks for taking a look at Reptiscale today.
+Thanks for taking a look at Hatchkit today.
 
 The biggest opportunity I saw for {{business_name}} is turning your existing attention from shows, DMs, and social posts into a repeatable buyer journey:
 

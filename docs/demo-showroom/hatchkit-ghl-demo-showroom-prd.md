@@ -1,13 +1,13 @@
 # HatchKit GHL Demo Showroom PRD
 
-Last updated: 2026-06-02
+Last updated: 2026-06-08
 
 ## Purpose
 
-Build a prospect-facing HatchKit/Reptiscale demo that shows a reptile breeder exactly what they receive when they sign up:
+Build a prospect-facing Hatchkit demo that shows a reptile breeder exactly what they receive when they sign up:
 
 - a branded HighLevel subaccount
-- an online store and reservation funnel
+- a HighLevel Store/Website plus campaign funnels
 - a unified CRM, inbox, tags, fields, smart lists, and pipelines
 - automated email/SMS follow-up
 - abandoned reservation and purchase follow-up
@@ -22,7 +22,7 @@ The demo must feel like a working crested gecko breeder business, not a technica
 
 The near-term product is a done-for-you GoHighLevel agency/SaaS system for reptile breeders.
 
-HatchKit/Reptiscale is not currently a standalone SaaS app that replaces HighLevel. The custom app ideas in the older PRD are future product direction. The sellable version now is a reusable HighLevel snapshot plus HatchKit-owned webhook/automation support.
+Hatchkit is not currently a standalone SaaS app that replaces HighLevel. The custom app ideas in the older PRD are future product direction. The sellable version now is a reusable HighLevel snapshot plus Hatchkit-owned webhook/automation support.
 
 ## Demo Accounts
 
@@ -121,13 +121,17 @@ In 10 to 15 minutes, a prospect should understand:
 - demo business address
 - fake shipping origin clearly marked as demo-only
 
-### Pages/Funnels
+### HighLevel Store/Website
 
-- SunScale storefront
+- SunScale Store home / Products List page
+- Product Details page
+- Cart page
+- Checkout page
+- Thank You page
+
+### Campaign Funnels
+
 - crested gecko starter guide capture
-- animal detail page
-- reservation/deposit offer
-- checkout/order confirmation
 - show QR signup
 - review/referral page
 - VIP availability list
@@ -245,7 +249,8 @@ It should not be the main sales demo surface.
 
 The master snapshot must include:
 
-- pages/funnels
+- reusable HighLevel Store/Website
+- campaign funnels
 - forms
 - products where snapshot support allows
 - workflows
@@ -305,4 +310,3 @@ The demo is ready when:
 - Example content topics and tone.
 - Realistic show/event sources.
 - What a breeder wants to see first when they log into HighLevel.
-

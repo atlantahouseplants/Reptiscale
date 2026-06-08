@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Expo Signup | SunScale Geckos</title><link rel="icon" href="data:,"><link rel="stylesheet" href="./sunscale-demo.css"></head>
+<body>
+  <main class="split">
+    <section class="copy">
+      <p class="eyebrow">Expo first look</p>
+      <h1>Get today's crested gecko availability</h1>
+      <p>Scan at the show table to get Sarah's current availability list, starter guide, and pickup or shipping reminders without losing the animals you liked.</p>
+      <ul><li>See beginner-friendly and collector animals in one place.</li><li>Get care basics before pickup or shipping day.</li><li>Join the VIP list for future clutch updates.</li></ul>
+      <form data-endpoint="/webhooks/ghl/lead-magnet" data-success="You're on the SunScale show list. The demo account has been updated.">
+        <input name="firstName" placeholder="First name" required>
+        <input name="email" type="email" placeholder="Email" required>
+        <input name="phone" type="tel" placeholder="Mobile phone">
+        <select name="price_tier"><option value="">Budget range</option><option>Budget ($25-75)</option><option>Mid-Range ($75-250)</option><option>Premium ($250-750)</option><option>Designer ($750+)</option></select>
+        <input type="hidden" name="locationId" value="oCn199rzTjj0rPgqXyXU">
+        <input type="hidden" name="species_interest" value="Crested Gecko">
+        <input type="hidden" name="source" value="show-qr">
+        <input type="hidden" name="offerKey" value="crested_gecko_starter_guide">
+        <button type="submit">Send Availability</button>
+      </form>
+    </section>
+    <section class="visual"><img src="/demo-showroom/assets/show-qr-live.svg" alt="SunScale show signup QR code"></section>
+  </main>
+  <script src="./sunscale-demo.js"></script>
+</body>
+</html>

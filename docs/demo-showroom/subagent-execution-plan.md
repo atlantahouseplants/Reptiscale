@@ -1,6 +1,6 @@
 # Sub-Agent Execution Plan
 
-Last updated: 2026-06-02
+Last updated: 2026-06-05
 
 ## Coordination Model
 
@@ -56,6 +56,11 @@ Acceptance:
 - Team knows which account is clean snapshot and which account is showroom.
 - Snapshot export path is documented.
 
+Current status:
+
+- Showroom account exists: `SunScale Geckos - Demo`, `oCn199rzTjj0rPgqXyXU`.
+- Repeatable process is documented in `docs/demo-showroom/repeatable-client-snapshot-process.md`.
+
 ## Workstream 2: CRM Foundation Builder
 
 Goal:
@@ -96,8 +101,13 @@ Deliverables:
 
 Acceptance:
 
-- `npm run setup:demo` completes with only known/manual blockers.
+- `npm run setup:showroom` completes with only known/manual blockers.
 - All smart lists show relevant demo records.
+
+Current status:
+
+- API-supported CRM foundation is built and live-audited.
+- Smart lists were created manually in HighLevel.
 
 ## Workstream 3: Storefront And Funnel Builder
 
@@ -118,11 +128,13 @@ Owns:
 
 Primary files:
 
-- `templates/pages/reptiscale-storefront.html`
-- `templates/pages/crested-gecko-starter-guide.html`
-- `templates/pages/animal-detail.html`
-- `templates/pages/reservation-offer.html`
-- `templates/pages/show-qr-landing.html`
+- `templates/pages/sunscale-demo/storefront.html`
+- `templates/pages/sunscale-demo/starter-guide.html`
+- `templates/pages/sunscale-demo/mango-detail.html`
+- `templates/pages/sunscale-demo/reservation.html`
+- `templates/pages/sunscale-demo/review-referral.html`
+- `templates/pages/sunscale-demo/vip.html`
+- `templates/pages/sunscale-demo/show-qr.html`
 - `data/demo-products.json`
 
 HighLevel areas:
@@ -144,6 +156,12 @@ Acceptance:
 
 - Buyer can go from storefront to guide to animal interest to reservation.
 - The actions create/update a HighLevel contact.
+
+Current status:
+
+- Public helper pages are live and forms are webhook-wired.
+- Final HighLevel Store plus campaign funnels are published at `https://demo.hatchkitai.com`.
+- Privacy/Terms pages, compliance footer, and chat widget were added for A2P review.
 
 ## Workstream 4: Offers And Payments Builder
 
@@ -183,6 +201,11 @@ Deliverables:
 Acceptance:
 
 - Sales rep can demo "reserve this animal" without accidental live charge risk.
+
+Current status:
+
+- Products/prices, store origin, and review-only shipping option are built through API.
+- Demo-safe reservation/payment simulation is embedded in the Mango Reservation funnel step.
 
 ## Workstream 5: Workflow Automation Builder
 
@@ -225,6 +248,11 @@ Acceptance:
 - Full accelerated demo journey runs in about 10 minutes.
 - Production workflows have real timing and safe stop conditions.
 
+Current status:
+
+- Recipes are complete.
+- All 12 accelerated demo workflows are published in HighLevel.
+
 ## Workstream 6: Messaging And Content Builder
 
 Goal:
@@ -266,6 +294,13 @@ Deliverables:
 Acceptance:
 
 - Prospect can receive and read demo messages that feel realistic and useful.
+
+Current status:
+
+- Copy/templates exist.
+- Inbox examples are provider-dependent.
+- A2P Brand Registration is registered with TCR; live SMS sending still needs a real opted-in test.
+- Social Planner proof needs connected social accounts or manual demo setup.
 
 ## Workstream 7: Shipping And Operator Review Builder
 
@@ -387,7 +422,7 @@ Round 1:
 
 - Workstream 1: Account Architect
 - Workstream 2: CRM Foundation
-- Workstream 3: Storefront/Funnels
+- Workstream 3: Store-First Commerce/Funnels
 
 Round 2:
 
@@ -412,6 +447,6 @@ Before declaring done:
 - Run a fresh test buyer through the whole journey.
 - Check HighLevel contact record, tags, fields, workflow history, conversations, opportunities, and smart lists.
 - Confirm no live label or accidental charge can happen.
+- Retest live SMS delivery with an opted-in number after campaign approval.
 - Export or update snapshot.
 - Update handoff.
-

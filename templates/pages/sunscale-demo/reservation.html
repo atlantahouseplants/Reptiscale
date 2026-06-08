@@ -8,9 +8,29 @@
       <h1>Reserve Mango</h1>
       <p>A $75 reservation deposit holds Mango while pickup, shipping, weather, and setup details are confirmed. Sarah reviews every live-animal shipment before a label is purchased.</p>
       <div class="offer-list"><div><strong>Animal Reservation Deposit</strong><span>$75</span></div><div><strong>Crested Gecko Care Starter Kit</strong><span>$49</span></div><div><strong>30-Minute Setup Review</strong><span>$35</span></div></div>
-      <a class="button" href="thank-you.html">Simulate Deposit Paid</a>
+      <form data-endpoint="/webhooks/ghl/order-submitted" data-success="Deposit simulation logged. The demo account has been updated.">
+        <input type="hidden" name="firstName" value="Live">
+        <input type="hidden" name="lastName" value="Demo">
+        <input type="hidden" name="email" value="hatchkit.live.demo@example.com">
+        <input type="hidden" name="locationId" value="oCn199rzTjj0rPgqXyXU">
+        <input type="hidden" name="species_interest" value="Crested Gecko">
+        <input type="hidden" name="animalInterest" value="Mango - Harlequin Dalmatian">
+        <input type="hidden" name="offerKey" value="animal_reservation">
+        <input type="hidden" name="productName" value="Animal Reservation Deposit">
+        <input type="hidden" name="amount" value="75">
+        <input type="hidden" name="purchaseStatus" value="Deposit Paid">
+        <input type="hidden" name="destinationZip" value="30339">
+        <input type="hidden" name="preferredShipDate" value="2026-06-08">
+        <input type="hidden" name="shippingAddress[address1]" value="100 Demo Buyer Street">
+        <input type="hidden" name="shippingAddress[city]" value="Atlanta">
+        <input type="hidden" name="shippingAddress[state]" value="GA">
+        <input type="hidden" name="shippingAddress[postalCode]" value="30339">
+        <input type="hidden" name="shippingAddress[countryCode]" value="US">
+        <button type="submit">Simulate Deposit Paid</button>
+      </form>
       <p class="fine">For the live demo, this button simulates a paid deposit. In production, this connects to the breeder's HighLevel payment link or order form.</p>
     </section>
   </main>
+  <script src="./sunscale-demo.js"></script>
 </body>
 </html>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 720">
+  <rect width="720" height="720" rx="32" fill="#fff"/>
+  <rect x="60" y="60" width="600" height="600" fill="#f5f7f1" stroke="#dce3da" stroke-width="4"/>
+  <g fill="#123526">
+    <rect x="100" y="100" width="150" height="150"/><rect x="130" y="130" width="90" height="90" fill="#f5f7f1"/><rect x="155" y="155" width="40" height="40"/>
+    <rect x="470" y="100" width="150" height="150"/><rect x="500" y="130" width="90" height="90" fill="#f5f7f1"/><rect x="525" y="155" width="40" height="40"/>
+    <rect x="100" y="470" width="150" height="150"/><rect x="130" y="500" width="90" height="90" fill="#f5f7f1"/><rect x="155" y="525" width="40" height="40"/>
+    <rect x="310" y="110" width="45" height="45"/><rect x="375" y="110" width="45" height="45"/><rect x="310" y="175" width="45" height="45"/>
+    <rect x="300" y="300" width="60" height="60"/><rect x="390" y="300" width="45" height="45"/><rect x="470" y="310" width="55" height="55"/><rect x="560" y="310" width="40" height="40"/>
+    <rect x="300" y="405" width="45" height="45"/><rect x="380" y="390" width="70" height="70"/><rect x="500" y="410" width="45" height="45"/><rect x="580" y="390" width="40" height="40"/>
+    <rect x="300" y="500" width="60" height="60"/><rect x="390" y="510" width="45" height="45"/><rect x="475" y="500" width="70" height="70"/><rect x="580" y="540" width="40" height="40"/>
+  </g>
+  <text x="360" y="690" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" font-weight="800" fill="#123526">DEMO QR PLACEHOLDER</text>
+</svg>

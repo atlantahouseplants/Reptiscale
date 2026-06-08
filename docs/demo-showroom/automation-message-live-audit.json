@@ -1,0 +1,296 @@
+{
+  "generatedAt": "2026-06-07T19:48:50.514Z",
+  "waitSeconds": 90,
+  "selectedScenario": "all",
+  "failOnMismatch": true,
+  "overallStatus": "pass",
+  "mismatchCount": 0,
+  "results": [
+    {
+      "scenario": "referral-isolation",
+      "email": "hatchkit.demo.audit.referral.20260607194711@example.com",
+      "contactId": "AwPDQGnbyWJxlJF43UAj",
+      "trigger": "POST /webhooks/ghl/referral",
+      "expected": "No generic lead drip. Contact should have journey:referral-captured and no journey:lead-captured.",
+      "webhookStatus": 200,
+      "webhookResponse": {
+        "success": true,
+        "contactId": "AwPDQGnbyWJxlJF43UAj",
+        "demoMode": false,
+        "warnings": [],
+        "action": "referral_processed",
+        "referralSource": "Automation message audit",
+        "messaging": {
+          "emailSent": true,
+          "smsSent": false
+        }
+      },
+      "tags": [
+        "source:referral",
+        "referral:received",
+        "journey:referral-captured",
+        "status:new-lead",
+        "status:referred-lead",
+        "interest:crested-gecko"
+      ],
+      "customFields": [
+        {
+          "id": "BEIYtT2tpfOXP6WFhjey",
+          "value": "Send referral welcome and starter guide before presenting animals"
+        },
+        {
+          "id": "By01oux8jrdTBLXBUzkG",
+          "value": "Crested Gecko"
+        },
+        {
+          "id": "EcYDBTcIU1PQYJq0SOuh",
+          "value": "No Purchase"
+        },
+        {
+          "id": "TIuHZ1vdMBKGdrqAirVC",
+          "value": "Referral Captured"
+        },
+        {
+          "id": "TqN75IHuHopHWQd3A1zU",
+          "value": "Automation message audit"
+        }
+      ],
+      "conversations": [
+        {
+          "conversationId": "u8rdkee4D1NntrZOCijl",
+          "messages": [
+            {
+              "id": "PbbhRfGygjSTvrCzPSUf",
+              "type": 3,
+              "direction": "outbound",
+              "status": null,
+              "subject": null,
+              "body": "Hi ReferralAudit,\n\nAutomation message audit thought you might like SunScale Geckos because you are researching crested geckos.\n\nStart here with the Crested Gecko Starter Guide: https://demo.hatchkitai.com/guide [https://demo.hatchkitai.com/guide]\n\nIt covers setup basics, feeding, humidity, handling, and what to look for in a beginner-friendly animal. If you want help\ncomparing animals later, reply with your budget and experience level.\n\nSarah\nSunScale Geckos",
+              "bodyPreview": "Hi ReferralAudit, Automation message audit thought you might like SunScale Geckos because you are researching crested geckos. Start here with the Crested Gecko Starter Guide: https://demo.hatchkitai.com/guide [https://demo.hatchkitai.com/gu",
+              "dateAdded": "2026-06-07T19:47:12.164Z"
+            }
+          ],
+          "error": null
+        }
+      ],
+      "messages": [
+        {
+          "id": "PbbhRfGygjSTvrCzPSUf",
+          "type": 3,
+          "direction": "outbound",
+          "status": null,
+          "subject": null,
+          "body": "Hi ReferralAudit,\n\nAutomation message audit thought you might like SunScale Geckos because you are researching crested geckos.\n\nStart here with the Crested Gecko Starter Guide: https://demo.hatchkitai.com/guide [https://demo.hatchkitai.com/guide]\n\nIt covers setup basics, feeding, humidity, handling, and what to look for in a beginner-friendly animal. If you want help\ncomparing animals later, reply with your budget and experience level.\n\nSarah\nSunScale Geckos",
+          "bodyPreview": "Hi ReferralAudit, Automation message audit thought you might like SunScale Geckos because you are researching crested geckos. Start here with the Crested Gecko Starter Guide: https://demo.hatchkitai.com/guide [https://demo.hatchkitai.com/gu",
+          "dateAdded": "2026-06-07T19:47:12.164Z"
+        }
+      ],
+      "messageCount": 1,
+      "mismatchFlags": [],
+      "status": "pass"
+    },
+    {
+      "scenario": "starter-guide-webhook",
+      "email": "hatchkit.demo.audit.guide.20260607194711@example.com",
+      "contactId": "wJZjjKeh2b02J1jiP0KY",
+      "trigger": "POST /webhooks/ghl/lead-magnet",
+      "expected": "Correct starter-guide email from webhook. No journey:lead-captured generic workflow drip.",
+      "webhookStatus": 200,
+      "webhookResponse": {
+        "success": true,
+        "contactId": "wJZjjKeh2b02J1jiP0KY",
+        "demoMode": false,
+        "warnings": [],
+        "action": "lead_magnet_processed",
+        "offer": "Crested Gecko Starter Guide",
+        "nextBestAction": "Reserve a beginner-friendly crested gecko",
+        "messaging": {
+          "emailSent": true,
+          "smsSent": false
+        }
+      },
+      "tags": [
+        "journey:lead-captured-webhook",
+        "message:starter-guide-sent",
+        "status:new-lead",
+        "source:automation-message-audit",
+        "interest:crested-gecko",
+        "offer:lead-magnet",
+        "content:starter-guide"
+      ],
+      "customFields": [
+        {
+          "id": "BEIYtT2tpfOXP6WFhjey",
+          "value": "Reserve a beginner-friendly crested gecko"
+        },
+        {
+          "id": "By01oux8jrdTBLXBUzkG",
+          "value": "Crested Gecko"
+        },
+        {
+          "id": "EcYDBTcIU1PQYJq0SOuh",
+          "value": "No Purchase"
+        },
+        {
+          "id": "J6cHEv65PvxNm6SFMRxZ",
+          "value": "Crested Gecko Starter Guide"
+        },
+        {
+          "id": "TIuHZ1vdMBKGdrqAirVC",
+          "value": "Lead Captured"
+        }
+      ],
+      "conversations": [
+        {
+          "conversationId": "AroMdW3Wldc9pBSbBXyR",
+          "messages": [
+            {
+              "id": "G3JsRJ8TeOmms6soy99F",
+              "type": 3,
+              "direction": "outbound",
+              "status": null,
+              "subject": null,
+              "body": "Hi GuideAudit,\n\nHere is the Crested Gecko Starter Guide from SunScale Geckos: https://demo.hatchkitai.com/guide\n[https://demo.hatchkitai.com/guide]\n\nStart with enclosure size, humidity, food, and the first-week checklist. If you want help choosing a beginner-friendly gecko,\nreply with your budget and what kind of animal you like.\n\nMango is the beginner-friendly animal I would show you first when you are ready to compare options:\nhttps://demo.hatchkitai.com/mango [https://demo.hatchkitai.com/mango]\n\nSarah\nSunScale Geckos",
+              "bodyPreview": "Hi GuideAudit, Here is the Crested Gecko Starter Guide from SunScale Geckos: https://demo.hatchkitai.com/guide [https://demo.hatchkitai.com/guide] Start with enclosure size, humidity, food, and the first-week checklist. If you want help cho",
+              "dateAdded": "2026-06-07T19:47:14.147Z"
+            }
+          ],
+          "error": null
+        }
+      ],
+      "messages": [
+        {
+          "id": "G3JsRJ8TeOmms6soy99F",
+          "type": 3,
+          "direction": "outbound",
+          "status": null,
+          "subject": null,
+          "body": "Hi GuideAudit,\n\nHere is the Crested Gecko Starter Guide from SunScale Geckos: https://demo.hatchkitai.com/guide\n[https://demo.hatchkitai.com/guide]\n\nStart with enclosure size, humidity, food, and the first-week checklist. If you want help choosing a beginner-friendly gecko,\nreply with your budget and what kind of animal you like.\n\nMango is the beginner-friendly animal I would show you first when you are ready to compare options:\nhttps://demo.hatchkitai.com/mango [https://demo.hatchkitai.com/mango]\n\nSarah\nSunScale Geckos",
+          "bodyPreview": "Hi GuideAudit, Here is the Crested Gecko Starter Guide from SunScale Geckos: https://demo.hatchkitai.com/guide [https://demo.hatchkitai.com/guide] Start with enclosure size, humidity, food, and the first-week checklist. If you want help cho",
+          "dateAdded": "2026-06-07T19:47:14.147Z"
+        }
+      ],
+      "messageCount": 1,
+      "mismatchFlags": [],
+      "status": "pass"
+    },
+    {
+      "scenario": "lead-drip",
+      "email": "hatchkit.demo.audit.lead.20260607194711@example.com",
+      "contactId": "KzYAhoEUoOhQihH5y35W",
+      "trigger": "Add tag journey:lead-captured",
+      "expected": "Correct lead-capture guide message. No Mango-platform, generic-reptile, attachment-claim, or exclusive-offers storefront copy.",
+      "tags": [
+        "status:new-lead",
+        "interest:crested-gecko",
+        "journey:lead-captured",
+        "offer:lead-magnet",
+        "content:starter-guide",
+        "journey:nurture"
+      ],
+      "customFields": [
+        {
+          "id": "BEIYtT2tpfOXP6WFhjey",
+          "value": "Send guide and show beginner-friendly animals"
+        },
+        {
+          "id": "By01oux8jrdTBLXBUzkG",
+          "value": "Crested Gecko"
+        },
+        {
+          "id": "J6cHEv65PvxNm6SFMRxZ",
+          "value": "Crested Gecko Starter Guide"
+        },
+        {
+          "id": "TIuHZ1vdMBKGdrqAirVC",
+          "value": "Lead Captured"
+        }
+      ],
+      "conversations": [
+        {
+          "conversationId": "cTbRsI39uLnKvkVomqVP",
+          "messages": [
+            {
+              "id": "SlwrBbbjjKOeWMqlHaFv",
+              "type": 3,
+              "direction": "outbound",
+              "status": null,
+              "subject": null,
+              "body": "Hi LeadAudit,\n\n\nHere is the Crested Gecko Starter Guide from SunScale Geckos:\n\n\nhttps://demo.hatchkitai.com/guide\n\n\nStart with enclosure size, humidity, food, and the first-week checklist.\n\n\nIf you want help choosing a beginner-friendly gecko, reply with your budget and what kind of animal you like!\n\n\nSarah\n\nSunScale Geckos\n\n\nIf you no longer wish to receive these emails you may unsubscribe\n[https://services.msgsndr.com/emails/builder/unsubscribe-view/oCn199rzTjj0rPgqXyXU/KzYAhoEUoOhQihH5y35W?email=hatchkit.demo.audit.lead.20260607194711%40example.com&message_id=tXzddXU9EmIunrKSj8WU&time_stamp=1780861639428]",
+              "bodyPreview": "Hi LeadAudit, Here is the Crested Gecko Starter Guide from SunScale Geckos: https://demo.hatchkitai.com/guide Start with enclosure size, humidity, food, and the first-week checklist. If you want help choosing a beginner-friendly gecko, repl",
+              "dateAdded": "2026-06-07T19:47:19.535Z"
+            }
+          ],
+          "error": null
+        }
+      ],
+      "messages": [
+        {
+          "id": "SlwrBbbjjKOeWMqlHaFv",
+          "type": 3,
+          "direction": "outbound",
+          "status": null,
+          "subject": null,
+          "body": "Hi LeadAudit,\n\n\nHere is the Crested Gecko Starter Guide from SunScale Geckos:\n\n\nhttps://demo.hatchkitai.com/guide\n\n\nStart with enclosure size, humidity, food, and the first-week checklist.\n\n\nIf you want help choosing a beginner-friendly gecko, reply with your budget and what kind of animal you like!\n\n\nSarah\n\nSunScale Geckos\n\n\nIf you no longer wish to receive these emails you may unsubscribe\n[https://services.msgsndr.com/emails/builder/unsubscribe-view/oCn199rzTjj0rPgqXyXU/KzYAhoEUoOhQihH5y35W?email=hatchkit.demo.audit.lead.20260607194711%40example.com&message_id=tXzddXU9EmIunrKSj8WU&time_stamp=1780861639428]",
+          "bodyPreview": "Hi LeadAudit, Here is the Crested Gecko Starter Guide from SunScale Geckos: https://demo.hatchkitai.com/guide Start with enclosure size, humidity, food, and the first-week checklist. If you want help choosing a beginner-friendly gecko, repl",
+          "dateAdded": "2026-06-07T19:47:19.535Z"
+        }
+      ],
+      "messageCount": 1,
+      "mismatchFlags": [],
+      "status": "pass"
+    },
+    {
+      "scenario": "review-vip",
+      "email": "hatchkit.demo.audit.reviewvip.20260607194711@example.com",
+      "contactId": "HXu3mnNVGbUxlKGt14gE",
+      "trigger": "Add tags review:received and journey:advocacy",
+      "expected": "Repeat-buyer VIP invitation for proven buyer/reviewer. No first-time prospect copy.",
+      "tags": [
+        "status:customer",
+        "interest:crested-gecko",
+        "animal:mango-harlequin-dalmatian",
+        "review:received",
+        "journey:advocacy",
+        "journey:repeat-buyer",
+        "status:repeat-buyer",
+        "waitlist:active",
+        "campaign:availability-alerts"
+      ],
+      "customFields": [],
+      "conversations": [
+        {
+          "conversationId": "rnmmLsSQx8TdJ2ODIOxA",
+          "messages": [
+            {
+              "id": "F00aUpmTsEiv6tSQRt5E",
+              "type": 3,
+              "direction": "outbound",
+              "status": null,
+              "subject": null,
+              "body": "Hello ReviewVipAudit,\n\nWe are excited to offer you an exclusive first look at our upcoming SunScale geckos. As a valued repeat buyer, you're invited to\njoin our VIP list to receive early updates and special offers on future clutches.\n\nDon't miss this opportunity to secure your next favorite gecko! Click the link below to join our VIP list:\n\nJoin the VIP List [https://demo.hatchkitai.com/vip]\n\nThank you for being a loyal customer. We look forward to sharing these exciting new SunScale geckos with you.\n\nBest regards,\n\n\n\n\nIf you no longer wish to receive these emails you may unsubscribe\n[https://services.msgsndr.com/emails/builder/unsubscribe-view/oCn199rzTjj0rPgqXyXU/HXu3mnNVGbUxlKGt14gE?email=hatchkit.demo.audit.reviewvip.20260607194711%40example.com&message_id=o4P67qt6Ne1lC4UgJWX7&time_stamp=1780861699322]",
+              "bodyPreview": "Hello ReviewVipAudit, We are excited to offer you an exclusive first look at our upcoming SunScale geckos. As a valued repeat buyer, you're invited to join our VIP list to receive early updates and special offers on future clutches. Don't m",
+              "dateAdded": "2026-06-07T19:48:19.422Z"
+            }
+          ],
+          "error": null
+        }
+      ],
+      "messages": [
+        {
+          "id": "F00aUpmTsEiv6tSQRt5E",
+          "type": 3,
+          "direction": "outbound",
+          "status": null,
+          "subject": null,
+          "body": "Hello ReviewVipAudit,\n\nWe are excited to offer you an exclusive first look at our upcoming SunScale geckos. As a valued repeat buyer, you're invited to\njoin our VIP list to receive early updates and special offers on future clutches.\n\nDon't miss this opportunity to secure your next favorite gecko! Click the link below to join our VIP list:\n\nJoin the VIP List [https://demo.hatchkitai.com/vip]\n\nThank you for being a loyal customer. We look forward to sharing these exciting new SunScale geckos with you.\n\nBest regards,\n\n\n\n\nIf you no longer wish to receive these emails you may unsubscribe\n[https://services.msgsndr.com/emails/builder/unsubscribe-view/oCn199rzTjj0rPgqXyXU/HXu3mnNVGbUxlKGt14gE?email=hatchkit.demo.audit.reviewvip.20260607194711%40example.com&message_id=o4P67qt6Ne1lC4UgJWX7&time_stamp=1780861699322]",
+          "bodyPreview": "Hello ReviewVipAudit, We are excited to offer you an exclusive first look at our upcoming SunScale geckos. As a valued repeat buyer, you're invited to join our VIP list to receive early updates and special offers on future clutches. Don't m",
+          "dateAdded": "2026-06-07T19:48:19.422Z"
+        }
+      ],
+      "messageCount": 1,
+      "mismatchFlags": [],
+      "status": "pass"
+    }
+  ]
+}

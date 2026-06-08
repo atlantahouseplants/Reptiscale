@@ -2,7 +2,7 @@
 
 ## Goal
 
-Land the first 5 paying Reptiscale customers, validate the Growth package, and turn the delivery process into a repeatable HighLevel snapshot.
+Land the first 5 paying Hatchkit customers, validate the Growth package, and turn the delivery process into a repeatable HighLevel snapshot.
 
 ## Days 1-14: Build The Sales Foundation
 

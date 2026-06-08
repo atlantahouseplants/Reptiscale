@@ -1,6 +1,6 @@
 # Accelerated HighLevel Workflow Recipes
 
-Last updated: 2026-06-02
+Last updated: 2026-06-06
 
 These recipes are for the `SunScale Geckos - Demo` subaccount.
 
@@ -14,7 +14,7 @@ Webhook base:
 
 Replace:
 
-- `SUNSCALE_DEMO_LOCATION_ID` with the new HighLevel location ID.
+- `oCn199rzTjj0rPgqXyXU` is the new `SunScale Geckos - Demo` HighLevel location ID.
 - Page URLs with the final HighLevel page URLs.
 - Sender email/phone values after the account is configured.
 
@@ -23,6 +23,38 @@ Replace:
 Demo workflows use minutes instead of days so a prospect can feel the system during a sales call.
 
 Production snapshot workflows must use real timing and should not copy these wait durations unchanged.
+
+## Demo Workflow Settings
+
+Apply these settings to the accelerated `DEMO - Reptiscale - ...` workflows in the SunScale demo account:
+
+- Execution schedule: 24/7, all days and all hours.
+- Timezone: `America/New_York`.
+- Mark emails as read: off.
+- Quiet hours/business-hours restrictions: off for the demo unless HighLevel enforces a compliance rule.
+- Form-trigger note: the published HighLevel pages use custom HTML/code forms that post to Reptiscale webhooks. Do not rely only on native HighLevel `Form Submitted` triggers for those pages.
+- Preferred custom-form triggers: tag added events such as `journey:lead-captured-webhook`, `journey:referral-captured`, `journey:offer-presented`, `journey:purchased`, `shipping:ready-for-operator-approval`, and `shipping:lag-confirmed`.
+- Public custom-code Starter Guide submissions currently use `journey:lead-captured-webhook` and `message:starter-guide-sent` while the HighLevel UI email copy is under correction.
+- Referral-form trigger note: referred friends should use `journey:referral-captured`, not the generic `journey:lead-captured` drip, unless the lead drip has referral-specific branching.
+- Message-copy audit: use `docs/demo-showroom/automation-message-audit-and-corrections.md` to keep live HighLevel email/SMS actions topical and breeder-specific.
+
+Re-entry guidance for the demo:
+
+- Allow re-entry ON:
+  - `DEMO - Reptiscale - Starter Guide Lead Capture`
+  - `DEMO - Reptiscale - Lead Education Drip`
+  - `DEMO - Reptiscale - Animal Interest - Mango`
+  - `DEMO - Reptiscale - Reservation Abandonment`
+  - `DEMO - Reptiscale - Review And Referral`
+  - `DEMO - Reptiscale - Repeat Buyer VIP`
+- Allow re-entry OFF unless manually resetting the test contact:
+  - `DEMO - Reptiscale - Deposit Paid`
+  - `DEMO - Reptiscale - Order Shipping Review`
+  - `DEMO - Reptiscale - Simulated Shipped`
+  - `DEMO - Reptiscale - Simulated Delivered And LAG`
+  - `DEMO - Reptiscale - Care Onboarding`
+
+For the later production snapshot, replace these settings with production-safe timing, quiet hours, and re-entry rules.
 
 ## Workflow 1: Starter Guide Lead Capture
 
@@ -43,7 +75,7 @@ Payload:
 
 ```json
 {
-  "locationId": "SUNSCALE_DEMO_LOCATION_ID",
+  "locationId": "oCn199rzTjj0rPgqXyXU",
   "firstName": "{{contact.first_name}}",
   "email": "{{contact.email}}",
   "phone": "{{contact.phone}}",
@@ -56,7 +88,8 @@ Payload:
 Actions:
 
 1. Add tags:
-   - `journey:lead-captured`
+   - `journey:lead-captured-webhook`
+   - `message:starter-guide-sent`
    - `offer:lead-magnet`
    - `content:starter-guide`
    - `status:new-lead`
@@ -73,6 +106,11 @@ Actions:
 5. Wait 1 minute.
 6. Add tag:
    - `journey:nurture`
+
+Current public-form note:
+
+- Do not add `journey:lead-captured` from the public Starter Guide webhook until the HighLevel UI body in `DEMO - Reptiscale - Lead Education Drip` is corrected.
+- The public webhook sends the Starter Guide email directly and uses `journey:lead-captured-webhook` as the safe trigger tag.
 
 Stop conditions:
 
@@ -133,7 +171,7 @@ Payload:
 
 ```json
 {
-  "locationId": "SUNSCALE_DEMO_LOCATION_ID",
+  "locationId": "oCn199rzTjj0rPgqXyXU",
   "email": "{{contact.email}}",
   "phone": "{{contact.phone}}",
   "species_interest": "Crested Gecko",
@@ -212,7 +250,7 @@ Payload:
 
 ```json
 {
-  "locationId": "SUNSCALE_DEMO_LOCATION_ID",
+  "locationId": "oCn199rzTjj0rPgqXyXU",
   "firstName": "{{contact.first_name}}",
   "lastName": "{{contact.last_name}}",
   "email": "{{contact.email}}",
@@ -275,7 +313,7 @@ Payload:
 
 ```json
 {
-  "locationId": "SUNSCALE_DEMO_LOCATION_ID",
+  "locationId": "oCn199rzTjj0rPgqXyXU",
   "contactId": "{{contact.id}}",
   "customer": {
     "firstName": "{{contact.first_name}}",
@@ -473,10 +511,36 @@ Note:
 
 This workflow can be mostly demonstrative until connected social accounts are available.
 
+## Correction Workflow: Referral Welcome
+
+Name:
+
+`DEMO - Reptiscale - Referral Welcome`
+
+Trigger:
+
+- Tag added: `journey:referral-captured`
+
+Actions:
+
+1. Send immediate email:
+   - Subject: `A crested gecko starter guide from SunScale Geckos`
+   - Body: use the `Referral Welcome` copy in `docs/demo-showroom/automation-message-audit-and-corrections.md`
+2. Optional SMS after A2P campaign approval:
+   - `Hi {{contact.first_name}}, someone thought you might like SunScale Geckos. Here is the crested gecko starter guide: {{custom_values.starter_guide_url}}. Reply with your budget if you want help choosing.`
+3. Wait 1 minute.
+4. Add tag:
+   - `journey:nurture-referral`
+
+Important:
+
+- Do not add `journey:lead-captured` to referral leads just to reuse the generic lead drip.
+- If you intentionally put referral leads into `Lead Education Drip`, add a branch that checks for `journey:referral-captured` and sends the referral welcome first.
+
 ## QA Test Path
 
 1. Submit starter guide form.
-2. Confirm contact has `journey:lead-captured`.
+2. Confirm contact has `journey:lead-captured-webhook` and `message:starter-guide-sent`.
 3. Wait for guide/care/availability messages.
 4. Click Mango interest.
 5. Confirm `Animal Interest = Mango - Harlequin Dalmatian`.
@@ -485,4 +549,3 @@ This workflow can be mostly demonstrative until connected social accounts are av
 8. Confirm Shipping Pipeline shows operator review.
 9. Confirm shipping status moves to `In Transit`, `Delivered`, then `LAG Confirmed`.
 10. Confirm review/referral/VIP messages fire.
-

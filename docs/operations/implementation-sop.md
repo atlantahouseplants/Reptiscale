@@ -1,6 +1,6 @@
 # Implementation SOP
 
-Use this every time a new Reptiscale customer is sold.
+Use this every time a new Hatchkit customer is sold.
 
 ## 1. Create Customer Folder
 
@@ -36,12 +36,11 @@ For real customers, run the onboarding script with their config instead of the d
 
 Build:
 
-- Storefront
-- Starter guide/lead magnet
-- Animal detail page
-- Reservation offer page
-- Review/referral form
-- VIP availability list form
+- HighLevel Store/Website
+- Product list, product details, cart, checkout, and thank-you pages
+- Starter guide/lead magnet campaign funnel
+- Featured animal, show QR, review/referral, and VIP campaign pages
+- Store products, product collections, and live-animal policy copy
 
 ## 4. Core Workflows
 
@@ -49,8 +48,8 @@ Build in this order:
 
 1. New lead capture
 2. New lead education drip
-3. Offer clicked/reservation follow-up
-4. Purchase confirmation
+3. Store abandoned checkout or offer-clicked follow-up
+4. Store order submitted / purchase confirmation
 5. Shipping evaluation
 6. Care onboarding
 7. Review/referral request

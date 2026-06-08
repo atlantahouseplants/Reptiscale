@@ -1,6 +1,6 @@
 # HighLevel Snapshot Build
 
-The end goal is a master Reptiscale HighLevel snapshot that can be cloned for every customer.
+The end goal is a master Hatchkit HighLevel snapshot that can be cloned for every customer.
 
 ## Snapshot Must Include
 
@@ -61,12 +61,20 @@ Shipping Pipeline:
 - LAG Confirmed
 - Complete
 
-### Funnels And Pages
+### HighLevel Store
 
-- Storefront
+- Store/Website homepage or Products List Page
+- Product Details Page
+- Cart Page
+- Checkout Page
+- Thank You Page
+- Product collections
+- Checkout copy with live-animal shipping review language
+
+### Campaign Funnels And Pages
+
 - Starter guide capture
-- Animal detail
-- Reservation offer
+- Featured animal/drop launch page
 - Show QR signup
 - Review/referral page
 - VIP availability list
@@ -78,6 +86,9 @@ Shipping Pipeline:
 - Show lead follow-up
 - Offer clicked follow-up
 - Reservation abandonment
+- Store abandoned checkout
+- Store order submitted
+- Store order fulfilled / shipping review
 - Purchase confirmation
 - Shipping decision
 - Order-to-shipping operator review
@@ -93,7 +104,7 @@ Shipping Pipeline:
 2. Update business profile.
 3. Update sender phone/email.
 4. Replace logo, colors, and copy.
-5. Load initial animals.
+5. Load initial animal products, inventory, photos, and collections.
 6. Update webhook base URL.
 7. Replace demo shipping origin with the breeder's real fulfillment address.
 8. Test all workflows before activation.

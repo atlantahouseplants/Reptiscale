@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 920">
+  <rect width="720" height="920" rx="28" fill="#fff"/>
+  <rect x="40" y="40" width="640" height="840" rx="22" fill="#f5f7f1" stroke="#dce3da" stroke-width="4"/>
+  <circle cx="540" cy="160" r="78" fill="#f0c878"/>
+  <text x="82" y="142" font-family="Arial, sans-serif" font-size="30" font-weight="800" fill="#c76432">SUNSCALE GECKOS</text>
+  <text x="82" y="230" font-family="Arial, sans-serif" font-size="66" font-weight="900" fill="#123526">Crested</text>
+  <text x="82" y="300" font-family="Arial, sans-serif" font-size="66" font-weight="900" fill="#123526">Gecko</text>
+  <text x="82" y="370" font-family="Arial, sans-serif" font-size="66" font-weight="900" fill="#123526">Starter Guide</text>
+  <path d="M130 610c62-134 211-202 335-131 82 47 111 127 73 197-47 86-160 120-272 66-72-35-124-84-136-132Z" fill="#d77a35"/>
+  <path d="M204 594c55-72 144-99 222-50 48 30 63 80 38 121-31 52-105 65-172 29-40-22-70-53-88-100Z" fill="#f3b04e"/>
+  <circle cx="454" cy="563" r="12" fill="#17211c"/>
+  <text x="82" y="800" font-family="Arial, sans-serif" font-size="28" fill="#617167">Setup, feeding, humidity, shipping, and first-week care.</text>
+</svg>

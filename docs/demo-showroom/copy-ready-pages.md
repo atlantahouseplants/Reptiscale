@@ -22,6 +22,7 @@ Suggested custom values:
 - `{{custom_values.review_url}}`
 - `{{custom_values.referral_url}}`
 - `{{custom_values.vip_url}}`
+- `{{custom_values.show_qr_url}}`
 
 ## Page 1: Storefront
 
@@ -278,3 +279,48 @@ Success message:
 
 `You're on the VIP list. Watch for future clutch updates and first-look availability from SunScale Geckos.`
 
+## Page 7: Show QR Signup
+
+HighLevel name:
+
+`SunScale Demo - Expo QR Signup`
+
+Purpose:
+
+Give show-table visitors a fast QR lead capture path that feeds the same Hatchkit buyer journey.
+
+Headline:
+
+`Get today's crested gecko availability`
+
+Body:
+
+`Scan at the show table to get Sarah's current availability list, starter guide, and pickup or shipping reminders without losing the animals you liked.`
+
+Bullets:
+
+- See beginner-friendly and collector animals in one place.
+- Get care basics before pickup or shipping day.
+- Join the VIP list for future clutch updates.
+
+Form fields:
+
+- First name
+- Email
+- Mobile phone
+- Budget range
+
+Webhook:
+
+`POST /webhooks/ghl/lead-magnet`
+
+Required hidden fields:
+
+- `locationId`
+- `source=show-qr`
+- `offerKey=crested_gecko_starter_guide`
+- `species_interest=Crested Gecko`
+
+Success message:
+
+`You're on the SunScale show list. Watch for today's availability and care basics from Sarah.`

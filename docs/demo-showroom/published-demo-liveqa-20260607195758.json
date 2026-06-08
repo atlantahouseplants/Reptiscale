@@ -1,0 +1,292 @@
+{
+  "generatedAt": "2026-06-07T20:01:00.464Z",
+  "waitSeconds": 150,
+  "emails": {
+    "buyer": "hatchkit.demo.liveqa.20260607195758@example.com",
+    "referral": "hatchkit.demo.liveqa.referral.20260607195758@example.com",
+    "vip": "hatchkit.demo.liveqa.vip.20260607195758@example.com"
+  },
+  "contactId": "V5iekNz0xAt4m9EVuqM6",
+  "pageResults": [
+    {
+      "page": "/store",
+      "status": 200,
+      "ok": true,
+      "hasSunScale": true
+    },
+    {
+      "page": "/guide",
+      "status": 200,
+      "ok": true,
+      "hasSunScale": true
+    },
+    {
+      "page": "/mango",
+      "status": 200,
+      "ok": true,
+      "hasSunScale": true
+    },
+    {
+      "page": "/reserve",
+      "status": 200,
+      "ok": true,
+      "hasSunScale": true
+    },
+    {
+      "page": "/thank-you",
+      "status": 200,
+      "ok": true,
+      "hasSunScale": true
+    },
+    {
+      "page": "/review",
+      "status": 200,
+      "ok": true,
+      "hasSunScale": true
+    },
+    {
+      "page": "/vip",
+      "status": 200,
+      "ok": true,
+      "hasSunScale": true
+    },
+    {
+      "page": "/show-qr",
+      "status": 200,
+      "ok": true,
+      "hasSunScale": true
+    },
+    {
+      "page": "/privacy",
+      "status": 200,
+      "ok": true,
+      "hasSunScale": true
+    },
+    {
+      "page": "/terms",
+      "status": 200,
+      "ok": true,
+      "hasSunScale": true
+    }
+  ],
+  "checks": [
+    {
+      "label": "published pages return 2xx",
+      "status": "pass",
+      "evidence": "10/10"
+    },
+    {
+      "label": "starter guide webhook accepted",
+      "status": "pass",
+      "evidence": "lead_magnet_processed"
+    },
+    {
+      "label": "mango interest webhook accepted",
+      "status": "pass",
+      "evidence": "offer_click_processed"
+    },
+    {
+      "label": "reservation/order simulation accepted",
+      "status": "pass",
+      "evidence": {
+        "action": "order_processed",
+        "shippingDecision": "HOLD",
+        "operatorDisposition": "DO_NOT_CREATE_LABEL"
+      }
+    },
+    {
+      "label": "review webhook accepted",
+      "status": "pass",
+      "evidence": "review_processed"
+    },
+    {
+      "label": "referral webhook accepted",
+      "status": "pass",
+      "evidence": "referral_processed"
+    },
+    {
+      "label": "vip/show-qr lead webhook accepted",
+      "status": "pass",
+      "evidence": "Show VIP Availability List"
+    },
+    {
+      "label": "fresh buyer contact exists",
+      "status": "pass",
+      "evidence": "V5iekNz0xAt4m9EVuqM6"
+    },
+    {
+      "label": "fresh buyer has expected journey tags",
+      "status": "pass",
+      "evidence": "journey:lead-captured-webhook, message:starter-guide-sent, journey:offer-presented, journey:purchased, status:customer, journey:advocacy, review:received"
+    },
+    {
+      "label": "fresh buyer custom fields updated",
+      "status": "pass",
+      "evidence": {
+        "species_interest": "Crested Gecko",
+        "animal_interest": "Mango - Harlequin Dalmatian",
+        "offer_name": "Animal Reservation Deposit",
+        "purchase_status": "Deposit Paid",
+        "last_purchase_amount": 75,
+        "shipping_status": "Label Blocked",
+        "customer_journey_stage": "Advocacy",
+        "next_best_action": "Ask for referral, photo permission, and VIP list opt-in"
+      }
+    },
+    {
+      "label": "fresh buyer opportunities present",
+      "status": "pass",
+      "evidence": [
+        {
+          "name": "Ship LiveQA Buyer - Mango weather review",
+          "pipelineId": "0Z5i1khH6dQ7nswcRbtJ",
+          "stageId": "7db1f42c-3aa6-42e1-966f-c3f6948a5ae6",
+          "status": "open"
+        },
+        {
+          "name": "LiveQA Buyer - Mango reservation completed",
+          "pipelineId": "KNlWC9LQSgxgTgwBARJO",
+          "stageId": "6d1c2b21-b524-4a24-8745-422abdeb883d",
+          "status": "open"
+        },
+        {
+          "name": "LiveQA Buyer",
+          "pipelineId": "EXKPs1QvBp3GI8gE7Bl6",
+          "stageId": "e7685e9b-850d-4f7f-bbe0-d75ca6cf03dd",
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "label": "fresh buyer email/message records present",
+      "status": "pass",
+      "evidence": 4
+    },
+    {
+      "label": "referral contact isolated from generic drip",
+      "status": "pass",
+      "evidence": {
+        "id": "LeyMAmiidol4qmVcQOYZ",
+        "tags": [
+          "source:referral",
+          "referral:received",
+          "journey:referral-captured",
+          "status:new-lead",
+          "status:referred-lead",
+          "interest:crested-gecko"
+        ]
+      }
+    },
+    {
+      "label": "vip/show-qr contact tagged",
+      "status": "pass",
+      "evidence": {
+        "id": "opnGNGPyQCQYjw7DH8sB",
+        "tags": [
+          "journey:lead-captured-webhook",
+          "message:starter-guide-sent",
+          "status:new-lead",
+          "source:published-vip-page",
+          "interest:crested-gecko",
+          "offer:show-vip",
+          "source:show-qr",
+          "campaign:availability-alerts"
+        ]
+      }
+    }
+  ],
+  "buyer": {
+    "id": "V5iekNz0xAt4m9EVuqM6",
+    "tags": [
+      "journey:lead-captured-webhook",
+      "message:starter-guide-sent",
+      "status:new-lead",
+      "source:published-funnel-liveqa",
+      "interest:crested-gecko",
+      "offer:lead-magnet",
+      "content:starter-guide",
+      "journey:offer-presented",
+      "offer:animal-reservation",
+      "animal:mango-harlequin-dalmatian",
+      "journey:purchased",
+      "status:customer",
+      "purchase:animal",
+      "offer:mango",
+      "animal:dalmatian",
+      "status:offered",
+      "shipping:operator-review",
+      "shipping:pending-weather-check",
+      "journey:shipping",
+      "shipping:hold",
+      "shipping:label-blocked",
+      "journey:advocacy",
+      "review:received",
+      "referral:requested",
+      "ugc:requested",
+      "shipping:ready-for-operator-approval",
+      "journey:repeat-buyer",
+      "status:repeat-buyer",
+      "waitlist:active",
+      "campaign:availability-alerts"
+    ],
+    "fields": {
+      "species_interest": "Crested Gecko",
+      "animal_interest": "Mango - Harlequin Dalmatian",
+      "offer_name": "Animal Reservation Deposit",
+      "purchase_status": "Deposit Paid",
+      "last_purchase_amount": 75,
+      "shipping_status": "Label Blocked",
+      "customer_journey_stage": "Advocacy",
+      "next_best_action": "Ask for referral, photo permission, and VIP list opt-in"
+    },
+    "opportunities": [
+      {
+        "id": "cJZPfnqZL8Ff7wWAaAG7",
+        "name": "Ship LiveQA Buyer - Mango weather review",
+        "pipelineId": "0Z5i1khH6dQ7nswcRbtJ",
+        "pipelineStageId": "7db1f42c-3aa6-42e1-966f-c3f6948a5ae6",
+        "status": "open"
+      },
+      {
+        "id": "wlfLzpZ0cpCX0aFlb6VF",
+        "name": "LiveQA Buyer - Mango reservation completed",
+        "pipelineId": "KNlWC9LQSgxgTgwBARJO",
+        "pipelineStageId": "6d1c2b21-b524-4a24-8745-422abdeb883d",
+        "status": "open"
+      },
+      {
+        "id": "PMrWt17qdBTdnyAqjtlc",
+        "name": "LiveQA Buyer",
+        "pipelineId": "EXKPs1QvBp3GI8gE7Bl6",
+        "pipelineStageId": "e7685e9b-850d-4f7f-bbe0-d75ca6cf03dd",
+        "status": "open"
+      }
+    ],
+    "messages": [
+      {
+        "type": 28,
+        "direction": "outbound",
+        "subject": null,
+        "bodyPreview": "Opportunity created"
+      },
+      {
+        "type": 28,
+        "direction": "outbound",
+        "subject": null,
+        "bodyPreview": "Opportunity created"
+      },
+      {
+        "type": 28,
+        "direction": "outbound",
+        "subject": null,
+        "bodyPreview": "Opportunity created"
+      },
+      {
+        "type": 3,
+        "direction": "outbound",
+        "subject": null,
+        "bodyPreview": "Hi LiveQA, Here is the Crested Gecko Starter Guide from SunScale Geckos: https://demo.hatchkitai.com/guide [https://demo.hatchkitai.com/guide] Start with enclosure size, humidity, food, and the first-week checklist. If y"
+      }
+    ]
+  }
+}

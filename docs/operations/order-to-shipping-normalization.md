@@ -2,12 +2,12 @@
 
 This is the bridge between a storefront purchase and the live-animal fulfillment gate.
 
-The goal is to let a breeder take an order from HighLevel, Shopify-style checkout, a funnel form, or a custom storefront and turn it into a review-only shipping package.
+The goal is to let a breeder take an order from a HighLevel Store checkout, campaign funnel form, Shopify-style checkout, or custom storefront and turn it into a review-only shipping package.
 
 ## What It Does
 
 1. Reads the order, buyer, animal, and shipping address from common payload shapes.
-2. Resolves the breeder origin from the Reptiscale client config.
+2. Resolves the breeder origin from the Hatchkit client config.
 3. Converts the buyer's species interest into the shipping species ID, such as `crested_gecko`.
 4. Selects the default package profile, such as `crestedGecko`.
 5. Runs the existing weather and species safety check.

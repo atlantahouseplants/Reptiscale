@@ -1,21 +1,23 @@
 # 10-Minute SunScale Sales Demo Script
 
-Last updated: 2026-06-02
+Last updated: 2026-06-08
 
 ## Demo Goal
 
-Show a reptile breeder that Reptiscale is not just a website or CRM. It is the full buyer journey built in HighLevel:
+Show a reptile breeder that Hatchkit is not just a website or CRM. It is the full buyer journey built in HighLevel:
 
 capture -> follow-up -> animal interest -> reservation -> shipping review -> care -> review/referral -> repeat buyer.
+
+The primary buyer surface should be the HighLevel Store. Starter guide, show QR, referral, VIP, and featured animal funnels support the store.
 
 ## Setup Before The Call
 
 Open these tabs:
 
-1. SunScale storefront
-2. Starter guide page
-3. Mango animal detail page
-4. Reservation page
+1. SunScale HighLevel Store
+2. Starter guide campaign page
+3. Mango product detail page
+4. Cart/checkout or demo-safe reservation page
 5. HighLevel contact list
 6. HighLevel workflows
 7. HighLevel opportunities/pipelines
@@ -40,14 +42,14 @@ Show:
 
 Say:
 
-`Most breeders do not need another generic CRM. They need every buyer captured, followed up with, sold to, shipped safely, educated, reviewed, referred, and invited back. You raise the animals. Reptiscale runs the buyer journey.`
+`Most breeders do not need another generic CRM. They need every buyer captured, followed up with, sold to, shipped safely, educated, reviewed, referred, and invited back. You raise the animals. Hatchkit runs the buyer journey.`
 
 Point out:
 
 - storefront
 - available animals
 - starter guide
-- reservation path
+- product detail and reservation/cart path
 
 ### 0:45-1:45 - Buyer Enters The System
 
@@ -96,11 +98,11 @@ Say:
 
 Show:
 
-- Mango detail page
+- Mango product detail page in the Store
 
 Action:
 
-- Click `Reserve Mango` or trigger offer-clicked workflow.
+- Click `Reserve Mango`, add to cart, or trigger the offer-clicked workflow if checkout is not part of that demo.
 
 Say:
 
@@ -117,7 +119,7 @@ Expected result:
 
 Show:
 
-- Reservation page
+- Cart/checkout or demo-safe reservation page
 
 Action:
 
@@ -126,7 +128,7 @@ Action:
 
 Say:
 
-`A buyer can reserve a specific animal with a deposit. If they click this and do not finish, Reptiscale can follow up automatically instead of letting that buyer vanish.`
+`A buyer can reserve a specific animal with a deposit. If they add it to cart or click the offer and do not finish, Hatchkit can follow up automatically instead of letting that buyer vanish.`
 
 If demoing deposit:
 
@@ -169,7 +171,7 @@ Show:
 
 Say:
 
-`Live-animal shipping is where generic ecommerce breaks down. Reptiscale turns the order into a review package: species, route, ship date, origin, destination, package profile, and operator disposition. It is review-only. It does not buy a live label without human approval.`
+`Live-animal shipping is where generic ecommerce breaks down. Hatchkit turns the order into a review package: species, route, ship date, origin, destination, package profile, and operator disposition. It is review-only. It does not buy a live label without human approval.`
 
 Expected proof:
 
@@ -203,7 +205,7 @@ Show:
 
 Say:
 
-`After safe arrival, Reptiscale asks for the review, photo permission, referral, and VIP list opt-in. This turns one sale into proof, referrals, and future repeat buyers.`
+`After safe arrival, Hatchkit asks for the review, photo permission, referral, and VIP list opt-in. This turns one sale into proof, referrals, and future repeat buyers.`
 
 Expected result:
 
@@ -221,7 +223,7 @@ Show:
 
 Say:
 
-`The breeder gets this as their own branded HighLevel subaccount. We set up the storefront, CRM, inbox, workflows, reservation funnel, shipping review process, care onboarding, review/referral system, and content calendar. They handle the animals. HatchKit handles the buyer journey.`
+`The breeder gets this as their own branded HighLevel subaccount. We set up the HighLevel Store, CRM, inbox, workflows, campaign funnels, shipping review process, care onboarding, review/referral system, and content calendar. They handle the animals. Hatchkit handles the buyer journey.`
 
 Default recommendation:
 
@@ -229,8 +231,8 @@ Default recommendation:
 
 Why:
 
-- storefront
-- reservation funnel
+- HighLevel Store
+- campaign funnels
 - full buyer journey
 - shipping workflow
 - care onboarding
@@ -260,5 +262,4 @@ Say instead:
 
 Answer:
 
-`HatchKit sets up and runs the business system around your reptile sales: your storefront, lead capture, buyer follow-up, CRM, inbox, reservation funnel, safe shipping review, care onboarding, reviews, referrals, and repeat-buyer campaigns. It is your branded HighLevel account, customized for your animals and your policies.`
-
+`Hatchkit sets up and runs the business system around your reptile sales: your HighLevel Store, lead capture, buyer follow-up, CRM, inbox, campaign funnels, safe shipping review, care onboarding, reviews, referrals, and repeat-buyer campaigns. It is your branded HighLevel account, customized for your animals and your policies.`

@@ -13,7 +13,7 @@
  *
  * Secrets are read from .env only. They are never written to JSON config.
  */
-require('dotenv').config();
+require('dotenv').config({ quiet: true });
 
 const fs = require('fs');
 const path = require('path');
@@ -25,6 +25,7 @@ const BREEDER_DIR = path.join(ROOT, 'data', 'breeders', CLIENT_ID);
 const BREEDER_CONFIG_PATH = path.join(BREEDER_DIR, 'ghl-config.json');
 const LEGACY_CONFIG_PATH = path.join(ROOT, 'data', 'ghl-config.json');
 const CLIENT_CONFIG_PATH = path.join(BREEDER_DIR, 'client.json');
+const explicitLocationId = process.argv.find((arg) => arg.startsWith('--location='))?.split('=')[1];
 
 const TOKEN = process.env.GHL_PRIVATE_TOKEN;
 const BASE_URL = process.env.GHL_API_BASE || 'https://services.leadconnectorhq.com';
@@ -54,10 +55,15 @@ function tagSlug(value) {
 
 const breederConfig = readJson(BREEDER_CONFIG_PATH);
 const clientConfig = readJson(CLIENT_CONFIG_PATH);
-const locationId = breederConfig.locationId || clientConfig.ghlLocationId || process.env.GHL_LOCATION_ID;
+const locationId = explicitLocationId || breederConfig.locationId || clientConfig.ghlLocationId || process.env.GHL_LOCATION_ID;
 
 if (!locationId) {
   console.error('No HighLevel locationId found in breeder config, client config, or .env');
+  process.exit(1);
+}
+
+if (/^(PENDING|REPLACE_WITH)/.test(locationId)) {
+  console.error('SunScale demo location ID is still pending. Create the new HighLevel subaccount, then update the breeder config or pass --location=...');
   process.exit(1);
 }
 
@@ -180,6 +186,7 @@ const REQUIRED_TAGS = [
   'status:hot-lead',
   'status:customer',
   'status:repeat-buyer',
+  'role:demo-operator',
   'needs-attention',
   'shipping:pending-weather-check',
   'shipping:approved',
@@ -222,6 +229,7 @@ const REQUIRED_TAGS = [
   'care:day0',
   'care:day3',
   'care:day7',
+  'care:onboarding-complete',
   'shipping:hold',
   'referral:requested',
   'referral:received',
@@ -399,6 +407,82 @@ const DEMO_CONTACTS = [
     opportunities: [
       { pipeline: 'sales_pipeline', stage: 'Delivered', name: 'Drew Coleman - delivered leopard gecko sale', value: 185 },
       { pipeline: 'shipping_pipeline', stage: 'LAG Confirmed', name: 'Drew Coleman - live arrival confirmed', value: 185 },
+    ],
+  },
+  {
+    firstName: 'Sarah',
+    lastName: 'Mitchell',
+    email: 'hatchkit.demo.operator@example.com',
+    phone: '+19843001621',
+    postalCode: '27601',
+    tags: ['role:demo-operator', 'content:pending-approval', 'source:direct'],
+    fields: {
+      species_interest: 'Crested Gecko',
+      show_source: 'Online',
+      lead_score: 10,
+      shipping_status: 'Not Started',
+      customer_journey_stage: 'Brand Discovery',
+      offer_name: 'Social Content Approval Demo',
+      purchase_status: 'No Purchase',
+      next_best_action: 'Review Mango spotlight social post approval task',
+    },
+    opportunities: [],
+  },
+  {
+    firstName: 'Taylor',
+    lastName: 'Brooks',
+    email: 'hatchkit.demo.taylor@example.com',
+    phone: '+14045550107',
+    postalCode: '30339',
+    tags: [
+      'source:lead-magnet-page',
+      'interest:crested-gecko',
+      'status:repeat-buyer',
+      'journey:lead-captured',
+      'journey:offer-presented',
+      'journey:purchased',
+      'journey:shipping',
+      'journey:care-onboarding',
+      'journey:advocacy',
+      'journey:repeat-buyer',
+      'offer:lead-magnet',
+      'offer:animal-reservation',
+      'purchase:animal',
+      'shipping:ready-for-operator-approval',
+      'shipping:in-transit',
+      'shipping:lag-confirmed',
+      'care:day0',
+      'care:day3',
+      'care:day7',
+      'care:onboarding-complete',
+      'review:received',
+      'referral:requested',
+      'waitlist:active',
+      'animal:mango-harlequin-dalmatian',
+    ],
+    fields: {
+      species_interest: 'Crested Gecko',
+      morph_preference: 'Harlequin Dalmatian',
+      price_tier: 'Mid-Range ($75-250)',
+      shipping_preference: 'Hold at FedEx',
+      show_source: 'Online',
+      lead_score: 10,
+      last_show_attended: 'Online Starter Guide',
+      shipping_status: 'LAG Confirmed',
+      customer_journey_stage: 'Repeat Buyer',
+      animal_interest: 'Mango - Harlequin Dalmatian',
+      offer_name: 'Animal Reservation Deposit',
+      purchase_status: 'Paid in Full',
+      last_purchase_amount: 225,
+      referral_source: 'Review request follow-up',
+      next_best_action: 'Invite to next clutch VIP preview',
+      temperature_tolerance_min: 45,
+      temperature_tolerance_max: 80,
+    },
+    opportunities: [
+      { pipeline: 'lead_pipeline', stage: 'Customer', name: 'Taylor Brooks - complete Mango buyer journey', value: 225 },
+      { pipeline: 'sales_pipeline', stage: 'Follow-Up Complete', name: 'Taylor Brooks - Mango reservation completed', value: 225 },
+      { pipeline: 'shipping_pipeline', stage: 'Complete', name: 'Taylor Brooks - Mango LAG confirmed', value: 225 },
     ],
   },
 ];
@@ -607,7 +691,9 @@ async function upsertOpportunity(config, contactId, demoOpportunity) {
   };
 
   if (existing) {
-    await ghl.put(`/opportunities/${existing.id}`, payload);
+    const updatePayload = { ...payload };
+    delete updatePayload.locationId;
+    await ghl.put(`/opportunities/${existing.id}`, updatePayload);
     console.log(`opportunity updated: ${demoOpportunity.name}`);
     return;
   }

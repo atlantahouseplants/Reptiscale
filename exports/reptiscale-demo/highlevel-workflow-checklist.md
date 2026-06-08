@@ -1,7 +1,7 @@
 # HighLevel Workflow Checklist
 
 Client: SunScale Geckos
-Location ID: fqj4rbp2VRkvMa8GWVWn
+Location ID: oCn199rzTjj0rPgqXyXU
 
 Use this after the webhook server has a public `BASE_URL`.
 
@@ -121,4 +121,4 @@ Webhook action:
 
 ## Manual Blocker
 
-The current token cannot create opportunities or pipelines. Build those manually in HighLevel, then use these webhook workflows to automate the customer journey around them.
+The current API setup has created the CRM foundation, products, demo contacts, opportunities, trigger links, store origin, and demo shipping option. The remaining blockers are the visual HighLevel builders: pages/funnels, smart lists, payment/order-form layout, accelerated workflows, and inbox examples if no conversation provider is configured.

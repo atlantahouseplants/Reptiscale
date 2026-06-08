@@ -1,0 +1,471 @@
+{
+  "generatedAt": "2026-06-08T04:26:28.795Z",
+  "location": {
+    "id": "oCn199rzTjj0rPgqXyXU",
+    "name": "SunScale Geckos - Demo",
+    "email": "demo@hatchkitai.com",
+    "phone": "+19843001621",
+    "address": "3645 Essex Ave",
+    "city": "Atlanta",
+    "state": "GA",
+    "postalCode": "30339",
+    "country": "US",
+    "timezone": "America/New_York",
+    "website": "https://demo.hatchkitai.com/store"
+  },
+  "expectedBusinessProfile": {
+    "name": "SunScale Geckos - Demo",
+    "email": "demo@hatchkitai.com",
+    "phone": "+19843001621",
+    "address": "3645 Essex Ave",
+    "city": "Atlanta",
+    "state": "GA",
+    "postalCode": "30339",
+    "country": "US",
+    "timezone": "America/New_York",
+    "website": "https://demo.hatchkitai.com/store"
+  },
+  "expectedStoreShippingOrigin": {
+    "name": "SunScale Geckos - Demo",
+    "street1": "123 Breeder Lane",
+    "city": "Raleigh",
+    "state": "NC",
+    "country": "US",
+    "zip": "27601",
+    "email": "sarah@sunscalegeckos.com",
+    "phone": "+19843001621"
+  },
+  "storeSettings": {
+    "id": "6a1f9f116ed4cbb46c173b36",
+    "shippingOrigin": {
+      "name": "SunScale Geckos - Demo",
+      "street1": "123 Breeder Lane",
+      "city": "Raleigh",
+      "state": "NC",
+      "country": "US",
+      "zip": "27601",
+      "email": "sarah@sunscalegeckos.com",
+      "phone": "+19843001621"
+    },
+    "storeOrderNotification": {
+      "enabled": true,
+      "allowGuestDigitalDownloads": true
+    }
+  },
+  "shippingZones": [
+    {
+      "id": "6a202a69c40dd41aceeca333",
+      "name": "SunScale Demo - Shipping Review Only",
+      "countries": [
+        {
+          "code": "US",
+          "states": []
+        }
+      ],
+      "shippingRates": [
+        {
+          "id": "6a202a6946b11863c414a7bf",
+          "name": "Shipping quoted after weather review",
+          "amount": 0,
+          "currency": "USD",
+          "conditionType": "none",
+          "isCarrierRate": false
+        }
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "label": "Connected to SunScale demo location",
+      "status": "pass",
+      "evidence": "SunScale Geckos - Demo"
+    },
+    {
+      "label": "Business profile is A2P-compliant for the demo",
+      "status": "pass",
+      "evidence": "8/8"
+    },
+    {
+      "label": "Store shipping origin is branded for SunScale demo",
+      "status": "pass",
+      "evidence": "8/8"
+    },
+    {
+      "label": "Public helper routes return 2xx",
+      "status": "pass",
+      "evidence": "12/12"
+    },
+    {
+      "label": "Public helper forms are wired to webhooks",
+      "status": "pass",
+      "evidence": "5/5"
+    },
+    {
+      "label": "Custom fields are present",
+      "status": "pass",
+      "evidence": 17
+    },
+    {
+      "label": "Pipelines are present",
+      "status": "pass",
+      "evidence": 3
+    },
+    {
+      "label": "Custom values are present",
+      "status": "pass",
+      "evidence": "10/10"
+    },
+    {
+      "label": "Products are present",
+      "status": "pass",
+      "evidence": 8
+    },
+    {
+      "label": "Trigger links are present",
+      "status": "pass",
+      "evidence": "6/6"
+    },
+    {
+      "label": "Demo shipping zone is present",
+      "status": "pass",
+      "evidence": "SunScale Demo - Shipping Review Only"
+    },
+    {
+      "label": "Demo shipping rate is review-only",
+      "status": "pass",
+      "evidence": "Shipping quoted after weather review / $0"
+    },
+    {
+      "label": "Demo contacts are present",
+      "status": "pass",
+      "evidence": 8
+    },
+    {
+      "label": "Demo contact notes are present",
+      "status": "pass",
+      "evidence": 8
+    },
+    {
+      "label": "Demo contact tasks are present",
+      "status": "pass",
+      "evidence": 8
+    },
+    {
+      "label": "Full journey proof contact is present",
+      "status": "pass",
+      "evidence": "hatchkit.demo.taylor@example.com"
+    },
+    {
+      "label": "Accelerated workflows exist",
+      "status": "pass",
+      "evidence": 12
+    }
+  ],
+  "publicRoutes": [
+    {
+      "route": "/health",
+      "statusCode": 200,
+      "contentType": "application/json; charset=utf-8",
+      "ok": true
+    },
+    {
+      "route": "/demo/store",
+      "statusCode": 200,
+      "contentType": "text/html; charset=utf-8",
+      "ok": true
+    },
+    {
+      "route": "/demo/guide",
+      "statusCode": 200,
+      "contentType": "text/html; charset=utf-8",
+      "ok": true
+    },
+    {
+      "route": "/demo/animal/mango",
+      "statusCode": 200,
+      "contentType": "text/html; charset=utf-8",
+      "ok": true
+    },
+    {
+      "route": "/demo/reserve",
+      "statusCode": 200,
+      "contentType": "text/html; charset=utf-8",
+      "ok": true
+    },
+    {
+      "route": "/demo/review",
+      "statusCode": 200,
+      "contentType": "text/html; charset=utf-8",
+      "ok": true
+    },
+    {
+      "route": "/demo/vip",
+      "statusCode": 200,
+      "contentType": "text/html; charset=utf-8",
+      "ok": true
+    },
+    {
+      "route": "/demo/show-qr",
+      "statusCode": 200,
+      "contentType": "text/html; charset=utf-8",
+      "ok": true
+    },
+    {
+      "route": "/demo/operator",
+      "statusCode": 200,
+      "contentType": "text/html; charset=utf-8",
+      "ok": true
+    },
+    {
+      "route": "/demo-showroom/assets/sunscale-logo.svg",
+      "statusCode": 200,
+      "contentType": "image/svg+xml",
+      "ok": true
+    },
+    {
+      "route": "/demo-showroom/assets/hero-pattern.svg",
+      "statusCode": 200,
+      "contentType": "image/svg+xml",
+      "ok": true
+    },
+    {
+      "route": "/demo-showroom/assets/show-qr-live.svg",
+      "statusCode": 200,
+      "contentType": "image/svg+xml",
+      "ok": true
+    }
+  ],
+  "publicContent": [
+    {
+      "route": "/demo/guide",
+      "ok": true,
+      "checks": [
+        {
+          "pattern": "sunscale-demo.js",
+          "found": true
+        },
+        {
+          "pattern": "/webhooks/ghl/lead-magnet",
+          "found": true
+        }
+      ]
+    },
+    {
+      "route": "/demo/animal/mango",
+      "ok": true,
+      "checks": [
+        {
+          "pattern": "sunscale-demo.js",
+          "found": true
+        },
+        {
+          "pattern": "/webhooks/ghl/offer-clicked",
+          "found": true
+        }
+      ]
+    },
+    {
+      "route": "/demo/reserve",
+      "ok": true,
+      "checks": [
+        {
+          "pattern": "sunscale-demo.js",
+          "found": true
+        },
+        {
+          "pattern": "/webhooks/ghl/order-submitted",
+          "found": true
+        }
+      ]
+    },
+    {
+      "route": "/demo/review",
+      "ok": true,
+      "checks": [
+        {
+          "pattern": "sunscale-demo.js",
+          "found": true
+        },
+        {
+          "pattern": "/webhooks/ghl/review-submitted",
+          "found": true
+        },
+        {
+          "pattern": "/webhooks/ghl/referral",
+          "found": true
+        }
+      ]
+    },
+    {
+      "route": "/demo/vip",
+      "ok": true,
+      "checks": [
+        {
+          "pattern": "sunscale-demo.js",
+          "found": true
+        },
+        {
+          "pattern": "/webhooks/ghl/lead-magnet",
+          "found": true
+        },
+        {
+          "pattern": "waitlist_join",
+          "found": true
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "customFields": 17,
+    "pipelines": 3,
+    "customValues": 10,
+    "products": 8,
+    "triggerLinks": 6,
+    "storeShippingOriginFields": "8/8",
+    "shippingZones": 1,
+    "shippingRates": 1,
+    "workflows": 12,
+    "demoContacts": 8,
+    "demoNotes": 8,
+    "demoTasks": 8
+  },
+  "customValues": [
+    {
+      "name": "webhook_base_url",
+      "value": "https://reptiscale-demo.vercel.app",
+      "found": true
+    },
+    {
+      "name": "demo_location_id",
+      "value": "oCn199rzTjj0rPgqXyXU",
+      "found": true
+    },
+    {
+      "name": "storefront_url",
+      "value": "https://demo.hatchkitai.com/store",
+      "found": true
+    },
+    {
+      "name": "starter_guide_url",
+      "value": "https://demo.hatchkitai.com/guide",
+      "found": true
+    },
+    {
+      "name": "mango_detail_url",
+      "value": "https://demo.hatchkitai.com/mango",
+      "found": true
+    },
+    {
+      "name": "reservation_url",
+      "value": "https://demo.hatchkitai.com/reserve",
+      "found": true
+    },
+    {
+      "name": "review_url",
+      "value": "https://demo.hatchkitai.com/review",
+      "found": true
+    },
+    {
+      "name": "referral_url",
+      "value": "https://demo.hatchkitai.com/review",
+      "found": true
+    },
+    {
+      "name": "vip_url",
+      "value": "https://demo.hatchkitai.com/vip",
+      "found": true
+    },
+    {
+      "name": "show_qr_url",
+      "value": "https://demo.hatchkitai.com/show-qr",
+      "found": true
+    }
+  ],
+  "triggerLinks": [
+    {
+      "name": "SunScale Demo - Starter Guide",
+      "redirectTo": "https://demo.hatchkitai.com/guide",
+      "found": true
+    },
+    {
+      "name": "SunScale Demo - Mango Detail",
+      "redirectTo": "https://demo.hatchkitai.com/mango",
+      "found": true
+    },
+    {
+      "name": "SunScale Demo - Reserve Mango",
+      "redirectTo": "https://demo.hatchkitai.com/reserve",
+      "found": true
+    },
+    {
+      "name": "SunScale Demo - Review Referral",
+      "redirectTo": "https://demo.hatchkitai.com/review",
+      "found": true
+    },
+    {
+      "name": "SunScale Demo - VIP List",
+      "redirectTo": "https://demo.hatchkitai.com/vip",
+      "found": true
+    },
+    {
+      "name": "SunScale Demo - Expo QR Signup",
+      "redirectTo": "https://demo.hatchkitai.com/show-qr",
+      "found": true
+    }
+  ],
+  "contactActivity": [
+    {
+      "email": "hatchkit.demo.ava@example.com",
+      "contactFound": true,
+      "noteFound": true,
+      "taskFound": true
+    },
+    {
+      "email": "hatchkit.demo.marcus@example.com",
+      "contactFound": true,
+      "noteFound": true,
+      "taskFound": true
+    },
+    {
+      "email": "hatchkit.demo.jenna@example.com",
+      "contactFound": true,
+      "noteFound": true,
+      "taskFound": true
+    },
+    {
+      "email": "hatchkit.demo.noah@example.com",
+      "contactFound": true,
+      "noteFound": true,
+      "taskFound": true
+    },
+    {
+      "email": "hatchkit.demo.priya@example.com",
+      "contactFound": true,
+      "noteFound": true,
+      "taskFound": true
+    },
+    {
+      "email": "hatchkit.demo.drew@example.com",
+      "contactFound": true,
+      "noteFound": true,
+      "taskFound": true
+    },
+    {
+      "email": "hatchkit.demo.operator@example.com",
+      "contactFound": true,
+      "noteFound": true,
+      "taskFound": true
+    },
+    {
+      "email": "hatchkit.demo.taylor@example.com",
+      "contactFound": true,
+      "noteFound": true,
+      "taskFound": true
+    }
+  ],
+  "remainingWork": [
+    "A2P campaign approval, then live SMS delivery retest with an opted-in number",
+    "Inbox/conversation demo messages after phone and messaging are fully approved",
+    "Social Planner proof after social accounts are connected; Brianna Yetigex is available as account-admin staff for approval-style proof"
+  ]
+}

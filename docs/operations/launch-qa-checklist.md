@@ -18,12 +18,14 @@
 - [ ] Pipelines exist
 - [ ] Pipeline stages match webhook routing
 
-## Pages
+## Store And Pages
 
-- [ ] Storefront published
+- [ ] HighLevel Store/Website published
+- [ ] Product List page shows available animals/products
+- [ ] Product Details page is clear and mobile-friendly
+- [ ] Cart, Checkout, and Thank You pages are present
 - [ ] Lead magnet page published
-- [ ] Animal detail pages published
-- [ ] Reservation page published
+- [ ] Campaign funnel pages published
 - [ ] Review/referral page published
 - [ ] Mobile layout checked
 - [ ] Forms submit successfully
@@ -32,8 +34,8 @@
 
 - [ ] Lead magnet delivery fires
 - [ ] New lead nurture fires
-- [ ] Offer click follow-up fires
-- [ ] Purchase confirmation fires
+- [ ] Store abandoned checkout or offer click follow-up fires
+- [ ] Store order submitted / purchase confirmation fires
 - [ ] Shipping decision fires
 - [ ] Care onboarding fires
 - [ ] Review/referral request fires
@@ -53,8 +55,8 @@
 
 - [ ] Submit a new lead
 - [ ] Confirm contact fields/tags
-- [ ] Click reservation offer
-- [ ] Trigger purchase test
+- [ ] Open a store product detail page
+- [ ] Trigger cart/checkout or purchase test
 - [ ] Confirm shipping status
 - [ ] Confirm buyer receives correct message
 - [ ] Confirm breeder knows where the contact went

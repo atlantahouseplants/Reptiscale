@@ -1,7 +1,7 @@
 # HighLevel AI Workflow Prompt Pack
 
 Client: SunScale Geckos
-Location ID: fqj4rbp2VRkvMa8GWVWn
+Location ID: oCn199rzTjj0rPgqXyXU
 Base URL: `https://reptiscale-demo.vercel.app`
 
 The first three webhook workflows are already built and tested:
@@ -34,7 +34,7 @@ Actions:
 
 Raw JSON body:
 {
-  "locationId": "fqj4rbp2VRkvMa8GWVWn",
+  "locationId": "oCn199rzTjj0rPgqXyXU",
   "firstName": "{{contact.first_name}}",
   "lastName": "{{contact.last_name}}",
   "email": "{{contact.email}}",
@@ -70,7 +70,7 @@ Actions:
 
 Raw JSON body:
 {
-  "locationId": "fqj4rbp2VRkvMa8GWVWn",
+  "locationId": "oCn199rzTjj0rPgqXyXU",
   "firstName": "Referral",
   "lastName": "Lead",
   "email": "referral.lead@example.com",
@@ -105,7 +105,7 @@ Actions:
 
 Raw JSON body:
 {
-  "locationId": "fqj4rbp2VRkvMa8GWVWn",
+  "locationId": "oCn199rzTjj0rPgqXyXU",
   "source": "daily-weather-recheck",
   "runType": "scheduled"
 }

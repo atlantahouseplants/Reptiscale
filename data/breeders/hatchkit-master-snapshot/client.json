@@ -1,0 +1,48 @@
+{
+  "clientId": "hatchkit-master-snapshot",
+  "businessName": "Hatchkit Master Snapshot - v1",
+  "ownerName": "{{owner_name}}",
+  "ownerFirstName": "{{owner_first_name}}",
+  "ownerEmail": "{{owner_email}}",
+  "ownerPhone": "{{owner_phone}}",
+  "location": "{{business_city}}, {{business_state}}",
+  "breederZip": "{{shipping_origin_zip}}",
+  "shippingOrigin": {
+    "streetLines": [
+      "{{shipping_origin_address_1}}"
+    ],
+    "city": "{{shipping_origin_city}}",
+    "stateOrProvinceCode": "{{shipping_origin_state}}",
+    "postalCode": "{{shipping_origin_zip}}",
+    "countryCode": "US"
+  },
+  "timezone": "America/New_York",
+  "species": [
+    "Crested Gecko",
+    "Leopard Gecko",
+    "Ball Python",
+    "Bearded Dragon",
+    "Corn Snake",
+    "Other"
+  ],
+  "morphs": [],
+  "priceRange": {
+    "min": 75,
+    "max": 3500
+  },
+  "brandVoice": "Clear, helpful, breeder-specific, and safety-first. Hatchkit should sound like a practical operator helping a breeder capture leads, sell responsibly, ship safely, and keep customers coming back.",
+  "brandColors": {
+    "primary": "{{brand_primary_color}}",
+    "accent": "{{brand_accent_color}}"
+  },
+  "tier": "growth",
+  "ghlLocationId": "H81tekJbNbeyYsnTRKVH",
+  "snapshotSource": true,
+  "active": false,
+  "autoPublish": false,
+  "platforms": [],
+  "instagramPageId": null,
+  "facebookPageId": null,
+  "inventoryCount": 0,
+  "showSchedule": []
+}

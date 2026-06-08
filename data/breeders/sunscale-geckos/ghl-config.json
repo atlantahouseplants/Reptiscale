@@ -1,108 +1,629 @@
 {
-  "locationId": "fqj4rbp2VRkvMa8GWVWn",
+  "locationId": "oCn199rzTjj0rPgqXyXU",
+  "highLevelStore": {
+    "id": "c6oIcQOaIihVIc23qseX",
+    "name": "SunScale Geckos Store",
+    "builderUrl": "https://app.gohighlevel.com/location/oCn199rzTjj0rPgqXyXU/page-builder/c6oIcQOaIihVIc23qseX?source=store",
+    "previewUrl": "https://sites.leadconnectorhq.com/preview/c6oIcQOaIihVIc23qseX",
+    "status": "created_unpublished_visual_builder_required",
+    "createdAt": "2026-06-08",
+    "previewQa": {
+      "productsList": "https://sites.leadconnectorhq.com/preview/c6oIcQOaIihVIc23qseX",
+      "productDetail": "https://sites.leadconnectorhq.com/preview/42Y3BhSN0LLhByDhGEYK/product/6a1fa5965e7d1ef63ab93b1e",
+      "cart": "https://sites.leadconnectorhq.com/preview/Trzn1oAHez3m6DY9UPZe",
+      "checkout": "https://sites.leadconnectorhq.com/preview/WDEPbXE6RmTlKyGdqUcb",
+      "verifiedAt": "2026-06-08",
+      "notes": "Preview confirms product list, product detail, add-to-cart drawer, cart page, and checkout page load. Payment/order submission was intentionally not tested."
+    }
+  },
   "customFields": {
     "species_interest": {
-      "id": "vMjXdGuczn4WBkltCjav",
+      "id": "By01oux8jrdTBLXBUzkG",
       "fieldKey": "contact.species_interest",
       "name": "Species Interest",
       "dataType": "SINGLE_OPTIONS"
     },
     "morph_preference": {
-      "id": "Pd1wzX7O9pDI3B0Im20y",
+      "id": "R92YrttNwO55XgUL6qa1",
       "fieldKey": "contact.morph_preference",
       "name": "Morph Preference",
       "dataType": "TEXT"
     },
     "price_tier": {
-      "id": "zV9yfJN7WWrFF6u2mfvc",
+      "id": "hWZwQ40A5DKrS3gPpzWg",
       "fieldKey": "contact.price_tier",
       "name": "Price Tier",
       "dataType": "SINGLE_OPTIONS"
     },
     "shipping_preference": {
-      "id": "WLB3Buhct1V10okaNk4Q",
+      "id": "kZENHQI24HewiW3eJJ5T",
       "fieldKey": "contact.shipping_preference",
       "name": "Shipping Preference",
       "dataType": "SINGLE_OPTIONS"
     },
     "temperature_tolerance_min": {
-      "id": "e8SzIJFbrdtJfNNffYzt",
+      "id": "DvJOszaa6gVSjWdSN8qw",
       "fieldKey": "contact.temperature_tolerance_min",
       "name": "Temperature Tolerance Min",
       "dataType": "NUMERICAL"
     },
     "temperature_tolerance_max": {
-      "id": "wdTVON0eGh6DwlWTEoxS",
+      "id": "JEgOHP9sq6anwPOawRtv",
       "fieldKey": "contact.temperature_tolerance_max",
       "name": "Temperature Tolerance Max",
       "dataType": "NUMERICAL"
     },
     "show_source": {
-      "id": "9PskpsH2T935ufZsRRBU",
+      "id": "68TxjO4n0KzPiupB7Iwh",
       "fieldKey": "contact.show_source",
       "name": "Show Source",
       "dataType": "SINGLE_OPTIONS"
     },
     "lead_score": {
-      "id": "sWJE901cstMaFRMFuEk6",
+      "id": "DtC1uO1oiUUrW5Pd9KN4",
       "fieldKey": "contact.lead_score",
       "name": "Lead Score",
       "dataType": "NUMERICAL"
     },
     "last_show_attended": {
-      "id": "ykGuWOS3ps8UbHZb52EF",
+      "id": "IUyp2C9m0wfOS4XNqrfc",
       "fieldKey": "contact.last_show_attended",
       "name": "Last Show Attended",
       "dataType": "TEXT"
     },
     "shipping_status": {
-      "id": "L0q4NgApH4xaabIBRDjO",
+      "id": "EmtySNPtjwSzvqEqwHTu",
       "fieldKey": "contact.shipping_status",
       "name": "Shipping Status",
       "dataType": "SINGLE_OPTIONS"
     },
     "customer_journey_stage": {
-      "id": "sQ9nc1nLIcNA0B96kK3l",
+      "id": "TIuHZ1vdMBKGdrqAirVC",
       "fieldKey": "contact.customer_journey_stage",
       "name": "Customer Journey Stage",
       "dataType": "SINGLE_OPTIONS"
     },
     "animal_interest": {
-      "id": "rWfbZ4O1Fkeqq49YB9oI",
+      "id": "hOpOxkZJlsrT178YlwiU",
       "fieldKey": "contact.animal_interest",
       "name": "Animal Interest",
       "dataType": "TEXT"
     },
     "offer_name": {
-      "id": "ng32Rw5MuGBbLdRoulOQ",
+      "id": "J6cHEv65PvxNm6SFMRxZ",
       "fieldKey": "contact.offer_name",
       "name": "Offer Name",
       "dataType": "TEXT"
     },
     "purchase_status": {
-      "id": "tVZcj8RsQ6NUvKhNZrOD",
+      "id": "EcYDBTcIU1PQYJq0SOuh",
       "fieldKey": "contact.purchase_status",
       "name": "Purchase Status",
       "dataType": "SINGLE_OPTIONS"
     },
     "last_purchase_amount": {
-      "id": "lmOCb4mt0VAqnDfuMJkV",
+      "id": "DYPpsTGFOid93Bm3wOxW",
       "fieldKey": "contact.last_purchase_amount",
       "name": "Last Purchase Amount",
       "dataType": "NUMERICAL"
     },
     "referral_source": {
-      "id": "ktslQcl2M7l87RuVa49A",
+      "id": "TqN75IHuHopHWQd3A1zU",
       "fieldKey": "contact.referral_source",
       "name": "Referral Source",
       "dataType": "TEXT"
     },
     "next_best_action": {
-      "id": "wdJxb1Ge7PXjCpbs4JKH",
+      "id": "BEIYtT2tpfOXP6WFhjey",
       "fieldKey": "contact.next_best_action",
       "name": "Next Best Action",
       "dataType": "TEXT"
     }
   },
-  "pipelines": {}
+  "pipelines": {
+    "lead_pipeline": {
+      "id": "EXKPs1QvBp3GI8gE7Bl6",
+      "name": "HatchKit - Lead Pipeline",
+      "stages": {
+        "new_lead": {
+          "id": "3a607f04-c2d9-4cde-adcb-257b9b377cc8",
+          "name": "New Lead",
+          "position": 0
+        },
+        "contacted": {
+          "id": "4e708916-47b8-40e6-a51d-833b32846df3",
+          "name": "Contacted",
+          "position": 1
+        },
+        "interested": {
+          "id": "e7685e9b-850d-4f7f-bbe0-d75ca6cf03dd",
+          "name": "Interested",
+          "position": 2
+        },
+        "qualified": {
+          "id": "90e7f085-affc-43c0-9917-1c7720f13547",
+          "name": "Qualified",
+          "position": 3
+        },
+        "customer": {
+          "id": "33c867fd-77e1-41bb-bd4a-bfcdcb2be0f2",
+          "name": "Customer",
+          "position": 4
+        },
+        "lost": {
+          "id": "ecdc0a69-93d9-4f96-8cf0-8d643901bc74",
+          "name": "Lost",
+          "position": 5
+        }
+      }
+    },
+    "sales_pipeline": {
+      "id": "KNlWC9LQSgxgTgwBARJO",
+      "name": "HatchKit - Sales Pipeline",
+      "stages": {
+        "animal_selected": {
+          "id": "d7b056cf-83dd-4e8c-883b-967ad3f0d017",
+          "name": "Animal Selected",
+          "position": 0
+        },
+        "invoice_sent": {
+          "id": "8d818ed5-3ea2-466c-bdef-ee774aee0a98",
+          "name": "Invoice Sent",
+          "position": 1
+        },
+        "payment_received": {
+          "id": "6d1c2b21-b524-4a24-8745-422abdeb883d",
+          "name": "Payment Received",
+          "position": 2
+        },
+        "shipping_scheduled": {
+          "id": "eadde2b2-55c3-4990-b836-251cacbf9bfd",
+          "name": "Shipping Scheduled",
+          "position": 3
+        },
+        "shipped": {
+          "id": "85b61660-1e38-4efa-b82d-cdfc7e96eb3b",
+          "name": "Shipped",
+          "position": 4
+        },
+        "delivered": {
+          "id": "4339d150-d22a-4124-917e-14a76a74390d",
+          "name": "Delivered",
+          "position": 5
+        },
+        "follow_up_complete": {
+          "id": "267416cf-269a-41ea-b6a5-80d533a627be",
+          "name": "Follow-Up Complete",
+          "position": 6
+        }
+      }
+    },
+    "shipping_pipeline": {
+      "id": "0Z5i1khH6dQ7nswcRbtJ",
+      "name": "HatchKit - Shipping Pipeline",
+      "stages": {
+        "pending_review": {
+          "id": "7db1f42c-3aa6-42e1-966f-c3f6948a5ae6",
+          "name": "Pending Review",
+          "position": 0
+        },
+        "weather_check": {
+          "id": "5fb4f8b4-06b8-49e5-9edf-16f30d73d284",
+          "name": "Weather Check",
+          "position": 1
+        },
+        "approved_to_ship": {
+          "id": "9a04dcdf-fee9-4c17-8d17-acdb45f58fa1",
+          "name": "Approved to Ship",
+          "position": 2
+        },
+        "label_created": {
+          "id": "df14cd22-f7e0-42c9-aad6-fcceef9b67f9",
+          "name": "Label Created",
+          "position": 3
+        },
+        "dropped_off": {
+          "id": "3430bc3a-ef48-4c92-a3c4-17850e364a65",
+          "name": "Dropped Off",
+          "position": 4
+        },
+        "in_transit": {
+          "id": "8963026f-0aef-4824-864c-62e15798bf9d",
+          "name": "In Transit",
+          "position": 5
+        },
+        "delivered": {
+          "id": "9fa9e372-00f0-4703-b931-e90031a15d65",
+          "name": "Delivered",
+          "position": 6
+        },
+        "lag_confirmed": {
+          "id": "a4717500-fdc6-4b0a-916e-4684404ef81e",
+          "name": "LAG Confirmed",
+          "position": 7
+        },
+        "complete": {
+          "id": "51659312-f4d5-4032-b548-db43b6896bd9",
+          "name": "Complete",
+          "position": 8
+        }
+      }
+    }
+  },
+  "customValues": {
+    "webhook_base_url": {
+      "id": "80wt5yDWoCqNEh5x0amX",
+      "fieldKey": "{{ custom_values.webhook_base_url }}",
+      "name": "webhook_base_url",
+      "value": "https://reptiscale-demo.vercel.app"
+    },
+    "demo_location_id": {
+      "id": "pJachkMtItvmXZHf24wE",
+      "fieldKey": "{{ custom_values.demo_location_id }}",
+      "name": "demo_location_id",
+      "value": "oCn199rzTjj0rPgqXyXU"
+    },
+    "storefront_url": {
+      "id": "B413a5dFAhEPU6OVzM1t",
+      "fieldKey": "{{ custom_values.storefront_url }}",
+      "name": "storefront_url",
+      "value": "https://demo.hatchkitai.com/store"
+    },
+    "starter_guide_url": {
+      "id": "4A2ZnQ5tTV37CYSXSfvD",
+      "fieldKey": "{{ custom_values.starter_guide_url }}",
+      "name": "starter_guide_url",
+      "value": "https://demo.hatchkitai.com/guide"
+    },
+    "mango_detail_url": {
+      "id": "SE5wBfcydrEAzykl9bWN",
+      "fieldKey": "{{ custom_values.mango_detail_url }}",
+      "name": "mango_detail_url",
+      "value": "https://demo.hatchkitai.com/mango"
+    },
+    "reservation_url": {
+      "id": "qov4CxX4q6Lzqxn397bm",
+      "fieldKey": "{{ custom_values.reservation_url }}",
+      "name": "reservation_url",
+      "value": "https://demo.hatchkitai.com/reserve"
+    },
+    "review_url": {
+      "id": "dYlXuQQZKzzgDH5CKP3v",
+      "fieldKey": "{{ custom_values.review_url }}",
+      "name": "review_url",
+      "value": "https://demo.hatchkitai.com/review"
+    },
+    "referral_url": {
+      "id": "Ut3btNPcZXB0z7df61e3",
+      "fieldKey": "{{ custom_values.referral_url }}",
+      "name": "referral_url",
+      "value": "https://demo.hatchkitai.com/review"
+    },
+    "vip_url": {
+      "id": "AexFudjhgLMsSKur5Yov",
+      "fieldKey": "{{ custom_values.vip_url }}",
+      "name": "vip_url",
+      "value": "https://demo.hatchkitai.com/vip"
+    },
+    "show_qr_url": {
+      "id": "sn5kV5akXnUIHQjFL9eS",
+      "fieldKey": "{{ custom_values.show_qr_url }}",
+      "name": "show_qr_url",
+      "value": "https://demo.hatchkitai.com/show-qr"
+    }
+  },
+  "products": {
+    "SSG-DEP-001": {
+      "id": "6a1fa595b465a1dec1ba6275",
+      "name": "Animal Reservation Deposit",
+      "type": "service",
+      "price": 75,
+      "productType": "DIGITAL",
+      "image": "https://reptiscale-demo.vercel.app/demo-showroom/assets/mango-placeholder.svg",
+      "highLevelUse": "Payment link or order form primary product",
+      "priceId": "6a1fa59560f0fd0c5b4e525b",
+      "priceName": "Animal Reservation Deposit - $75"
+    },
+    "SSG-KIT-001": {
+      "id": "6a1fa595b465a1248fba6277",
+      "name": "Crested Gecko Care Starter Kit",
+      "type": "physical",
+      "price": 49,
+      "productType": "PHYSICAL",
+      "image": "https://reptiscale-demo.vercel.app/demo-showroom/assets/starter-guide-cover.svg",
+      "highLevelUse": "Order bump or post-purchase upsell",
+      "priceId": "6a1fa595aa07d2284f5cf5dd",
+      "priceName": "Crested Gecko Care Starter Kit - $49"
+    },
+    "SSG-CONSULT-001": {
+      "id": "6a1fa5965e7d1ef63ab93b1e",
+      "name": "30-Minute Setup Review",
+      "type": "service",
+      "price": 35,
+      "productType": "DIGITAL",
+      "image": "https://reptiscale-demo.vercel.app/demo-showroom/assets/sunscale-logo.svg",
+      "highLevelUse": "Upsell after deposit",
+      "priceId": "6a1fa5967e3c810dc334b79f",
+      "priceName": "30-Minute Setup Review - $35"
+    },
+    "SSG-GUIDE-001": {
+      "id": "6a1fa59660f0fd0bd64e5266",
+      "name": "Crested Gecko Starter Guide",
+      "type": "digital",
+      "price": 0,
+      "productType": "DIGITAL",
+      "image": "https://reptiscale-demo.vercel.app/demo-showroom/assets/starter-guide-cover.svg",
+      "highLevelUse": "Free lead magnet delivery",
+      "priceId": "6a1fa596b465a15726ba628b",
+      "priceName": "Free"
+    },
+    "SSG-CG-001": {
+      "id": "6a1fa5f160f0fd7fa24e55dc",
+      "name": "Nova - Lilly White",
+      "type": "physical",
+      "price": 1200,
+      "productType": "PHYSICAL",
+      "image": "https://reptiscale-demo.vercel.app/demo-showroom/assets/nova-placeholder.svg",
+      "highLevelUse": "Demo animal inventory listing (Available)",
+      "priceId": "6a1fa5f1aa07d2599e5cf9a4",
+      "priceName": "Nova - Lilly White - $1200"
+    },
+    "SSG-CG-002": {
+      "id": "6a1fa5f17e3c81562334baf2",
+      "name": "Mango - Harlequin Dalmatian",
+      "type": "physical",
+      "price": 225,
+      "productType": "PHYSICAL",
+      "image": "https://reptiscale-demo.vercel.app/demo-showroom/assets/mango-placeholder.svg",
+      "highLevelUse": "Demo animal inventory listing (Available)",
+      "priceId": "6a1fa5f160f0fd21ea4e55f6",
+      "priceName": "Mango - Harlequin Dalmatian - $225"
+    },
+    "SSG-CG-003": {
+      "id": "6a1fa5f27e3c81f4b434baf4",
+      "name": "Echo - Tricolor Pinstripe",
+      "type": "physical",
+      "price": 650,
+      "productType": "PHYSICAL",
+      "image": "https://reptiscale-demo.vercel.app/demo-showroom/assets/echo-placeholder.svg",
+      "highLevelUse": "Demo animal inventory listing (Reserved)",
+      "priceId": "6a1fa5f2aa07d2cc045cf9a9",
+      "priceName": "Echo - Tricolor Pinstripe - $650"
+    },
+    "SSG-CG-004": {
+      "id": "6a1fa5f260f0fd10c14e55f8",
+      "name": "Pepper - Super Dalmatian",
+      "type": "physical",
+      "price": 475,
+      "productType": "PHYSICAL",
+      "image": "https://reptiscale-demo.vercel.app/demo-showroom/assets/pepper-placeholder.svg",
+      "highLevelUse": "Demo animal inventory listing (Available)",
+      "priceId": "6a1fa5f260f0fddd084e55fd",
+      "priceName": "Pepper - Super Dalmatian - $475"
+    }
+  },
+  "triggerLinks": {
+    "starter_guide": {
+      "id": "fdGeIDyxG905Tpc4z35A",
+      "name": "SunScale Demo - Starter Guide",
+      "fieldKey": "{{trigger_link.fdGeIDyxG905Tpc4z35A}}",
+      "redirectTo": "https://demo.hatchkitai.com/guide"
+    },
+    "mango_detail": {
+      "id": "40nbkOM78EXugyoGNi61",
+      "name": "SunScale Demo - Mango Detail",
+      "fieldKey": "{{trigger_link.40nbkOM78EXugyoGNi61}}",
+      "redirectTo": "https://demo.hatchkitai.com/mango"
+    },
+    "reserve_mango": {
+      "id": "sZN5qtyHxWnozg0H2hxe",
+      "name": "SunScale Demo - Reserve Mango",
+      "fieldKey": "{{trigger_link.sZN5qtyHxWnozg0H2hxe}}",
+      "redirectTo": "https://demo.hatchkitai.com/reserve"
+    },
+    "review_referral": {
+      "id": "lYEV3dzsp6ncp5DMCjSa",
+      "name": "SunScale Demo - Review Referral",
+      "fieldKey": "{{trigger_link.lYEV3dzsp6ncp5DMCjSa}}",
+      "redirectTo": "https://demo.hatchkitai.com/review"
+    },
+    "vip_list": {
+      "id": "N87ylprMi0kdA4dLGJu4",
+      "name": "SunScale Demo - VIP List",
+      "fieldKey": "{{trigger_link.N87ylprMi0kdA4dLGJu4}}",
+      "redirectTo": "https://demo.hatchkitai.com/vip"
+    },
+    "show_qr": {
+      "id": "SWEl1ZuH8L8iY3Rw0r1v",
+      "name": "SunScale Demo - Expo QR Signup",
+      "fieldKey": "{{trigger_link.SWEl1ZuH8L8iY3Rw0r1v}}",
+      "redirectTo": "https://demo.hatchkitai.com/show-qr"
+    }
+  },
+  "contactActivity": {
+    "hatchkit.demo.ava@example.com": {
+      "contactId": "MY1NKnam3L0l5ER7Yg2Q",
+      "noteId": "Yo78cgvrU3MP0MZ72cuz",
+      "taskId": "uVqPjhZzj5XfCAc9UykC"
+    },
+    "hatchkit.demo.marcus@example.com": {
+      "contactId": "yKUnXdgxYakMp8fGmNTi",
+      "noteId": "DdKvKu4cVAxmvMgpTmOM",
+      "taskId": "vEfh3eLur5ZYT6ftunRi"
+    },
+    "hatchkit.demo.jenna@example.com": {
+      "contactId": "FcBC1F9BzSTpFtMVTWoa",
+      "noteId": "xs9IBw0FjOo4pTAWvJEe",
+      "taskId": "ht1aqj4VXpiNKyYcRZw9"
+    },
+    "hatchkit.demo.noah@example.com": {
+      "contactId": "Lc7LBCIuUuT3zTGpCGA7",
+      "noteId": "plRwlvUeSANwPvORE0qo",
+      "taskId": "B2sFRcnlWqvoGOpndoxO"
+    },
+    "hatchkit.demo.priya@example.com": {
+      "contactId": "ln2tsNF5BxA25lRatISg",
+      "noteId": "kkQ9wIKQlScRi3eh3B1Z",
+      "taskId": "Yy37gtMeWlsHv8M1C107"
+    },
+    "hatchkit.demo.drew@example.com": {
+      "contactId": "EaTTOe8WmEnrcQANrUFz",
+      "noteId": "QID1775iggJg1MBUz3SE",
+      "taskId": "GXoDGiIOJS0odqcRwpSb"
+    },
+    "hatchkit.demo.operator@example.com": {
+      "contactId": "A5xJcrhSzQ0CQyECszI6",
+      "noteId": "CrjH91G8N5t3TZvCvt4y",
+      "taskId": "hxe1pQfHNKAFbfaheVyT"
+    },
+    "hatchkit.demo.taylor@example.com": {
+      "contactId": "dYLPKvr7TP2AypV9O7iR",
+      "noteId": "MWxwunlyvRsM7AmSzJss",
+      "taskId": "LL4sBORsQE7f8AHkseIF"
+    }
+  },
+  "businessProfile": {
+    "name": "SunScale Geckos - Demo",
+    "businessName": "SunScale Geckos",
+    "ownerName": "Sarah Mitchell",
+    "email": "sarah@sunscalegeckos.com",
+    "phone": "+19843001621",
+    "address": "123 Breeder Lane",
+    "city": "Raleigh",
+    "state": "NC",
+    "postalCode": "27601",
+    "country": "US",
+    "timezone": "America/New_York",
+    "website": "https://reptiscale-demo.vercel.app/demo/store",
+    "demoOnly": true,
+    "desired": {
+      "name": "SunScale Geckos - Demo",
+      "email": "sarah@sunscalegeckos.com",
+      "phone": "+19843001621",
+      "address": "123 Breeder Lane",
+      "city": "Raleigh",
+      "state": "NC",
+      "postalCode": "27601",
+      "country": "US",
+      "timezone": "America/New_York",
+      "website": "https://demo.hatchkitai.com/store"
+    },
+    "syncStatus": "manual_required",
+    "blocker": "The token is not authorized for this scope.",
+    "checkedAt": "2026-06-05T00:04:11.510Z"
+  },
+  "storeSettings": {
+    "id": "6a1f9f116ed4cbb46c173b36",
+    "shippingOrigin": {
+      "name": "SunScale Geckos - Demo",
+      "street1": "123 Breeder Lane",
+      "city": "Raleigh",
+      "state": "NC",
+      "country": "US",
+      "zip": "27601",
+      "email": "sarah@sunscalegeckos.com",
+      "phone": "+19843001621"
+    },
+    "desiredShippingOrigin": {
+      "name": "SunScale Geckos - Demo",
+      "street1": "123 Breeder Lane",
+      "city": "Raleigh",
+      "state": "NC",
+      "country": "US",
+      "zip": "27601",
+      "email": "sarah@sunscalegeckos.com",
+      "phone": "+19843001621"
+    },
+    "storeOrderNotification": {
+      "enabled": true,
+      "allowGuestDigitalDownloads": true
+    },
+    "syncStatus": "synced",
+    "blocker": null,
+    "checkedAt": "2026-06-07T01:19:14.656Z"
+  },
+  "shippingZone": {
+    "demo_shipping_review_only": {
+      "id": "6a202a69c40dd41aceeca333",
+      "name": "SunScale Demo - Shipping Review Only",
+      "countries": [
+        {
+          "code": "US",
+          "states": []
+        }
+      ],
+      "rate": {
+        "id": "6a202a6946b11863c414a7bf",
+        "name": "Shipping quoted after weather review",
+        "description": "Demo-safe placeholder rate. No carrier is connected and no shipping label is created.",
+        "currency": "USD",
+        "amount": 0,
+        "conditionType": "none",
+        "isCarrierRate": false
+      },
+      "demoOnly": true,
+      "syncStatus": "synced",
+      "checkedAt": "2026-06-04T23:00:44.870Z"
+    }
+  },
+  "storeCollections": {
+    "available_animals": {
+      "id": "6a263f12e736e3168e046bfd",
+      "name": "Available Animals",
+      "slug": "available-animals",
+      "products": [
+        "Nova - Lilly White",
+        "Mango - Harlequin Dalmatian",
+        "Pepper - Super Dalmatian"
+      ]
+    },
+    "crested_geckos": {
+      "id": "6a263f7fb6557da9902dc8d0",
+      "name": "Crested Geckos",
+      "slug": "crested-geckos",
+      "products": [
+        "Nova - Lilly White",
+        "Mango - Harlequin Dalmatian",
+        "Echo - Tricolor Pinstripe",
+        "Pepper - Super Dalmatian"
+      ]
+    },
+    "reserved_sold_examples": {
+      "id": "6a263f7f88fcf5dbf02e8c3e",
+      "name": "Reserved / Sold Examples",
+      "slug": "reserved-sold-examples",
+      "products": [
+        "Echo - Tricolor Pinstripe"
+      ]
+    },
+    "care_supplies": {
+      "id": "6a263f8088fcf53b772e8c3f",
+      "name": "Care & Supplies",
+      "slug": "care-supplies",
+      "products": [
+        "Crested Gecko Care Starter Kit",
+        "30-Minute Setup Review"
+      ]
+    },
+    "lead_magnets_digital": {
+      "id": "6a263f80b6557d022f2dc8d4",
+      "name": "Lead Magnets / Digital",
+      "slug": "lead-magnets-digital",
+      "products": [
+        "Crested Gecko Starter Guide"
+      ]
+    },
+    "deposits_reservations": {
+      "id": "6a263f80b6557d53f72dc8d5",
+      "name": "Deposits & Reservations",
+      "slug": "deposits-reservations",
+      "products": [
+        "Animal Reservation Deposit"
+      ]
+    }
+  },
+  "notes": {
+    "storeCatalogSyncedAt": "2026-06-08T04:11:41.391Z",
+    "storeCatalogBlockers": []
+  }
 }

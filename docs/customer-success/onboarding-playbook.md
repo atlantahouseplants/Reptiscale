@@ -8,7 +8,7 @@ Live means:
 
 - HighLevel account exists.
 - Core fields and tags are created.
-- Website or storefront is published.
+- HighLevel Store/Website is published.
 - Lead magnet is live.
 - At least one campaign is active.
 - Buyer journey is tested end to end.
@@ -30,12 +30,14 @@ Live means:
 - Confirm fields, tags, contacts, workflows, and permissions.
 - Create project record in internal tracker.
 
-### Day 3-5: Brand And Funnel Build
+### Day 3-5: Brand And Store Build
 
 - Load logo, colors, voice, species, and available animals.
+- Build the HighLevel Store/Website.
+- Configure product list, product details, cart, checkout, and thank-you pages.
+- Load products, animals, product collections, and policy copy.
 - Build lead magnet page.
-- Build storefront or animal gallery.
-- Build reservation offer page.
+- Build campaign funnel pages for lead magnet, featured animal, show QR, review/referral, and VIP list as needed.
 - Configure phone/email sender settings.
 
 ### Day 6-8: Workflow Setup
@@ -51,8 +53,8 @@ Live means:
 ### Day 9-10: Testing
 
 - Submit a test lead.
-- Click reservation offer.
-- Trigger purchase webhook with test payload.
+- Open an animal product page.
+- Test cart/checkout or trigger purchase webhook with a test payload.
 - Test shipping decision.
 - Confirm email/SMS copy.
 - Confirm tags and journey stage updates.
@@ -100,7 +102,7 @@ Send the breeder:
 - Storefront URL
 - Lead magnet URL
 - QR code URL
-- Reservation URL
+- Product/listing URL
 - How to use the inbox
 - How to update animal availability
 - How to request help

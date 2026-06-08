@@ -1,0 +1,243 @@
+{
+  "locationId": "H81tekJbNbeyYsnTRKVH",
+  "snapshotName": "Hatchkit Master Snapshot - v1",
+  "snapshotSource": true,
+  "customFields": {
+    "species_interest": {
+      "id": "fiMUbe6pt43XiNGvAS6v",
+      "fieldKey": "contact.species_interest",
+      "name": "Species Interest",
+      "dataType": "SINGLE_OPTIONS"
+    },
+    "morph_preference": {
+      "id": "Q0jiRF8pGB8q51vyPgJV",
+      "fieldKey": "contact.morph_preference",
+      "name": "Morph Preference",
+      "dataType": "TEXT"
+    },
+    "price_tier": {
+      "id": "iIU8uVZA7mT2MDwAQntj",
+      "fieldKey": "contact.price_tier",
+      "name": "Price Tier",
+      "dataType": "SINGLE_OPTIONS"
+    },
+    "shipping_preference": {
+      "id": "wzrKjbmlpT7AoWv671HH",
+      "fieldKey": "contact.shipping_preference",
+      "name": "Shipping Preference",
+      "dataType": "SINGLE_OPTIONS"
+    },
+    "temperature_tolerance_min": {
+      "id": "awuOTkZqa2vLK6afn9L8",
+      "fieldKey": "contact.temperature_tolerance_min",
+      "name": "Temperature Tolerance Min",
+      "dataType": "NUMERICAL"
+    },
+    "temperature_tolerance_max": {
+      "id": "4Y3gVj3IaIfrLOfGa7Cj",
+      "fieldKey": "contact.temperature_tolerance_max",
+      "name": "Temperature Tolerance Max",
+      "dataType": "NUMERICAL"
+    },
+    "show_source": {
+      "id": "D7CLvUE3sHVlHEbNp0jn",
+      "fieldKey": "contact.show_source",
+      "name": "Show Source",
+      "dataType": "SINGLE_OPTIONS"
+    },
+    "lead_score": {
+      "id": "HNfvlhqp3BZd6RCS9YCD",
+      "fieldKey": "contact.lead_score",
+      "name": "Lead Score",
+      "dataType": "NUMERICAL"
+    },
+    "last_show_attended": {
+      "id": "hvccsaiZls8bASrgrWJk",
+      "fieldKey": "contact.last_show_attended",
+      "name": "Last Show Attended",
+      "dataType": "TEXT"
+    },
+    "shipping_status": {
+      "id": "MxFMIqGK9Hl82Fqtealz",
+      "fieldKey": "contact.shipping_status",
+      "name": "Shipping Status",
+      "dataType": "SINGLE_OPTIONS"
+    },
+    "customer_journey_stage": {
+      "id": "dLLIIT8YJR39kwl6k6sU",
+      "fieldKey": "contact.customer_journey_stage",
+      "name": "Customer Journey Stage",
+      "dataType": "SINGLE_OPTIONS"
+    },
+    "animal_interest": {
+      "id": "VxbGXhVlNHAMOu4cgxn9",
+      "fieldKey": "contact.animal_interest",
+      "name": "Animal Interest",
+      "dataType": "TEXT"
+    },
+    "offer_name": {
+      "id": "y9bd5Nv4d9Oo8dLcGQWz",
+      "fieldKey": "contact.offer_name",
+      "name": "Offer Name",
+      "dataType": "TEXT"
+    },
+    "purchase_status": {
+      "id": "jWnuCw9iTy388eCVTzGS",
+      "fieldKey": "contact.purchase_status",
+      "name": "Purchase Status",
+      "dataType": "SINGLE_OPTIONS"
+    },
+    "last_purchase_amount": {
+      "id": "m2Wko1W0tNEg6DiGtgzX",
+      "fieldKey": "contact.last_purchase_amount",
+      "name": "Last Purchase Amount",
+      "dataType": "NUMERICAL"
+    },
+    "referral_source": {
+      "id": "yumPQz8nMfwfIPWjt2pa",
+      "fieldKey": "contact.referral_source",
+      "name": "Referral Source",
+      "dataType": "TEXT"
+    },
+    "next_best_action": {
+      "id": "ZXeEKZMhSuwd0Po3dsMv",
+      "fieldKey": "contact.next_best_action",
+      "name": "Next Best Action",
+      "dataType": "TEXT"
+    }
+  },
+  "pipelines": {},
+  "customValues": {
+    "webhook_base_url": {
+      "id": "Hd3FxWfoF189QgwuOti7",
+      "fieldKey": "{{ custom_values.webhook_base_url }}",
+      "name": "webhook_base_url",
+      "value": "{{hatchkit_webhook_base_url}}"
+    },
+    "client_location_id": {
+      "id": "xCx4NIb30pIZq1qHVO1l",
+      "fieldKey": "{{ custom_values.client_location_id }}",
+      "name": "client_location_id",
+      "value": "H81tekJbNbeyYsnTRKVH"
+    },
+    "storefront_url": {
+      "id": "0RoXirqDFI02PG8syJVB",
+      "fieldKey": "{{ custom_values.storefront_url }}",
+      "name": "storefront_url",
+      "value": "{{storefront_url}}"
+    },
+    "starter_guide_url": {
+      "id": "uqmIvG1L3FNl7OznccYH",
+      "fieldKey": "{{ custom_values.starter_guide_url }}",
+      "name": "starter_guide_url",
+      "value": "{{starter_guide_url}}"
+    },
+    "featured_animal_url": {
+      "id": "G3E5ZxScAy799WeVrGcL",
+      "fieldKey": "{{ custom_values.featured_animal_url }}",
+      "name": "featured_animal_url",
+      "value": "{{featured_animal_url}}"
+    },
+    "reservation_url": {
+      "id": "yeRXrqOHYeKfxreNINJ2",
+      "fieldKey": "{{ custom_values.reservation_url }}",
+      "name": "reservation_url",
+      "value": "{{reservation_url}}"
+    },
+    "review_url": {
+      "id": "ow76KFa27nyJz9X0NrCd",
+      "fieldKey": "{{ custom_values.review_url }}",
+      "name": "review_url",
+      "value": "{{review_url}}"
+    },
+    "referral_url": {
+      "id": "43aADVWj4GrydiowIEHi",
+      "fieldKey": "{{ custom_values.referral_url }}",
+      "name": "referral_url",
+      "value": "{{referral_url}}"
+    },
+    "vip_url": {
+      "id": "GfsMubWFg2jCWuByOgvg",
+      "fieldKey": "{{ custom_values.vip_url }}",
+      "name": "vip_url",
+      "value": "{{vip_url}}"
+    },
+    "show_qr_url": {
+      "id": "7nAi9Bd01e5vteOfPIlu",
+      "fieldKey": "{{ custom_values.show_qr_url }}",
+      "name": "show_qr_url",
+      "value": "{{show_qr_url}}"
+    },
+    "business_name": {
+      "id": "jAtaPaiByEjtU9IXQfBJ",
+      "fieldKey": "{{ custom_values.business_name }}",
+      "name": "business_name",
+      "value": "{{business_name}}"
+    },
+    "owner_first_name": {
+      "id": "f0G2BH4xnsHD8JfB0Dzq",
+      "fieldKey": "{{ custom_values.owner_first_name }}",
+      "name": "owner_first_name",
+      "value": "{{owner_first_name}}"
+    }
+  },
+  "products": {
+    "HK-DEP-001": {
+      "id": "6a262980b6557d10f22c0c3c",
+      "name": "Animal Reservation Deposit",
+      "type": "service",
+      "price": 75,
+      "productType": "DIGITAL",
+      "highLevelUse": "Payment link or order form primary product",
+      "priceId": "6a262980b6557dd2102c0c44",
+      "priceName": "Animal Reservation Deposit - $75"
+    },
+    "HK-KIT-001": {
+      "id": "6a262980b6557d47e42c0c4f",
+      "name": "Care Starter Kit",
+      "type": "physical",
+      "price": 49,
+      "productType": "PHYSICAL",
+      "highLevelUse": "Order bump or post-purchase upsell",
+      "priceId": "6a262980e736e3e9a302bef1",
+      "priceName": "Care Starter Kit - $49"
+    },
+    "HK-CONSULT-001": {
+      "id": "6a262981c627ca87c69b7696",
+      "name": "30-Minute Setup Review",
+      "type": "service",
+      "price": 35,
+      "productType": "DIGITAL",
+      "highLevelUse": "Upsell after deposit",
+      "priceId": "6a26298188fcf5ac7d2cc40e",
+      "priceName": "30-Minute Setup Review - $35"
+    },
+    "HK-GUIDE-001": {
+      "id": "6a26298190c74477ab390dc8",
+      "name": "Starter Guide",
+      "type": "digital",
+      "price": 0,
+      "productType": "DIGITAL",
+      "highLevelUse": "Free lead magnet delivery",
+      "priceId": "6a262981e736e30c1802bf0b",
+      "priceName": "Free"
+    }
+  },
+  "triggerLinks": {},
+  "notes": {
+    "purpose": "Clean source account for the reusable Hatchkit client snapshot.",
+    "doNotSeed": [
+      "demo contacts",
+      "fake opportunities",
+      "SunScale-specific copy",
+      "accelerated demo workflow waits"
+    ],
+    "apiStatus": "partial",
+    "lastSyncedAt": "2026-06-08T03:13:30.458Z",
+    "blockers": [
+      "Create pipeline \"Hatchkit - Lead Pipeline\": The token is not authorized for this scope.",
+      "Create pipeline \"Hatchkit - Sales Pipeline\": The token is not authorized for this scope.",
+      "Create pipeline \"Hatchkit - Shipping Pipeline\": The token is not authorized for this scope."
+    ]
+  }
+}

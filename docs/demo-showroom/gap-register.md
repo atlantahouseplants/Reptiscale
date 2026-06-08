@@ -1,36 +1,33 @@
 # Demo Showroom Gap Register
 
-Last updated: 2026-06-02
+Last updated: 2026-06-05
 
 ## Purpose
 
-Track the specific gaps between the current technical build and a sellable prospect-facing HatchKit/Reptiscale demo.
+Track the specific gaps between the current technical build and a sellable prospect-facing Hatchkit demo.
 
 ## P0: Must Fix Before Sales Demo
 
 ### Separate Master Snapshot From Demo Account
 
-Issue:
+Status:
 
-The current HighLevel setup appears to mix reusable snapshot assets and demo/showroom data.
+Completed for the live showroom phase.
 
-Why it matters:
+Current state:
 
-The master snapshot must stay clean. The SunScale demo account can be messy and full of dummy data.
-
-Required action:
-
-- Use the existing `HatchKit` subaccount as the working master/snapshot account unless an audit proves it is too messy.
-- Create one new `SunScale Geckos - Demo` subaccount for the live showroom.
-- Create a temporary `Reptiscale Snapshot QA - v1` account only when it is time to test snapshot import.
+- The Hatchkit business CRM remains separate from the reusable master snapshot account.
+- The live showroom account is `SunScale Geckos - Demo`.
+- Location ID: `oCn199rzTjj0rPgqXyXU`.
+- Create `Hatchkit Snapshot QA - v1` only after the master snapshot is ready to import-test.
 
 ### Build Prospect-Facing Pages In HighLevel
 
-Issue:
+Status:
 
-Local templates exist, but many still contain placeholders and are not the live HighLevel showroom.
+Completed for the live demo.
 
-Required pages:
+Published pages:
 
 - Storefront
 - Starter guide
@@ -40,26 +37,36 @@ Required pages:
 - Review/referral
 - VIP list
 - Show QR signup
+- Privacy Policy
+- Terms of Service
+
+Primary showroom URL:
+
+- `https://demo.hatchkitai.com`
 
 ### Add Demo Visual Assets
 
-Issue:
+Status:
 
-The local page templates reference image variables, but no final demo logo, hero images, animal photos, QR image, or HighLevel screenshots are present.
+Complete enough for live demo testing.
 
 Required assets:
 
 - SunScale logo or simple generated logo
 - hero image
 - Nova, Mango, Echo, Pepper animal images
-- QR code image
+- QR code image: created as `show-qr-live.svg`
 - workflow/pipeline/smart-list screenshots
+
+Remaining action:
+
+- Capture final sales/demo screenshots after the full test path has been run.
 
 ### Finish Demo Products And Payment Links
 
-Issue:
+Status:
 
-Products are defined in JSON/CSV, but the final HighLevel product/payment/order-form links need to exist in the demo account.
+Completed as a demo-safe simulation.
 
 Required products:
 
@@ -67,22 +74,26 @@ Required products:
 - Crested Gecko Care Starter Kit, $49
 - 30-Minute Setup Review, $35
 - Crested Gecko Starter Guide, free
+- Shipping option: `SunScale Demo - Shipping Review Only`
+- Shipping rate: `Shipping quoted after weather review`, $0, not a carrier rate
 
 Demo safety:
 
 - Use test mode or simulation where possible.
 - Do not require a real prospect payment during a demo.
+- Current reservation path simulates the $75 deposit without creating real charges or live labels.
 
 ### Accelerated Demo Workflows
 
-Issue:
+Status:
 
-Existing workflows may use real lifecycle timing or mixed old/new trigger paths.
+Completed for the live demo.
 
-Required action:
+Completed action:
 
-- Create `DEMO - ...` workflows with minute-level waits.
+- Created and published 12 `DEMO - Reptiscale - ...` workflows with minute-level waits.
 - Keep production snapshot workflows separate.
+- Included the Social Content Approval Demo workflow.
 
 Canonical demo event order:
 
@@ -96,22 +107,45 @@ Canonical demo event order:
 8. `referral`
 9. repeat-buyer VIP invite
 
+### A2P / SMS Compliance
+
+Status:
+
+Brand registered with TCR; A2P Campaign Registration was submitted for review on 2026-06-05; live sending test still required after campaign approval.
+
+Current state:
+
+- Local HighLevel number was purchased.
+- A2P/SMS compliance was submitted.
+- A2P Brand Registration is registered with TCR.
+- Confirmation email was received from LeadConnector on 2026-06-05.
+- A2P Campaign Registration update from LeadConnector on 2026-06-05 says the campaign has been submitted for review.
+- Storefront has compliance footer, Privacy/Terms links, and the HighLevel chat widget.
+- Privacy Policy and Terms pages are live.
+
+Required action:
+
+- Confirm campaign approval and number sending status inside HighLevel.
+- Run a real opted-in SMS test after campaign approval.
+- If SMS fails, capture the exact HighLevel error/status.
+
 ## P1: Should Fix Before Snapshot Export
 
-### Reconcile HatchKit/Reptiscale Naming
+### Reconcile Hatchkit Naming
 
 Issue:
 
-Older docs lead with HatchKit and show-QR setup. Newer docs position the product as Reptiscale.
+Older docs mixed HatchKit and Reptiscale naming.
 
 Decision:
 
-- HatchKit can remain the agency/platform name.
-- Reptiscale is the reptile-breeder offer/product.
+- Hatchkit is the official product and offer name.
+- Historical backend URLs and current live workflow names may still contain Reptiscale until they are intentionally migrated.
 
 Action:
 
-- Demo and sales materials should say Reptiscale unless they are agency/admin docs.
+- Demo and sales materials should say Hatchkit.
+- Snapshot sanitization should rename customer-template assets away from Reptiscale labels.
 
 ### Reconcile Custom Field Count
 
@@ -132,17 +166,17 @@ Old docs emphasize `form-submission` and show QR. New demo path uses `lead-magne
 Action:
 
 - Keep show QR as one lead source.
-- Use the Reptiscale buyer journey as the primary sales demo path.
+- Use the Hatchkit buyer journey as the primary sales demo path.
 
 ### Missing Review/Referral And VIP Page Templates
 
-Issue:
+Status:
 
-Snapshot requirements include review/referral and VIP pages, but local page templates are incomplete or missing for these.
+Completed locally, deployed as public helper pages, and built in the HighLevel funnel.
 
-Action:
+Remaining action:
 
-- Add templates and build matching HighLevel pages.
+- None for the live demo. Keep helper pages as fallback.
 
 ### Snapshot Versioning
 
@@ -175,11 +209,14 @@ The Vercel `/demo` page is technical.
 
 Action:
 
-- Optionally create simpler public helper pages:
+- Created simpler public helper routes for:
   - `/demo/store`
   - `/demo/guide`
   - `/demo/animal/mango`
   - `/demo/reserve`
+  - `/demo/review`
+  - `/demo/vip`
+  - `/demo/show-qr`
   - `/demo/operator`
 
 These should support sales calls but should not replace the HighLevel showroom.
@@ -190,3 +227,14 @@ These should support sales calls but should not replace the HighLevel showroom.
 - Updated demo shipping fixture date from `2026-05-11` to `2026-06-08`.
 - Updated demo export payload shipping date from `2026-05-11` to `2026-06-08`.
 - Updated exported social calendar source dates to June 2026.
+- Created the `SunScale Geckos - Demo` subaccount and configured local source files for location `oCn199rzTjj0rPgqXyXU`.
+- Built API-supported HighLevel CRM, product, trigger link, contact activity, store origin, and demo shipping zone/rate objects.
+- Added public SunScale helper pages for store, guide, Mango, reservation, review/referral, VIP, show QR, and operator proof.
+- Built and published the HighLevel `SunScale Demo Showroom` funnel at `https://demo.hatchkitai.com`.
+- Created smart lists in the HighLevel UI.
+- Built and published all 12 accelerated demo workflows.
+- Added Privacy Policy and Terms pages.
+- Added Storefront compliance footer and chat widget for A2P review.
+- Added `docs/demo-showroom/manual-highlevel-build-queue.md`.
+- Added `docs/demo-showroom/repeatable-client-snapshot-process.md`.
+- Added `docs/demo-showroom/next-codex-chat-prompt.md`.

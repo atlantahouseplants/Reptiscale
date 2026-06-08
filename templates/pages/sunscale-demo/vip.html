@@ -7,16 +7,21 @@
       <p class="eyebrow">VIP availability</p>
       <h1>Get first look at future geckos</h1>
       <p>VIP buyers hear about upcoming animals, show pickup options, and future clutch updates before the public feed sees them.</p>
-      <form>
+      <form data-endpoint="/webhooks/ghl/lead-magnet" data-success="VIP request logged. The demo account has been updated.">
         <input name="firstName" placeholder="First name" required>
         <input name="email" type="email" placeholder="Email" required>
         <input name="phone" type="tel" placeholder="Mobile phone">
         <select name="price_tier"><option>Mid-Range ($75-250)</option><option>Premium ($250-750)</option><option>Designer ($750+)</option></select>
         <select name="shipping_preference"><option>Hold at FedEx</option><option>Ship to Home</option><option>Local Pickup</option><option>Show Pickup</option></select>
+        <input type="hidden" name="locationId" value="oCn199rzTjj0rPgqXyXU">
+        <input type="hidden" name="species_interest" value="Crested Gecko">
+        <input type="hidden" name="source" value="vip-list">
+        <input type="hidden" name="offerKey" value="waitlist_join">
         <button type="submit">Join VIP List</button>
       </form>
     </section>
-    <section class="visual"><img src="../../../docs/demo-showroom/visual-assets/qr-placeholder.svg" alt="VIP QR code"></section>
+    <section class="visual"><img src="/demo-showroom/assets/show-qr-live.svg" alt="SunScale VIP signup QR code"></section>
   </main>
+  <script src="./sunscale-demo.js"></script>
 </body>
 </html>

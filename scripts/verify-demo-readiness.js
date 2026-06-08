@@ -32,6 +32,19 @@ const requiredFiles = [
   'exports/reptiscale-demo/demo-test-plan.md',
   'exports/reptiscale-demo/vercel-deploy.ps1',
   'exports/reptiscale-demo/webhook-smoke-test.ps1',
+  'docs/demo-showroom/import-data/contact-activity.csv',
+  'scripts/sync-demo-contact-activity.js',
+  'templates/pages/sunscale-demo/assets/sunscale-logo.svg',
+  'templates/pages/sunscale-demo/assets/hero-pattern.svg',
+  'templates/pages/sunscale-demo/assets/nova-placeholder.svg',
+  'templates/pages/sunscale-demo/assets/mango-placeholder.svg',
+  'templates/pages/sunscale-demo/assets/echo-placeholder.svg',
+  'templates/pages/sunscale-demo/assets/pepper-placeholder.svg',
+  'templates/pages/sunscale-demo/assets/starter-guide-cover.svg',
+  'templates/pages/sunscale-demo/assets/qr-placeholder.svg',
+  'templates/pages/sunscale-demo/assets/show-qr-live.svg',
+  'docs/demo-showroom/visual-assets/show-qr-live.svg',
+  'templates/pages/sunscale-demo/sunscale-demo.js',
 ];
 
 const requiredWebhookEndpoints = [
@@ -49,6 +62,16 @@ const requiredWebhookEndpoints = [
 const requiredServerEndpoints = [
   ...requiredWebhookEndpoints,
   '/demo',
+  '/demo/store',
+  '/demo/guide',
+  '/demo/animal/mango',
+  '/demo/reserve',
+  '/demo/review',
+  '/demo/vip',
+  '/demo/show-qr',
+  '/demo/operator',
+  '/demo/sunscale',
+  '/demo-showroom/assets',
   '/api/demo/readiness',
   '/api/demo/control-room',
   '/api/demo/shipping-review-fixture',
@@ -92,10 +115,19 @@ const packageJson = readJson('package.json');
 check(Boolean(packageJson.scripts.start), 'package.json missing start script');
 check(Boolean(packageJson.scripts['export:demo']), 'package.json missing export:demo script');
 check(Boolean(packageJson.scripts['simulate:shipping-review']), 'package.json missing simulate:shipping-review script');
+check(Boolean(packageJson.scripts['setup:showroom']), 'package.json missing setup:showroom script');
+check(Boolean(packageJson.scripts['sync:contact-activity']), 'package.json missing sync:contact-activity script');
 check(Boolean(packageJson.scripts['verify:demo']), 'package.json missing verify:demo script');
 
 const client = readJson('data/breeders/sunscale-geckos/client.json');
-check(client.ghlLocationId === 'fqj4rbp2VRkvMa8GWVWn', 'Unexpected demo HighLevel location ID');
+const breederGhlConfig = readJson('data/breeders/sunscale-geckos/ghl-config.json');
+const hasPendingLocation = client.ghlLocationId === 'PENDING_SUNSCALE_DEMO_LOCATION_ID';
+const hasPlausibleLocation = /^[A-Za-z0-9]{20,}$/.test(String(client.ghlLocationId || ''));
+check(hasPendingLocation || hasPlausibleLocation, 'Demo HighLevel location ID is missing or malformed');
+check(
+  breederGhlConfig.locationId === client.ghlLocationId,
+  'SunScale client and HighLevel config location IDs do not match'
+);
 check(Boolean(client.breederZip), 'Client missing breederZip');
 check(Boolean(client.shippingOrigin), 'Client missing shippingOrigin');
 check(Array.isArray(client.shippingOrigin?.streetLines) && client.shippingOrigin.streetLines.length > 0, 'shippingOrigin missing streetLines');
@@ -140,6 +172,15 @@ check(includes('exports/reptiscale-demo/highlevel-ai-workflow-prompts.md', 'ship
 check(includes('exports/reptiscale-demo/demo-test-plan.md', 'Pass Criteria'), 'Demo test plan missing pass criteria');
 check(includes('exports/reptiscale-demo/webhook-smoke-test.ps1', 'Invoke-DemoWebhook'), 'Webhook smoke test missing Invoke-DemoWebhook helper');
 check(includes('templates/pages/reptiscale-demo-console.html', 'Reptiscale Demo Console'), 'Demo console missing title');
+check(includes('docs/demo-showroom/import-data/contact-activity.csv', 'HatchKit demo journey'), 'Contact activity import missing demo journey notes');
+check(includes('scripts/setup-demo-showroom.js', 'sync:contact-activity'), 'Showroom setup missing contact activity sync step');
+check(includes('templates/pages/sunscale-demo/storefront.html', '/demo-showroom/assets/'), 'SunScale storefront has broken visual asset paths');
+check(includes('templates/pages/sunscale-demo/sunscale-demo.css', '/demo-showroom/assets/hero-pattern.svg'), 'SunScale CSS has broken hero asset path');
+check(includes('templates/pages/sunscale-demo/show-qr.html', 'show-qr-live.svg'), 'Show QR page does not use the live QR asset');
+check(includes('templates/pages/sunscale-demo/assets/show-qr-live.svg', '<svg'), 'Live QR asset is not an SVG');
+check(includes('templates/pages/sunscale-demo/sunscale-demo.js', 'data-endpoint'), 'SunScale form handler missing form endpoint support');
+check(includes('templates/pages/sunscale-demo/reservation.html', '/webhooks/ghl/order-submitted'), 'Reservation page is not wired to order-submitted webhook');
+check(includes('templates/pages/sunscale-demo/vip.html', '/webhooks/ghl/lead-magnet'), 'VIP page is not wired to lead-magnet webhook');
 
 if (!fs.existsSync(EXPORT_DIR)) {
   errors.push(`Missing export directory: ${EXPORT_DIR}`);

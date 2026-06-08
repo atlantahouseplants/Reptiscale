@@ -1,10 +1,10 @@
 # HatchKit Demo Showroom Master Build Plan
 
-Last updated: 2026-06-02
+Last updated: 2026-06-05
 
 ## Objective
 
-Build a complete SunScale Geckos demo subaccount and clean HatchKit/Reptiscale master snapshot in GoHighLevel.
+Build a complete SunScale Geckos demo subaccount and clean Hatchkit master snapshot in HighLevel.
 
 The final result must let a reptile breeder prospect experience the buyer journey, then see the same activity inside HighLevel as the breeder/operator.
 
@@ -25,11 +25,20 @@ Already built:
 
 Main gap:
 
-- The working HighLevel showroom experience is not yet assembled into a prospect-facing demo.
+- The API-supported HighLevel foundation is built in `SunScale Geckos - Demo`.
+- The first manual HighLevel visual-builder layer was built as a funnel showroom. The revised product direction requires a real HighLevel Store/Website before source snapshot creation.
+- The remaining gap is live SMS retesting, inbox examples, social planner proof, and final outside-in demo QA.
 
 ## Build Phases
 
 ### Phase 0: Account Strategy
+
+Status:
+
+- Complete for the live showroom phase.
+- `HatchKit` remains the working master/snapshot account.
+- `SunScale Geckos - Demo` is the live demo account.
+- Location ID: `oCn199rzTjj0rPgqXyXU`.
 
 Deliverables:
 
@@ -52,12 +61,18 @@ Owner:
 
 ### Phase 1: Snapshot Foundation
 
+Status:
+
+- API-supported demo foundation is complete in `SunScale Geckos - Demo`.
+- Master snapshot cleanup/import remains a later phase after the SunScale Store source prototype is complete.
+
 Deliverables:
 
 - Custom fields created and verified.
 - Tags created and verified.
 - Pipelines created and stage names verified.
-- Smart lists created and verified.
+- Smart-list support tags created and verified.
+- Smart lists created and verified manually in HighLevel.
 - Custom values added for reusable branding and URLs.
 - Demo-only tags added to keep test records organized.
 
@@ -70,7 +85,7 @@ Key files:
 
 Acceptance:
 
-- `npm run setup:demo` can sync fields/tags/demo contacts.
+- `npm run setup:showroom` can sync fields, tags, pipelines, demo contacts, opportunities, custom values, products, trigger links, store settings, shipping zone/rate, and contact activity.
 - Pipeline IDs are synced to config.
 - Smart lists show expected demo contacts after test data is loaded.
 
@@ -78,11 +93,18 @@ Owner:
 
 - HighLevel foundation builder
 
-### Phase 2: Storefront And Buyer Pages
+### Phase 2: Store-First Commerce Surface
+
+Status:
+
+- Public Vercel helper pages are live and verified.
+- A real HighLevel Store/Website is built for SunScale and published as the primary online storefront.
+- Existing HighLevel funnel pages remain as campaign assets around the Store.
+- Privacy Policy and Terms pages are published for A2P review.
 
 Deliverables:
 
-- SunScale storefront page.
+- SunScale HighLevel Store with Products List, Product Details, Cart, Checkout, and Thank You pages.
 - Starter guide capture page.
 - Animal detail page for Mango.
 - Reservation/deposit offer page.
@@ -99,23 +121,32 @@ Demo requirement:
 
 Key files:
 
-- `templates/pages/reptiscale-storefront.html`
-- `templates/pages/crested-gecko-starter-guide.html`
-- `templates/pages/animal-detail.html`
-- `templates/pages/reservation-offer.html`
-- `templates/pages/show-qr-landing.html`
+- `templates/pages/sunscale-demo/storefront.html`
+- `templates/pages/sunscale-demo/starter-guide.html`
+- `templates/pages/sunscale-demo/mango-detail.html`
+- `templates/pages/sunscale-demo/reservation.html`
+- `templates/pages/sunscale-demo/review-referral.html`
+- `templates/pages/sunscale-demo/vip.html`
+- `templates/pages/sunscale-demo/show-qr.html`
 - `data/demo-products.json`
 
 Acceptance:
 
 - A prospect can complete the buyer path from storefront to guide to animal interest to reservation.
 - The buyer path creates or updates a HighLevel contact.
+- Published pages return 200 and are wired to the webhook backend.
 
 Owner:
 
 - Storefront/funnel builder
 
 ### Phase 3: Products And Offers
+
+Status:
+
+- Products/prices are API-built.
+- Store shipping origin and review-only shipping zone/rate are API-built.
+- Demo-safe reservation/payment simulation is embedded in the Mango Reservation funnel step.
 
 Deliverables:
 
@@ -124,7 +155,7 @@ Deliverables:
   - Crested Gecko Care Starter Kit, $49
   - 30-Minute Setup Review, $35
   - Crested Gecko Starter Guide, free
-- Product collections or store sections if using HighLevel ecommerce.
+- Product collections in HighLevel Store.
 - Demo-only deposit flow that can be triggered without a real prospect charge, if possible.
 
 Acceptance:
@@ -138,6 +169,12 @@ Owner:
 - Offers/payments builder
 
 ### Phase 4: Accelerated Demo Workflows
+
+Status:
+
+- Recipes and webhook payloads are complete.
+- All 12 accelerated HighLevel demo workflows are created and published.
+- Live audit shows workflow count `12`.
 
 Deliverables:
 
@@ -164,6 +201,21 @@ Required demo workflows:
 - Repeat Buyer VIP Invite
 - Social Content Approval Demo
 
+Published demo workflows:
+
+- `DEMO - Reptiscale - Starter Guide Lead Capture`
+- `DEMO - Reptiscale - Lead Education Drip`
+- `DEMO - Reptiscale - Animal Interest - Mango`
+- `DEMO - Reptiscale - Reservation Abandonment`
+- `DEMO - Reptiscale - Deposit Paid`
+- `DEMO - Reptiscale - Order Shipping Review`
+- `DEMO - Reptiscale - Simulated Shipped`
+- `DEMO - Reptiscale - Simulated Delivered And LAG`
+- `DEMO - Reptiscale - Care Onboarding`
+- `DEMO - Reptiscale - Review And Referral`
+- `DEMO - Reptiscale - Repeat Buyer VIP`
+- `DEMO - Reptiscale - Social Content Approval`
+
 Acceptance:
 
 - Full accelerated journey can run in 10 minutes.
@@ -175,6 +227,13 @@ Owner:
 - Workflow/automation builder
 
 ### Phase 5: Demo Data And Sales Scenarios
+
+Status:
+
+- Demo contacts and opportunities are API-built.
+- Pinned notes and follow-up tasks are API-built.
+- Smart lists are manually built in HighLevel.
+- Inbox examples and social planner proof remain provider/account-dependent.
 
 Deliverables:
 
@@ -227,9 +286,17 @@ Owner:
 
 ### Phase 7: QA And Snapshot Export
 
+Status:
+
+- Live audit passes 17 of 17 checks.
+- A2P Brand Registration is registered with TCR.
+- A2P Campaign Registration was submitted for review on 2026-06-05 and still needs approval before live SMS can be treated as ready.
+- Full outside-in published demo test still needs to be run with a fresh contact.
+
 Deliverables:
 
 - End-to-end demo test.
+- Live SMS delivery retest with an opted-in test number after campaign approval.
 - Snapshot QA checklist completed.
 - Demo account reset instructions.
 - Snapshot export notes.
@@ -249,16 +316,18 @@ Owner:
 
 ## Recommended Execution Order
 
-1. Separate master snapshot and demo account roles.
-2. Finish HighLevel foundation in the demo account.
-3. Build the buyer-facing pages in HighLevel.
-4. Build accelerated demo workflows.
-5. Load demo contacts/opportunities.
-6. Run the full buyer journey.
-7. Polish sales walkthrough.
-8. Copy clean assets to master snapshot account.
-9. Export snapshot.
-10. Test snapshot import into a fresh account.
+1. Sweep the `DEMO - Reptiscale - ...` workflow settings so they run 24/7, use correct re-entry, and rely on tag-added triggers for custom-code form paths.
+2. Confirm the A2P campaign is approved and the phone number is usable for SMS in HighLevel.
+3. Run a real SMS test with an opted-in test number after campaign approval.
+4. Run the full buyer journey from the published Store plus campaign funnel paths with a fresh contact.
+5. Verify contact tags, custom fields, smart lists, opportunities, and workflow execution logs.
+6. Document any SMS delivery issue separately from CRM/webhook behavior.
+7. Add inbox/social proof if providers are configured.
+8. Polish sales walkthrough and screenshots.
+9. Copy reusable assets to the clean master snapshot account.
+10. Convert demo waits from minutes to production timing.
+11. Export snapshot.
+12. Test snapshot import into a fresh account.
 
 ## Master Agent Responsibilities
 
@@ -276,11 +345,11 @@ The master agent owns:
 
 From user:
 
-- HighLevel agency/subaccount access decisions.
-- Whether to create a new separate SunScale demo subaccount.
 - Whether demo emails/SMS can send to the user's phone/email.
 - Any billing/payment constraints in the demo account.
 - Permission before live HighLevel destructive changes.
+- Opted-in test phone number for SMS delivery testing.
+- Social accounts if Social Planner proof should be live.
 
 From breeder friend:
 
@@ -294,9 +363,10 @@ From breeder friend:
 
 ## Risks
 
-- HighLevel API scopes may block automated pipeline/opportunity creation.
+- HighLevel API scopes currently block business profile writes.
+- HighLevel visual builders still require manual UI work.
 - Snapshot imports may not perfectly preserve users, integrations, phone numbers, payment settings, or workflow publish states.
-- SMS/email deliverability requires correct sender setup and opt-out compliance.
+- SMS deliverability requires correct sender setup, opt-in language, opt-out compliance, and a verified live send test.
 - Demo timing must be clearly separated from production timing.
 - Store/payment demo must avoid accidental live charges.
 
@@ -307,7 +377,7 @@ The project is ready to sell when:
 - The SunScale demo subaccount is showable on a live sales call.
 - A new test buyer can complete the accelerated journey.
 - The breeder-side HighLevel views prove the journey happened.
+- A2P Brand Registration is registered and SMS sending is verified, or SMS limitations are clearly called out during demos.
 - The master snapshot can be cloned.
 - A new breeder onboarding checklist exists.
 - The sales rep has a simple script and does not need to explain the backend.
-

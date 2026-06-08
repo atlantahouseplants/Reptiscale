@@ -1,10 +1,11 @@
 name,value,notes
 webhook_base_url,https://reptiscale-demo.vercel.app,Used by webhook actions and standalone demo pages
-demo_location_id,REPLACE_WITH_SUNSCALE_DEMO_LOCATION_ID,Set after new HighLevel subaccount exists
-storefront_url,REPLACE_WITH_HIGHLEVEL_STOREFRONT_URL,SunScale storefront page
-starter_guide_url,REPLACE_WITH_HIGHLEVEL_STARTER_GUIDE_URL,Lead magnet page
-mango_detail_url,REPLACE_WITH_HIGHLEVEL_MANGO_DETAIL_URL,Mango animal detail page
-reservation_url,REPLACE_WITH_HIGHLEVEL_RESERVATION_URL,Mango reservation page
-review_url,REPLACE_WITH_HIGHLEVEL_REVIEW_URL,Review submission page
-referral_url,REPLACE_WITH_HIGHLEVEL_REFERRAL_URL,Referral form page
-vip_url,REPLACE_WITH_HIGHLEVEL_VIP_URL,VIP availability page
+demo_location_id,oCn199rzTjj0rPgqXyXU,SunScale Geckos - Demo HighLevel location ID
+storefront_url,https://demo.hatchkitai.com/store,Published HighLevel SunScale storefront page
+starter_guide_url,https://demo.hatchkitai.com/guide,Published HighLevel lead magnet page
+mango_detail_url,https://demo.hatchkitai.com/mango,Published HighLevel Mango detail page
+reservation_url,https://demo.hatchkitai.com/reserve,Published HighLevel reservation page
+review_url,https://demo.hatchkitai.com/review,Published HighLevel review page
+referral_url,https://demo.hatchkitai.com/review,Published HighLevel referral page
+vip_url,https://demo.hatchkitai.com/vip,Published HighLevel VIP page
+show_qr_url,https://demo.hatchkitai.com/show-qr,Published HighLevel expo QR page

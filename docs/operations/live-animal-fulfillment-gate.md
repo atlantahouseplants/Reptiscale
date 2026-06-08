@@ -8,7 +8,7 @@ The fulfillment gate prevents an unsafe shortcut:
 
 1. Shipment policy decision
 
-This comes from the Reptiscale shipping agent. It checks species tolerances, origin weather, destination weather, and carrier hub weather.
+This comes from the Hatchkit shipping agent. It checks species tolerances, origin weather, destination weather, and carrier hub weather.
 
 2. Label payload readiness
 
@@ -42,7 +42,7 @@ Minimum request:
   "shipper": {
     "contact": {
       "personName": "Sarah Mitchell",
-      "phoneNumber": "+19195550100",
+      "phoneNumber": "+19843001621",
       "companyName": "SunScale Geckos"
     },
     "address": {

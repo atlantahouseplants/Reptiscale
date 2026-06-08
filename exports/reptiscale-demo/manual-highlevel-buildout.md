@@ -1,7 +1,7 @@
 # Reptiscale Demo HighLevel Buildout
 
 Client: SunScale Geckos
-Location ID: fqj4rbp2VRkvMa8GWVWn
+Location ID: oCn199rzTjj0rPgqXyXU
 
 ## Demo Positioning
 
@@ -14,16 +14,21 @@ Core promise: Every buyer gets captured, followed up with, sold to, shipped safe
 ## Build In HighLevel
 
 1. Website and funnel pages
-- Storefront: templates/pages/reptiscale-storefront.html
-- Lead magnet: templates/pages/crested-gecko-starter-guide.html
-- Animal detail: templates/pages/animal-detail.html
-- Reservation offer: templates/pages/reservation-offer.html
+- Storefront: templates/pages/sunscale-demo/storefront.html
+- Lead magnet: templates/pages/sunscale-demo/starter-guide.html
+- Animal detail: templates/pages/sunscale-demo/mango-detail.html
+- Reservation offer: templates/pages/sunscale-demo/reservation.html
+- Order thank-you: templates/pages/sunscale-demo/thank-you.html
+- Review/referral: templates/pages/sunscale-demo/review-referral.html
+- VIP list: templates/pages/sunscale-demo/vip.html
+- Show QR signup: templates/pages/sunscale-demo/show-qr.html
 
 2. Products and payments
 - Animal Reservation Deposit: $75
 - Crested Gecko Care Starter Kit: $49
 - 30-Minute Setup Review: $35
 - Crested Gecko Starter Guide: free
+- Shipping option: SunScale Demo - Shipping Review Only / Shipping quoted after weather review / $0 / not a carrier rate
 
 3. Pipelines to create or verify
 - HatchKit - Lead Pipeline: New Lead, Contacted, Interested, Qualified, Customer, Lost
@@ -45,11 +50,27 @@ Core promise: Every buyer gets captured, followed up with, sold to, shipped safe
 - Ready for label approval: tag shipping:ready-for-operator-approval
 - Review and referral candidates: tag journey:advocacy or review:received
 - Repeat buyer VIP: tag journey:repeat-buyer or status:repeat-buyer
+- Demo contacts: email contains hatchkit.demo or tag role:demo-operator
 
-6. Manual blocker
-The HighLevel token may not be able to create opportunities in this account. If opportunity creation fails, manually add the demo opportunities to the pipelines above using demo-script.md as the guide.
+6. API-supported setup
+Run this from the project root after the location ID and private integration key are configured:
 
-7. Useful companion files
+```powershell
+npm run setup:showroom
+npm run audit:showroom
+```
+
+The setup command creates or refreshes custom fields, tags, pipelines, demo contacts, demo opportunities, custom values, products/prices, trigger links, store shipping origin, demo shipping zone/rate, and contact notes/tasks.
+
+7. Remaining manual builder work
+- Business profile settings if the token lacks location write scope.
+- HighLevel visual pages/funnels and final page URL custom values.
+- HighLevel smart lists.
+- Payment link or order form layout using the $75 deposit product and review-only shipping option.
+- Accelerated visual workflows.
+- Inbox/conversation examples if no conversation provider is configured.
+
+8. Useful companion files
 - deployment-runbook.md
 - vercel-env-checklist.md
 - highlevel-workflow-checklist.md
@@ -58,7 +79,7 @@ The HighLevel token may not be able to create opportunities in this account. If 
 - vercel-deploy.ps1
 - webhook-smoke-test.ps1
 
-8. Local demo console
+9. Local demo console
 - Open {BASE_URL}/demo after the server is running.
 
 ## Webhook Mapping

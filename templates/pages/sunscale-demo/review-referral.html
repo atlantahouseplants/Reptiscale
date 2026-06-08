@@ -7,24 +7,28 @@
       <p class="eyebrow">After delivery</p>
       <h1>How did Mango settle in?</h1>
       <p>Safe arrival is only the start. SunScale checks in after delivery, asks how the new animal is settling, and turns happy buyers into reviews, referrals, and future repeat buyers.</p>
-      <form data-endpoint="/webhooks/ghl/review-submitted">
+      <form data-endpoint="/webhooks/ghl/review-submitted" data-success="Review logged. The demo account has been updated.">
         <select name="rating"><option>5</option><option>4</option><option>3</option></select>
         <textarea name="reviewText" placeholder="How did everything go?"></textarea>
         <input name="email" type="email" placeholder="Your email">
+        <input type="hidden" name="locationId" value="oCn199rzTjj0rPgqXyXU">
+        <input type="hidden" name="species_interest" value="Crested Gecko">
         <button type="submit">Send Review</button>
       </form>
     </section>
     <section class="copy alt">
       <p class="eyebrow">Referral</p>
       <h2>Know someone researching crested geckos?</h2>
-      <form data-endpoint="/webhooks/ghl/referral">
+      <form data-endpoint="/webhooks/ghl/referral" data-success="Referral logged. The demo account has been updated.">
         <input name="firstName" placeholder="Friend's first name">
         <input name="email" type="email" placeholder="Friend's email">
         <input name="phone" type="tel" placeholder="Friend's phone">
+        <input type="hidden" name="locationId" value="oCn199rzTjj0rPgqXyXU">
         <input type="hidden" name="species_interest" value="Crested Gecko">
         <button type="submit">Refer a Friend</button>
       </form>
     </section>
   </main>
+  <script src="./sunscale-demo.js"></script>
 </body>
 </html>

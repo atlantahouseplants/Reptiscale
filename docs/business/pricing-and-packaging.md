@@ -18,7 +18,7 @@ Includes:
 
 - HighLevel sub-account setup
 - Lead magnet and QR lead capture funnel
-- Starter website/storefront template
+- Starter HighLevel Store/Website template
 - CRM fields, tags, and smart lists
 - New lead nurture workflow
 - Review and referral workflow
@@ -34,7 +34,8 @@ Limits:
 
 Includes Starter plus:
 
-- Animal reservation offer funnel
+- Product detail, reservation, cart, checkout, and thank-you setup
+- Product collections for available animals and supplies
 - Post-purchase care onboarding
 - Safe shipping decision workflow
 - Availability alert campaign
@@ -81,6 +82,6 @@ Do not discount monthly fees early. If a first customer needs a concession, disc
 
 Suggested guarantee:
 
-"If Reptiscale does not capture leads, follow up with them, and produce a working buyer journey within 14 days after you provide required access and assets, we keep working at no additional setup cost until it is live."
+"If Hatchkit does not capture leads, follow up with them, and produce a working buyer journey within 14 days after you provide required access and assets, we keep working at no additional setup cost until it is live."
 
 Avoid guaranteeing sales volume until there is enough data.

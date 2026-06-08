@@ -1,7 +1,7 @@
 # Reptiscale Demo Deployment Runbook
 
 Client: SunScale Geckos
-Location ID: fqj4rbp2VRkvMa8GWVWn
+Location ID: oCn199rzTjj0rPgqXyXU
 
 ## Goal
 

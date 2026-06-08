@@ -6,7 +6,7 @@ Source repo reviewed: https://github.com/Geckos-tech/Gecko-shipper
 
 The repo is not a deployable web app. It is a set of operational skills and PowerShell scripts for a gecko shipping assistant.
 
-The strongest ideas to reuse in Reptiscale were:
+The strongest ideas to reuse in Hatchkit were:
 
 - A weather safety policy that defaults to HOLD when any checked point is unsafe.
 - A structured SAFE / HOLD / REVIEW decision contract.
@@ -16,11 +16,11 @@ The strongest ideas to reuse in Reptiscale were:
 
 ## What We Did Not Reuse Directly
 
-The generic 30 F to 85 F safety policy was not copied as the main Reptiscale rule because Reptiscale already has species-specific shipping tolerances in `data/species-db.json`.
+The generic 30 F to 85 F safety policy was not copied as the main Hatchkit rule because Hatchkit already has species-specific shipping tolerances in `data/species-db.json`.
 
-For example, crested geckos are more heat-sensitive than a broad generic live-animal policy. Reptiscale keeps the stricter species rules and uses the Gecko-shipper structure as an operator workflow layer.
+For example, crested geckos are more heat-sensitive than a broad generic live-animal policy. Hatchkit keeps the stricter species rules and uses the Gecko-shipper structure as an operator workflow layer.
 
-## What Was Added To Reptiscale
+## What Was Added To Hatchkit
 
 New files:
 
@@ -59,7 +59,7 @@ Operator dispositions:
 
 ## Safety Boundary
 
-The current implementation does not purchase FedEx labels. It prepares a review-only FedEx-style payload, validates required fields, and combines that with the Reptiscale weather/species decision.
+The current implementation does not purchase FedEx labels. It prepares a review-only FedEx-style payload, validates required fields, and combines that with the Hatchkit weather/species decision.
 
 A human must still approve the shipment before any live label purchase.
 

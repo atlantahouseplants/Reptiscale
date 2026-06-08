@@ -1,0 +1,9 @@
+name,purpose,filter_summary,expected_demo_records
+New Crested Gecko Leads,Daily queue for fresh crested gecko leads,"Tag includes interest:crested-gecko and status:new-lead",Jenna Ortiz; Noah Parker
+Hot Animal Buyers,Prospects with high intent or animal interest,"Tag includes status:hot-lead or journey:offer-presented",Ava Bennett
+Shipping Holds,Orders needing weather or shipping attention,"Tag includes shipping:hold or shipping:pending-weather-check",Marcus Hill
+Operator Review Queue,Orders waiting for human shipping review,"Tag includes shipping:operator-review",Live test buyer after order review
+Ready For Label Approval,Orders safe enough for human label approval,"Tag includes shipping:ready-for-operator-approval",Live test buyer after shipping review
+Review / Referral Candidates,Customers ready for advocacy follow-up,"Tag includes journey:advocacy or review:received",Drew Coleman; Taylor Brooks
+Repeat Buyer VIP,Buyers or prospects who should receive availability alerts,"Tag includes journey:repeat-buyer or status:repeat-buyer or waitlist:active",Taylor Brooks
+Demo Contacts,All showroom seed and test contacts,"Email contains hatchkit.demo or tag includes source:show-qr or source:website or tag includes role:demo-operator",Ava Bennett; Marcus Hill; Jenna Ortiz; Noah Parker; Priya Raman; Drew Coleman; Sarah Mitchell; Taylor Brooks

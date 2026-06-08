@@ -1,28 +1,31 @@
 # HighLevel Account Execution Plan
 
-Last updated: 2026-06-02
+Last updated: 2026-06-05
 
 ## Current Situation
 
-There is currently one GoHighLevel subaccount:
+There are two active GoHighLevel roles for this phase:
 
 - `HatchKit`
+- `SunScale Geckos - Demo`
 
-This account already has the pipelines, workflows, custom fields, tags, and other buildout pieces referenced by the project docs.
+`HatchKit` remains the working master/snapshot account. `SunScale Geckos - Demo` is the live showroom account.
 
 ## Recommendation
 
 Use the existing `HatchKit` subaccount as the working master/snapshot account for now.
 
-Create one new subaccount:
+The `SunScale Geckos - Demo` subaccount now exists.
 
-- `SunScale Geckos - Demo`
+Location ID:
 
-Do not create two new subaccounts yet.
+`oCn199rzTjj0rPgqXyXU`
+
+Do not create another demo subaccount yet.
 
 Later, when the snapshot is ready to test, create a temporary QA/import test account:
 
-- `Reptiscale Snapshot QA - v1`
+- `Hatchkit Snapshot QA - v1`
 
 That QA account can be deleted or archived after the snapshot import test.
 
@@ -39,7 +42,7 @@ Role:
 
 What belongs here:
 
-- reusable Reptiscale/HatchKit assets
+- reusable Hatchkit assets
 - production workflow timing
 - clean pages and funnels
 - generic/custom-value-driven copy
@@ -80,7 +83,7 @@ What should not live here:
 - real customer data
 - real shipping label creation
 
-### Temporary `Reptiscale Snapshot QA - v1` Account
+### Temporary `Hatchkit Snapshot QA - v1` Account
 
 Role:
 
@@ -109,7 +112,7 @@ Use three total accounts briefly:
 
 1. `HatchKit`
 2. `SunScale Geckos - Demo`
-3. `Reptiscale Snapshot QA - v1`
+3. `Hatchkit Snapshot QA - v1`
 
 ### After QA
 
@@ -133,7 +136,8 @@ Check:
 - pipelines exist
 - smart lists exist
 - workflows exist
-- pages/funnels exist or are ready to build
+- HighLevel Store shell exists and is ready for final branding/layout/publish
+- campaign funnels exist or are ready to build
 - demo contacts/test contacts are absent, removable, or clearly tagged
 - workflows are not full of demo-only timing
 
@@ -150,24 +154,27 @@ Default assumption:
 
 - keep `HatchKit` as master unless the audit proves it is too messy.
 
-### Step 2: Create SunScale Demo Subaccount
+### Step 2: Confirm SunScale Demo Subaccount
 
-Create a new HighLevel subaccount named:
+Status:
 
-`SunScale Geckos - Demo`
+- Complete.
+- Active account: `SunScale Geckos - Demo`.
+- Location ID: `oCn199rzTjj0rPgqXyXU`.
 
-Suggested business settings:
+Manual business settings to confirm/update:
 
-- Business name: SunScale Geckos
-- Owner/contact: demo owner
-- Timezone: America/New_York
+- Business/account name: `SunScale Geckos - Demo`
+- Timezone: `America/New_York`
 - Industry/category: pet services, breeder, ecommerce, or closest available option
-- Address: demo-only address
-- Phone/email: demo/test sender values
+- Address: `3645 Essex Ave`, `Atlanta`, `GA`, `30339`
+- Phone/email: `+19843001621` / `demo@hatchkitai.com`
+- Website: `https://demo.hatchkitai.com/store`
 
 Important:
 
 - Mark internally that this is demo-only.
+- Keep the prospect-facing demo branded as SunScale, but keep A2P/business verification tied to real owner/business details.
 - Do not use real customer data.
 - Do not connect real payment/shipping behavior without a demo-safe setup.
 
@@ -185,7 +192,7 @@ If the snapshot is not ready yet:
 
 1. Manually recreate/copy the key assets into `SunScale Geckos - Demo`.
 2. Use the project docs and scripts as the source of truth.
-3. Once the demo works, back-port clean reusable assets into `HatchKit`.
+3. Once the Store-first demo works, snapshot/import clean reusable assets into `Hatchkit Master Snapshot - v1`.
 
 ### Step 4: Customize SunScale Demo Account
 
@@ -210,7 +217,11 @@ Set workflow timing:
 
 ### Step 5: Load Demo Data
 
-Load or manually create:
+Status:
+
+- Complete through API for contacts and opportunities.
+
+Loaded:
 
 - Ava Bennett
 - Marcus Hill
@@ -218,14 +229,16 @@ Load or manually create:
 - Noah Parker
 - Priya Raman
 - Drew Coleman
+- Taylor Brooks
+- Sarah Mitchell demo operator contact
 
-Create opportunities across:
+Opportunities created across:
 
 - Lead Pipeline
 - Sales Pipeline
 - Shipping Pipeline
 
-Populate smart lists:
+Smart lists were created manually in HighLevel:
 
 - New Crested Gecko Leads
 - Hot Animal Buyers
@@ -259,6 +272,13 @@ Webhook base URL:
 
 ### Step 7: Run A Live Test
 
+Current status:
+
+- Live audit passes 17 of 17 checks.
+- A2P Brand Registration is registered with TCR.
+- A2P Campaign Registration was submitted for review on 2026-06-05.
+- Test the CRM/webhook/workflow path now. Run a real opted-in SMS send test after campaign approval.
+
 Use one fresh test buyer.
 
 Verify:
@@ -288,7 +308,7 @@ After the SunScale demo works:
 
 Create:
 
-`Reptiscale Snapshot QA - v1`
+`Hatchkit Snapshot QA - v1`
 
 Import the snapshot.
 
@@ -326,19 +346,18 @@ Use the new master account as the clean source and keep the current HatchKit acc
 
 Create:
 
-- `Reptiscale Snapshot QA - v1`
+- `Hatchkit Snapshot QA - v1`
 
 Only use this to test import.
 
 ## Recommended Next Action
 
-Create `SunScale Geckos - Demo` in HighLevel.
+Confirm the A2P campaign is approved, confirm the phone number is usable for SMS in HighLevel, then run a real opted-in SMS test.
 
-After it exists, the next build session should:
+The next build session should:
 
-1. confirm the new location/subaccount ID
-2. add it to the local breeder config
-3. decide whether to load a snapshot or manually copy assets
-4. build the buyer-facing showroom pages
-5. wire accelerated workflows
-
+1. verify campaign approval and SMS number status
+2. run the full published demo test path with a fresh contact
+3. check workflow logs for any messaging failures
+4. document live SMS result after campaign approval
+5. prepare reusable source snapshot import and master sanitization

@@ -1,10 +1,10 @@
 # Breeder User Guide
 
-This is the simple guide to give a customer after Reptiscale is launched.
+This is the simple guide to give a customer after Hatchkit is launched.
 
-## What Reptiscale Does For You
+## What Hatchkit Does For You
 
-Reptiscale helps move buyers through the whole journey:
+Hatchkit helps move buyers through the whole journey:
 
 1. They find your brand.
 2. They join your list or ask about an animal.
@@ -22,7 +22,7 @@ Daily:
 - Check your inbox.
 - Reply to serious buyers.
 - Move buyers forward when a sale happens.
-- Tell Reptiscale when an animal is sold, reserved, or newly available.
+- Tell Hatchkit when an animal is sold, reserved, or newly available.
 
 Weekly:
 
