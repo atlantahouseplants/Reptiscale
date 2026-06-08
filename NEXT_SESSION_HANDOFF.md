@@ -38,7 +38,11 @@ Do not treat the Vercel app as the main prospect-facing sales demo long term.
 
 Hatchkit business CRM:
 
-- Use for Hatchkit marketing, sales, customers, onboarding, and support.
+- `HatchKit` sub-account
+- Location ID: `fqj4rbp2VRkvMa8GWVWn`
+- Confirmed 2026-06-08 by the owner as the HatchKit sales operating account.
+- This is where the HatchKit Discovery Call calendar, prospects, contacts, opportunities, and sales pipelines live (Geoff + Brianna sell HatchKit to breeders from here).
+- Requires its own Private Integration token (`HATCHKIT_GHL_TOKEN` in `.env`); the SunScale demo token cannot access it (verified 403/401).
 - Do not use it as the client template unless internal records are intentionally separated.
 
 Live showroom and source prototype:
@@ -56,7 +60,13 @@ Clean master snapshot account:
 - This is the clean account that should eventually export `Hatchkit Client Snapshot - v1`.
 - Do not seed demo contacts or fake opportunities into this account.
 
-Ignore stale references to old location ID `fqj4rbp2VRkvMa8GWVWn`.
+Location ID `fqj4rbp2VRkvMa8GWVWn` is the HatchKit business sub-account (confirmed 2026-06-08). Earlier notes that called it "stale" are superseded.
+
+Account roles (confirmed 2026-06-08):
+
+- `HatchKit` (`fqj4rbp2VRkvMa8GWVWn`): sales/operations. Demo calendar, prospects, pipelines for Geoff + Brianna.
+- `SunScale Geckos - Demo` (`oCn199rzTjj0rPgqXyXU`): pure demo/sandbox shown to prospects (and for prospects to try). Holds the full workflows/triggers/automations. Not used for HatchKit's own sales records.
+- `Hatchkit Master Snapshot - v1` (`H81tekJbNbeyYsnTRKVH`): clean snapshot source (later phase).
 
 ## Source Of Truth
 
