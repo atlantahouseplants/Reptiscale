@@ -14,6 +14,8 @@ const { buildDemoControlRoom } = require('./lib/demo-control-room');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const ALLOWED_ORIGINS = new Set([
+  'https://hatchkitai.com',
+  'https://www.hatchkitai.com',
   'https://demo.hatchkitai.com',
   'https://reptiscale-demo.vercel.app',
   'http://localhost:3000',
@@ -27,6 +29,7 @@ const LOG_FILE = process.env.HATCHKIT_LOG_FILE || (
 
 let ghlContacts;
 let ghlConversations;
+let hatchkitClient;
 
 function getGHLContactsClient() {
   if (!ghlContacts) ghlContacts = require('./ghl/contacts');
@@ -36,6 +39,11 @@ function getGHLContactsClient() {
 function getGHLConversationsClient() {
   if (!ghlConversations) ghlConversations = require('./ghl/conversations');
   return ghlConversations;
+}
+
+function getHatchkitClient() {
+  if (!hatchkitClient) hatchkitClient = require('./ghl/hatchkit-client');
+  return hatchkitClient;
 }
 
 function createContact(...args) {
@@ -1024,6 +1032,54 @@ app.post('/webhooks/ghl/lead-magnet', async (req, res) => {
     });
   } catch (err) {
     return fail(res, 500, 'Lead magnet handler error', err);
+  }
+});
+
+// Captures a self-guided-demo prospect as a HatchKit sales lead (separate account)
+// and creates a follow-up task for Brianna. Does NOT touch the SunScale buyer journey.
+app.post('/webhooks/hatchkit/demo-lead', async (req, res) => {
+  try {
+    const f = { ...req.body, ...(req.body.fields || {}) };
+    const email = f.email || f.Email;
+    if (!email) return fail(res, 400, 'email is required');
+
+    const hk = getHatchkitClient();
+    if (!hk.isConfigured()) {
+      log('WARN', 'HatchKit demo-lead capture skipped: HATCHKIT_GHL_TOKEN not configured');
+      return ok(res, { captured: false, reason: 'hatchkit_capture_not_configured' });
+    }
+
+    const tags = ['source:self-guided-demo', 'status:hot-demo-lead', 'journey:demo-completed'];
+    const contact = await hk.upsertContact({
+      name: f.name,
+      firstName: f.firstName,
+      lastName: f.lastName,
+      email,
+      phone: f.phone,
+      tags,
+      source: 'Self-Guided Website Demo',
+    });
+
+    let taskCreated = false;
+    try {
+      await hk.createTask(contact.id, {
+        title: `New self-guided demo lead: ${f.name || f.firstName || email}`,
+        body:
+          'This prospect completed the self-guided HatchKit demo on hatchkitai.com.\n' +
+          `Email: ${email}\nPhone: ${f.phone || 'n/a'}\nNotes: ${f.notes || f.species || 'n/a'}\n` +
+          'Follow up to book a demo call.',
+      });
+      taskCreated = true;
+    } catch (taskErr) {
+      log('WARN', 'HatchKit demo-lead task creation failed', {
+        error: taskErr.response?.data?.message || taskErr.message,
+      });
+    }
+
+    log('SUCCESS', 'HatchKit self-guided demo lead captured', { contactId: contact.id, email });
+    return ok(res, { captured: true, contactId: contact.id, taskCreated });
+  } catch (err) {
+    return fail(res, 500, 'demo-lead handler error', err);
   }
 });
 
