@@ -63,9 +63,12 @@ not for selling software.
 
 ---
 
-## ⏳ Not your job — waiting on others
-- **A2P SMS approval** is submitted and pending the provider. Until it's approved, keep
-  all SMS workflow steps OFF. Once approved, do one opted-in test before going live.
+## ✅ A2P approved — SMS is LIVE (2026-06-10)
+- Texts now send for real. The self-guided demo's welcome text fires from the backend, and
+  the website copy now says "real automated emails and texts."
+- [ ] **Do once in GHL:** confirm the SMS action steps inside the SunScale workflows are
+  toggled **ON** (they were left OFF while waiting for A2P). The backend-sent texts already
+  work; the workflow-sent texts (care tips, shipping updates) need that toggle flipped.
 
 ---
 
