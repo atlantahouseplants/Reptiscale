@@ -14,6 +14,10 @@ already written up — just follow the linked kits.
 - **The front door works and is LIVE.** hatchkitai.com → "Get a Free Demo" → 15-minute
   booking with Brianna. Booking creates the contact in your HatchKit sales account and
   notifies Brianna. The old leaky form is gone.
+- **Self-guided live demo is LIVE.** hatchkitai.com/experience — a prospect plays the buyer
+  and feels your real automations fire in real time (reusing the existing webhooks; nothing
+  in the workflows changed). Finishing captures them as a HatchKit lead + notifies Brianna,
+  then funnels to the free booking. Entry points: homepage primary CTA + navbar "Live Demo".
 - **Booking calendar:** "Free HatchKit Demo," 15-min slots, in the HatchKit sub-account.
 - **Website copy** reframed around "help breeders sell more," free/no-obligation demo,
   and de-emphasized Brianna (her story stays on the About page).
