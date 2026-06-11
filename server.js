@@ -1049,7 +1049,12 @@ app.post('/webhooks/hatchkit/demo-lead', async (req, res) => {
       return ok(res, { captured: false, reason: 'hatchkit_capture_not_configured' });
     }
 
-    const tags = ['source:self-guided-demo', 'status:hot-demo-lead', 'journey:demo-completed'];
+    // stage:'started' = prospect just entered the demo (capture contact only, no task yet).
+    // Any other value (or absent — all existing callers) keeps the original hot-lead behavior.
+    const started = f.stage === 'started';
+    const tags = started
+      ? ['source:self-guided-demo', 'status:demo-in-progress', 'journey:demo-started']
+      : ['source:self-guided-demo', 'status:hot-demo-lead', 'journey:demo-completed'];
     const contact = await hk.upsertContact({
       name: f.name,
       firstName: f.firstName,
@@ -1061,22 +1066,28 @@ app.post('/webhooks/hatchkit/demo-lead', async (req, res) => {
     });
 
     let taskCreated = false;
-    try {
-      await hk.createTask(contact.id, {
-        title: `New self-guided demo lead: ${f.name || f.firstName || email}`,
-        body:
-          'This prospect completed the self-guided HatchKit demo on hatchkitai.com.\n' +
-          `Email: ${email}\nPhone: ${f.phone || 'n/a'}\nNotes: ${f.notes || f.species || 'n/a'}\n` +
-          'Follow up to book a demo call.',
-      });
-      taskCreated = true;
-    } catch (taskErr) {
-      log('WARN', 'HatchKit demo-lead task creation failed', {
-        error: taskErr.response?.data?.message || taskErr.message,
-      });
+    if (!started) {
+      try {
+        await hk.createTask(contact.id, {
+          title: `New self-guided demo lead: ${f.name || f.firstName || email}`,
+          body:
+            'This prospect completed the self-guided HatchKit demo on hatchkitai.com.\n' +
+            `Email: ${email}\nPhone: ${f.phone || 'n/a'}\nNotes: ${f.notes || f.species || 'n/a'}\n` +
+            'Follow up to book a demo call.',
+        });
+        taskCreated = true;
+      } catch (taskErr) {
+        log('WARN', 'HatchKit demo-lead task creation failed', {
+          error: taskErr.response?.data?.message || taskErr.message,
+        });
+      }
     }
 
-    log('SUCCESS', 'HatchKit self-guided demo lead captured', { contactId: contact.id, email });
+    log('SUCCESS', 'HatchKit self-guided demo lead captured', {
+      contactId: contact.id,
+      email,
+      stage: started ? 'started' : 'completed',
+    });
     return ok(res, { captured: true, contactId: contact.id, taskCreated });
   } catch (err) {
     return fail(res, 500, 'demo-lead handler error', err);
