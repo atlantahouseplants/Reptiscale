@@ -11,19 +11,33 @@ Merge fields used: {{contact.first_name}}, {{custom_values.starter_guide_url}},
 {{custom_values.mango_detail_url}}, {{custom_values.reservation_url}},
 {{custom_values.review_url}}, {{custom_values.referral_url}}, {{custom_values.vip_url}}.
 
-## Sent by the webhook server (do NOT duplicate in workflows)
+## Who sends the messages: `DEMO_MESSAGING_MODE` (server.js)
 
-On the live-demo path these four instant messages come from the HatchKit server, not GHL nodes:
+There are two modes, controlled by the `DEMO_MESSAGING_MODE` env var on the
+`reptiscale-demo` Vercel project:
 
-1. Lead magnet email — subject `Your Crested Gecko Starter Guide` + intro SMS
-   ("Hey {first}! I sent the Crested Gecko Starter Guide from SunScale Geckos…Reply STOP anytime.")
-2. Offer-clicked SMS ("Want help deciding on Mango - Harlequin Dalmatian? I can answer care,
-   shipping, and reservation questions here.")
-3. Order SMS ("Thank you for your Animal Reservation Deposit order with SunScale Geckos…")
-4. Review thank-you SMS (referral/VIP invite).
+- **`backend` (default / unset):** the HatchKit server sends the buyer-facing email + SMS
+  itself via the GHL Conversations API. In this mode the workflow message nodes below would
+  be DUPLICATES — disable them, and the server's copy (in `server.js`) is what actually sends.
+- **`workflow` (recommended):** the server stops sending messages and only upserts the
+  contact, sets fields, moves pipelines, and adds the trigger tags. The GHL **workflows own
+  every message** — the copy below in the workflow nodes is what actually sends, and you edit
+  it all in the GHL UI.
 
-The GHL workflow nodes below carry the rest of the journey. Where a workflow ALSO has an
-immediate send (for GHL-page signups, not the website demo), the copy is provided and marked.
+To use the copy below as written, set `DEMO_MESSAGING_MODE=workflow` (then redeploy) and make
+sure each workflow is **Published** with the correct **trigger tag** (see the trigger-tag map
+in `docs/demo-showroom/demo-message-final-copy.md` notes / the per-workflow headers below).
+
+Trigger tags the backend applies (set each workflow's trigger to the EXACT tag, incl. the
+`-webhook` suffix where shown):
+
+| Demo step | Webhook | Trigger tag |
+|---|---|---|
+| 1. Get Starter Guide | `/webhooks/ghl/lead-magnet` | `journey:lead-captured-webhook` |
+| 2. Interested in Mango | `/webhooks/ghl/offer-clicked` | `journey:offer-presented` |
+| 3. Place Deposit | `/webhooks/ghl/order-submitted` | `journey:purchased` |
+| 4. Leave Review | `/webhooks/ghl/review-submitted` | `journey:advocacy` (or `review:received`) |
+| Shipping (auto, after deposit) | (server shipping review) | `shipping:operator-review` → `shipping:ready-for-operator-approval` → `shipping:lag-confirmed` |
 
 ---
 
