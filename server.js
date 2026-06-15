@@ -62,11 +62,28 @@ function searchContacts(...args) {
   return getGHLContactsClient().searchContacts(...args);
 }
 
+// Messaging ownership switch.
+// Default (unset / 'backend'): the backend sends buyer-facing email + SMS directly via the
+// GHL Conversations API (instant, copy lives in this file).
+// 'workflow': the backend stops sending messages itself and lets the GoHighLevel workflows
+// own ALL buyer-facing messaging. The server still upserts the contact, sets custom fields,
+// moves pipelines, and adds the trigger tags — so the workflows still fire; they just become
+// the single source of truth for the actual email/SMS copy (edited in the GHL UI).
+const MESSAGES_VIA_WORKFLOW = process.env.DEMO_MESSAGING_MODE === 'workflow';
+
 function sendSMS(...args) {
+  if (MESSAGES_VIA_WORKFLOW) {
+    log('INFO', 'Direct SMS suppressed — DEMO_MESSAGING_MODE=workflow (GHL workflow owns this message)');
+    return Promise.resolve({ suppressed: true });
+  }
   return getGHLConversationsClient().sendSMS(...args);
 }
 
 function sendEmail(...args) {
+  if (MESSAGES_VIA_WORKFLOW) {
+    log('INFO', 'Direct email suppressed — DEMO_MESSAGING_MODE=workflow (GHL workflow owns this message)');
+    return Promise.resolve({ suppressed: true });
+  }
   return getGHLConversationsClient().sendEmail(...args);
 }
 
