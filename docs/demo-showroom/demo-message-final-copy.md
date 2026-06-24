@@ -1,6 +1,16 @@
 # SunScale Demo — Final Message Copy (copy-paste for GoHighLevel nodes)
 
-Last updated: 2026-06-11
+Last updated: 2026-06-22
+
+> **STATUS 2026-06-22:** This copy is now LIVE in the GHL workflows (`DEMO_MESSAGING_MODE=workflow`).
+> During the 2026-06-22 wiring session, several workflow nodes turned out NOT to exist in this
+> doc and got NEW copy written ad-hoc (and pasted straight into GHL): WF3 reservation email,
+> WF4 reservation-reminder email, WF6 buyer SMS + shipping-review email (the doc's "notify Sarah"
+> node was repointed to the contact), WF7 shipment email, WF8 delivery email + LAG-confirmation
+> SMS, WF9 Day-0 SMS, WF11 VIP email, WF12 reframed behind-the-scenes SMS. **This doc does not
+> yet reproduce those blocks** — the source of truth for them is the live GHL nodes. Reconciling
+> them back into this file is an open follow-up. See `live-demo-ghl-handoff.md` for full per-
+> workflow status.
 Voice: Sarah Mitchell, SunScale Geckos, Raleigh NC — warm, knowledgeable, safety-first.
 
 Design rule: every subject/first line matches what the /experience demo screen shows
